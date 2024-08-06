@@ -1,55 +1,57 @@
 package com.idm.service.impl;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-import com.idm.config.Beans;
 import com.idm.dao.VotoDao;
 import com.idm.entity.Voto;
+import com.idm.service.TrenoService;
+import com.idm.service.UtenteService;
 import com.idm.service.VotoService;
+import com.idm.vo.VotoVO;
+
 
 @Component
 public class VotoServiceImpl implements VotoService {
-	
-	@Autowired
-	VotoDao votoDao;
 
-public  Voto creaVoto( Voto voto) {
-	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-    votoDao = context.getBean(VotoDao.class);		
-      Voto v = new Voto();
-		v.setTreno(voto.getTreno());
-		v.setUtente(voto.getUtente());
-		v.setVoto(voto.getVoto());
-		votoDao.add(v);
+    @Autowired
+    VotoDao votoDao;
 
-		return v;
+    @Autowired
+    private UtenteService utenteService;
 
-	}
+    @Autowired
+    private TrenoService trenoService;
 
-	public  Voto findVoto(int id) {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-	    votoDao = context.getBean(VotoDao.class);	
-		Voto p = votoDao.find(id);
-	
-		return p;
-	}
-	
-	public  Voto updateVoto(Voto voto, int id) {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-	    votoDao = context.getBean(VotoDao.class);	
-		Voto vOld = findVoto(id);
-		vOld.setTreno(voto.getTreno());
-		vOld.setUtente(voto.getUtente());
-		vOld.setVoto(voto.getVoto());
-		votoDao.update(vOld);
-		return vOld;
-	}
-	
-	public  void deleteVoto(int id) {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-	    votoDao = context.getBean(VotoDao.class);	
-		votoDao.delete(id);	
-	}
+    @Override
+    public Voto creaVoto(VotoVO votoVo) {
+        Voto voto = new Voto();
+        voto.setTreno(trenoService.find(votoVo.getTrenoId()));
+        voto.setUtente(utenteService.find(votoVo.getUtenteId()));
+        voto.setVoto(votoVo.getVoto());
+        return votoDao.add(voto);
+    }
+
+    @Override
+    public Voto findVoto(int id) {
+        return votoDao.find(id);
+    }
+
+    @Override
+    public Voto updateVoto(VotoVO votoVo, int id) {
+        Voto vOld = findVoto(id);
+        vOld.setTreno(trenoService.find(votoVo.getTrenoId()));
+        vOld.setUtente(utenteService.find(votoVo.getUtenteId()));
+        vOld.setVoto(votoVo.getVoto());
+        return votoDao.update(vOld);
+    }
+
+    @Override
+    public void deleteVoto(int id) {
+        votoDao.delete(id);
+    }
+
+    @Override
+    public Voto findVotoByTrenoAndUtente(int trenoId, int utenteId) {
+        return votoDao.findByTrenoAndUtente(trenoId, utenteId);
+    }
 }

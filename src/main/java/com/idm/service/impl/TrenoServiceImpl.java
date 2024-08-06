@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.idm.abstractClasses.AbstractVagone;
 import com.idm.config.Beans;
 import com.idm.dao.TrenoDao;
+import com.idm.dao.VotoDao;
 import com.idm.entity.Factory;
 import com.idm.entity.FrecciaRossaBuilder;
 import com.idm.entity.ItaloBuilder;
@@ -35,6 +36,9 @@ public class TrenoServiceImpl implements TrenoService {
 	private TreNordBuilder treNordBuilder;
     @Autowired     
     private TrenoFilterService trenoFilterService;
+    
+    @Autowired
+    private VotoDao votoDao;
 
 	
     
@@ -170,6 +174,8 @@ public class TrenoServiceImpl implements TrenoService {
                 throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
         }
     }
+    
+    
 }
     	
  

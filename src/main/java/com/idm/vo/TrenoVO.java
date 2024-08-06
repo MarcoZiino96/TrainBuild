@@ -6,8 +6,9 @@ import com.idm.entity.Factory;
 import com.idm.entity.Utente;
 
 public class TrenoVO {
-	
+
 	private Integer id;
+	
 	private Utente utente;
 	private Double prezzo;
 	private Double peso;
@@ -15,11 +16,13 @@ public class TrenoVO {
 	private String sigla;
 	private String foto;
 	private Factory compagnia;
+	
 
 
-	
-	
-	
+
+
+
+
 
 	
 	public Integer getId() {
