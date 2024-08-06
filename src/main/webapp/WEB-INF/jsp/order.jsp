@@ -54,28 +54,27 @@
 
         .star-rating {
             direction: rtl;
-            display: inline-flex;
-            font-size: 24px;
-            padding: 0 10px;
+            display: inline-block;
         }
 
-        .star-rating input {
+        .star-rating input[type="radio"] {
             display: none;
         }
 
         .star-rating label {
             color: #ddd;
+            font-size: 20px;
+            padding: 0;
             cursor: pointer;
         }
 
-        .star-rating input:checked~label,
-        .star-rating input:checked~label~label {
-            color: #ffca08;
+        .star-rating input[type="radio"]:checked ~ label {
+            color: #f5b301;
         }
 
         .star-rating label:hover,
-        .star-rating label:hover~label {
-            color: #ffca08;
+        .star-rating label:hover ~ label {
+            color: #f5b301;
         }
     </style>
 </head>
@@ -83,12 +82,12 @@
 <body>
 
     <jsp:include page="header.jsp" />
-
-    <div class="titleOrder">
+   
+    <div class="titleOrder"> 
         <h2>Ricerca un treno con l'ordinamento che preferisci</h2>
-    </div>
-
-    <form class="formOrder" action="/listaTreni" method="get">
+    </div> 
+        
+    <form class="formOrder">
         <label for="ordinamento">Ordina per:</label>
         <select id="ordinamento" name="ordinamento">
             <option value="compagnia">Compagnia</option>
@@ -97,16 +96,16 @@
             <option value="peso">Peso</option>
             <option value="prezzo">Prezzo</option>
         </select>
-
+        
         <label for="direction">Direzione:</label>
         <select id="direction" name="direction">
             <option value="ASC">Crescente</option>
             <option value="DESC">Decrescente</option>
         </select>
-
+        
         <button type="submit">Cerca</button>
     </form>
-
+    
     <table>
         <thead>
             <tr>
@@ -117,7 +116,7 @@
                 <th>Peso</th>
                 <th>Prezzo</th>
                 <th>Utente</th>
-                <th>Voto</th>
+                <th>Vota</th>
             </tr>
         </thead>
         <tbody>
@@ -148,7 +147,6 @@
             </c:forEach>
         </tbody>
     </table>
-
+    
 </body>
-
 </html>

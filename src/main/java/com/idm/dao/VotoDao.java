@@ -16,5 +16,5 @@ public Voto add(Voto p);
 	
 	public void delete(int id);
 	
-	Voto findByTrenoAndUtente(int trenoId, int utenteId);
+	
 }

@@ -11,6 +11,6 @@ public interface VotoService {
 	public  Voto findVoto(int id);
 	public  Voto updateVoto(VotoVO voto, int id);
 	public  void deleteVoto(int id);
-	Voto findVotoByTrenoAndUtente(int trenoId, int utenteId);
+	
 
 }

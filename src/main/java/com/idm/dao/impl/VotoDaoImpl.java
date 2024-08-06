@@ -44,16 +44,4 @@ public class VotoDaoImpl extends DaoImpl implements VotoDao{
 		return manager.find(Voto.class, id );
 	}
 
-	@Override
-	public Voto findByTrenoAndUtente(int trenoId, int utenteId) {
-		TypedQuery<Voto> query = manager.createQuery(
-				"SELECT v FROM Voto v WHERE v.treno.id = :trenoId AND v.utente.id = :utenteId", Voto.class);
-		query.setParameter("trenoId", trenoId);
-		query.setParameter("utenteId", utenteId);
-		try {
-			return query.getSingleResult();
-		} catch (Exception e) {
-			return null; // Return null if no result found
-		}
-	}
 }

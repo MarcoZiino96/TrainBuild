@@ -50,8 +50,5 @@ public class VotoServiceImpl implements VotoService {
         votoDao.delete(id);
     }
 
-    @Override
-    public Voto findVotoByTrenoAndUtente(int trenoId, int utenteId) {
-        return votoDao.findByTrenoAndUtente(trenoId, utenteId);
-    }
+   
 }
