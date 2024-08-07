@@ -21,6 +21,10 @@ import com.idm.entity.TreNordBuilder;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
+import com.idm.exception.CargoException;
+import com.idm.exception.LocomotivaException;
+import com.idm.exception.RistoranteException;
+import com.idm.exception.StringaException;
 import com.idm.service.AbstractVagoneService;
 import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
@@ -54,72 +58,90 @@ public class TrenoServiceImpl implements TrenoService {
 
 	@Override
 	public Treno createTreno(String string, Factory compagnia, Utente utente) {
-		
-	    Treno treno = selectFactory(string, compagnia);
-
-	    if(treno.getVagoni().isEmpty()) {
-	        throw new RuntimeException("La lista è vuota");
-	    }
-	    
-	      Treno trenoSaved = trenoDao.create(treno);
-
 	   
-	    for (AbstractVagone vagone : treno.getVagoni()) {
-	        vagone.setTreno(trenoSaved); 
-	        abstractVagoneDaoImpl.add(vagone);
+	    Treno treno;
+	    
+	    try {
+	        treno = selectFactory(string, compagnia);
+	    } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
+	      
+	        throw e;
 	    }
-	    
-	    double prezzoTreno = treno.getVagoni().stream()
-	            .mapToDouble(AbstractVagone::getPrezzo) 
-	            .sum();
 
-	    double lunghezzaTreno = treno.getVagoni().stream()
-	            .mapToDouble(AbstractVagone::getLunghezza) 
-	            .sum();
+	    try {
+	        
+	        Treno trenoSaved = trenoDao.create(treno);
 
-	    double pesoTreno = treno.getVagoni().stream()
-	            .mapToDouble(AbstractVagone::getPeso) 
-	            .sum();
+	        
+	        for (AbstractVagone vagone : treno.getVagoni()) {
+	            vagone.setTreno(trenoSaved); 
+	            abstractVagoneDaoImpl.add(vagone);
+	        }
 
-	    
-	    trenoSaved.setPrezzo(prezzoTreno);
-	    trenoSaved.setLunghezza(lunghezzaTreno);
-	    trenoSaved.setPeso(pesoTreno);
-	    trenoSaved.setSigla(string);
-	    trenoSaved.setUtente(utente);
-	    trenoSaved.setCompagnia(compagnia);
+	       
+	        double prezzoTreno = treno.getVagoni().stream()
+	                .mapToDouble(AbstractVagone::getPrezzo) 
+	                .sum();
 
-	    update(trenoSaved);
+	        double lunghezzaTreno = treno.getVagoni().stream()
+	                .mapToDouble(AbstractVagone::getLunghezza) 
+	                .sum();
+
+	        double pesoTreno = treno.getVagoni().stream()
+	                .mapToDouble(AbstractVagone::getPeso) 
+	                .sum();
+
+	        trenoSaved.setPrezzo(prezzoTreno);
+	        trenoSaved.setLunghezza(lunghezzaTreno);
+	        trenoSaved.setPeso(pesoTreno);
+	        trenoSaved.setSigla(string);
+	        trenoSaved.setUtente(utente);
+	        trenoSaved.setCompagnia(compagnia);
+
+	        
+	        update(trenoSaved);
+
+	    } catch (RuntimeException e) {
+	        
+	        throw new RuntimeException("Errore durante la persistenza del treno: " + e.getMessage(), e);
+	    }
 
 	    return treno;
 	}
 
 	public Treno createTrenoProva(String string, Factory compagnia){
 
-		Treno treno = selectFactory(string, compagnia);
+		 Treno treno;
+		    
+		    try {
+		        treno = selectFactory(string, compagnia);
+		    } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
+		      
+		        throw e;
+		    }
 
-		if(treno.getVagoni().isEmpty()) {
-			throw new RuntimeException("La lista è vuota");
-		}
-		
-		double prezzoTreno = treno.getVagoni().stream()
-				.mapToDouble(AbstractVagone::getPrezzo) 
-				.sum();
+		    
+		   
+   
+		        double prezzoTreno = treno.getVagoni().stream()
+		                .mapToDouble(AbstractVagone::getPrezzo) 
+		                .sum();
 
-		double lunghezzaTreno = treno.getVagoni().stream()
-				.mapToDouble(AbstractVagone::getLunghezza) 
-				.sum();
+		        double lunghezzaTreno = treno.getVagoni().stream()
+		                .mapToDouble(AbstractVagone::getLunghezza) 
+		                .sum();
 
-		double pesoTreno = treno.getVagoni().stream()
-				.mapToDouble(AbstractVagone::getPeso) 
-				.sum();
+		        double pesoTreno = treno.getVagoni().stream()
+		                .mapToDouble(AbstractVagone::getPeso) 
+		                .sum();
 
-		treno.setSigla(string);
-		treno.setPrezzo(prezzoTreno);
-		treno.setLunghezza(lunghezzaTreno);
-		treno.setPeso(pesoTreno);
-		treno.setCompagnia(compagnia);
-		return treno;
+		        treno.setPrezzo(prezzoTreno);
+		        treno.setLunghezza(lunghezzaTreno);
+		        treno.setPeso(pesoTreno);
+		        treno.setSigla(string);
+		        treno.setCompagnia(compagnia);
+
+		    return treno;
 	}
 
 	public Treno update(Treno treno) {

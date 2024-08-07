@@ -59,25 +59,7 @@ import com.idm.vo.TrenoVO;
 		        }
 		    }
 		
-//		@PostMapping("/newTrain")
-//		public String creaTreno(@RequestParam Factory compagnia,@RequestParam String sigla,HttpSession session,Model model){
-//			
-//			Utente utente = (Utente)session.getAttribute("utente");
-//			
-//			
-//			if(utente == null) {
-//				Treno treno = trenoService.createTrenoProva( sigla, compagnia);
-//				model.addAttribute("treno", treno);
-//				return "home";	
-//			}
-//			
-//			Treno treno = trenoService.createTreno( sigla, compagnia, utente);
-//			model.addAttribute("treno", treno);
-//			session.setAttribute("utente", utente);
-//			return "redirect:/order";	
-//			
-//		}
-		
+
 		
 				
 		@GetMapping("/order")
