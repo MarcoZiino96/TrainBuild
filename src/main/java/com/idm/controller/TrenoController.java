@@ -55,6 +55,9 @@ import com.idm.vo.TrenoVO;
 		            }   
 		        } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
 		            model.addAttribute("errorMessage", e.getMessage());
+		            model.addAttribute("errorSigla", e.getSigla());
+		            model.addAttribute("errorSuggerimento", e.getSuggerimento());
+		            model.addAttribute("errorSiglaSuggerita", e.getSiglaSuggerita());
 		            return "home";
 		        }
 		    }

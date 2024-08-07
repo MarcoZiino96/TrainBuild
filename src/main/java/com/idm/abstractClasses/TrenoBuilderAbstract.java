@@ -49,16 +49,12 @@ public abstract class TrenoBuilderAbstract {
 			
 
 		}catch (StringaException e) {
-            logErrorWithSuggestions(e);
             throw e;
         } catch (LocomotivaException e) {
-            logErrorWithSuggestions(e);
             throw e;
         } catch (CargoException e) {
-            logErrorWithSuggestions(e);
             throw e;
         } catch (RistoranteException e) {
-            logErrorWithSuggestions(e);
             throw e;
         }
 
@@ -131,29 +127,29 @@ public abstract class TrenoBuilderAbstract {
 			throw  new StringaException("La stringa non è valida", input);
 	}
 	
-	  private void logErrorWithSuggestions(Exception e) {
-	        if (e instanceof StringaException) {
-	            StringaException se = (StringaException) e;
-	            System.out.println("Errore: " + se.getSigla() + " Questa sigla non va bene " + se.getMessage());
-	            System.out.println("Suggerimento: Prova ad inserire " + se.getSiglaSuggerita());
-	            System.out.println("Suggerimento: " + se.getSuggerimento());
-	        } else if (e instanceof LocomotivaException) {
-	            LocomotivaException le = (LocomotivaException) e;
-	            System.out.println(le.getSigla() + " Questa sigla non va bene " + le.getMessage());
-	            System.out.println("Suggerimento: Prova ad inserire " + le.getSiglaSuggerita());
-	            System.out.println("Suggerimento: " + le.getSuggerimento());
-	        } else if (e instanceof CargoException) {
-	            CargoException ce = (CargoException) e;
-	            System.out.println("Errore: " + ce.getSigla() + " Questa sigla non va bene " + ce.getMessage());
-	            System.out.println("Suggerimento: Prova ad inserire " + ce.getSiglaSuggerita());
-	            System.out.println("Suggerimento: " + ce.getSuggerimento());
-	        } else if (e instanceof RistoranteException) {
-	            RistoranteException re = (RistoranteException) e;
-	            System.out.println("Errore: " + re.getSigla() + " Questa sigla non va bene " + "H" + re.getMessage());
-	            System.out.println("Suggerimento: Prova ad inserire " + re.getSiglaSuggerita());
-	            System.out.println("Suggerimento: " + re.getSuggerimento());
-	        }
-	    }
+//	  private void logErrorWithSuggestions(Exception e) {
+//	        if (e instanceof StringaException) {
+//	            StringaException se = (StringaException) e;
+//	            System.out.println("Errore: " + se.getSigla() + " Questa sigla non va bene " + se.getMessage());
+//	            System.out.println("Suggerimento: Prova ad inserire " + se.getSiglaSuggerita());
+//	            System.out.println("Suggerimento: " + se.getSuggerimento());
+//	        } else if (e instanceof LocomotivaException) {
+//	            LocomotivaException le = (LocomotivaException) e;
+//	            System.out.println(le.getSigla() + " Questa sigla non va bene " + le.getMessage());
+//	            System.out.println("Suggerimento: Prova ad inserire " + le.getSiglaSuggerita());
+//	            System.out.println("Suggerimento: " + le.getSuggerimento());
+//	        } else if (e instanceof CargoException) {
+//	            CargoException ce = (CargoException) e;
+//	            System.out.println("Errore: " + ce.getSigla() + " Questa sigla non va bene " + ce.getMessage());
+//	            System.out.println("Suggerimento: Prova ad inserire " + ce.getSiglaSuggerita());
+//	            System.out.println("Suggerimento: " + ce.getSuggerimento());
+//	        } else if (e instanceof RistoranteException) {
+//	            RistoranteException re = (RistoranteException) e;
+//	            System.out.println("Errore: " + re.getSigla() + " Questa sigla non va bene " + "H" + re.getMessage());
+//	            System.out.println("Suggerimento: Prova ad inserire " + re.getSiglaSuggerita());
+//	            System.out.println("Suggerimento: " + re.getSuggerimento());
+//	        }
+//	    }
 
 	abstract protected AbstractVagone getCostruisciVagoneCargo();
 

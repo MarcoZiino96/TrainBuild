@@ -81,8 +81,29 @@ form {
 		<h2>Crea Treno</h2>
 
 		<c:if test="${not empty errorMessage}">
-			<div class="error-message">
-				<p>${errorMessage}</p>
+			<div class="alert alert-danger">
+				<p>
+					<strong>Errore:</strong>
+					<c:out value="${errorMessage}" />
+				</p>
+				<c:if test="${not empty errorSigla}">
+					<p>
+						<strong>Sigla:</strong>
+						<c:out value="${errorSigla}" />
+					</p>
+				</c:if>
+				<c:if test="${not empty errorSuggerimento}">
+					<p>
+						<strong>Suggerimento:</strong>
+						<c:out value="${errorSuggerimento}" />
+					</p>
+				</c:if>
+				<c:if test="${not empty errorSiglaSuggerita}">
+					<p>
+						<strong>Sigla Suggerita:</strong>
+						<c:out value="${errorSiglaSuggerita}" />
+					</p>
+				</c:if>
 			</div>
 		</c:if>
 		<form action="newTrain" method="post">
