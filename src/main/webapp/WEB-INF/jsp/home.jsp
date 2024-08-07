@@ -79,12 +79,12 @@ form {
 	<jsp:include page="header.jsp" />
 	<div class="container">
 		<h2>Crea Treno</h2>
-		
+
 		<c:if test="${not empty errorMessage}">
-            <div class="error-message">
-                <p>${errorMessage}</p>
-            </div>
-        </c:if>
+			<div class="error-message">
+				<p>${errorMessage}</p>
+			</div>
+		</c:if>
 		<form action="newTrain" method="post">
 			<div class="form-group">
 				<label for="sigla">Sigla</label> <input type="text" id="sigla"
@@ -93,23 +93,32 @@ form {
 			<div class="form-group">
 				<label for="compagnia">Compagnia</label> <select id="compagnia"
 					name="compagnia" required>
-					<option value="FR">Frecciarossa</option>
-					<option value="IT">Italo</option>
-					<option value="TR">Trenord</option>
+					<option value="FR">Frecciarossa(FR)</option>
+					<option value="IT">Italo(IT)</option>
+					<option value="TN">Trenord(TN)</option>
 				</select>
 			</div>
 			<button type="submit" class="btn">Crea Treno</button>
 		</form>
 
-<c:if test="${empty sessionScope.utente}">
-		
+		<c:if test="${empty sessionScope.utente}">
+
 			<div class="train-details">
-				<h2>Dattagli Treno</h2>
+				<h2>Dettagli Treno</h2>
 				<div class="info">
 					<strong>Sigla:</strong> ${treno.sigla}
 				</div>
 				<div class="info">
 					<strong>Compagnia:</strong> ${treno.compagnia}
+				</div>
+				<div class="info">
+					<strong>Prezzo:</strong> ${treno.prezzo}
+				</div>
+				<div class="info">
+					<strong>Treno:</strong> ${treno.peso}
+				</div>
+				<div class="info">
+					<strong>lunghezza:</strong> ${treno.lunghezza}
 				</div>
 				<div class="info">
 					<strong>Utente:</strong>
@@ -124,6 +133,6 @@ form {
 				</div>
 			</div>
 	</div>
-</c:if>
+	</c:if>
 </body>
 </html>

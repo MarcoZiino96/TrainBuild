@@ -17,6 +17,7 @@ import com.idm.exception.CargoException;
 import com.idm.exception.LocomotivaException;
 import com.idm.exception.RistoranteException;
 import com.idm.exception.StringaException;
+import com.idm.service.TrenoService;
 import com.idm.service.impl.TrenoServiceImpl;
 import com.idm.vo.TrenoVO;
 
@@ -26,7 +27,7 @@ import com.idm.vo.TrenoVO;
 	public class TrenoController {
 		
 		@Autowired
-		private TrenoServiceImpl trenoServiceImpl;
+		private TrenoService trenoService;
 		
 		@GetMapping("/home")
 		public String showHome(@ModelAttribute("treno") TrenoVO trenoVo,HttpSession session, Model model){
@@ -43,18 +44,39 @@ import com.idm.vo.TrenoVO;
 
 		        try {
 		            if (utente == null) {
-		                treno = trenoServiceImpl.createTrenoProva(sigla, compagnia);
+		                treno = trenoService.createTrenoProva(sigla, compagnia);
+		                model.addAttribute("treno", treno);
+		                return "home";
 		            } else {
-		                treno = trenoServiceImpl.createTreno(sigla, compagnia, utente);
+		                treno = trenoService.createTreno(sigla, compagnia, utente);
 		                session.setAttribute("utente", utente);
-		            }
-		            model.addAttribute("treno", treno);
-		            return "redirect:/order";
+		                model.addAttribute("treno", treno);
+		                return "redirect:/order";
+		            }   
 		        } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
 		            model.addAttribute("errorMessage", e.getMessage());
 		            return "home";
 		        }
 		    }
+		
+//		@PostMapping("/newTrain")
+//		public String creaTreno(@RequestParam Factory compagnia,@RequestParam String sigla,HttpSession session,Model model){
+//			
+//			Utente utente = (Utente)session.getAttribute("utente");
+//			
+//			
+//			if(utente == null) {
+//				Treno treno = trenoService.createTrenoProva( sigla, compagnia);
+//				model.addAttribute("treno", treno);
+//				return "home";	
+//			}
+//			
+//			Treno treno = trenoService.createTreno( sigla, compagnia, utente);
+//			model.addAttribute("treno", treno);
+//			session.setAttribute("utente", utente);
+//			return "redirect:/order";	
+//			
+//		}
 		
 		
 				
@@ -72,7 +94,7 @@ import com.idm.vo.TrenoVO;
 		    }
 
 		
-		    List<TrenoVO> treni = trenoServiceImpl.retriveWithOrderVO(ordinamento, direction);
+		    List<TrenoVO> treni = trenoService.retriveWithOrderVO(ordinamento, direction);
 		    
 		    model.addAttribute("treni",treni);
 		    model.addAttribute("ordinamento", ordinamento); 

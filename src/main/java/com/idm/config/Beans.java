@@ -75,14 +75,6 @@ public class Beans {
 		return adapter;
 	}
 	
-	@Bean
-    public LocalValidatorFactoryBean validator() {
-        return new LocalValidatorFactoryBean();
-    }
-	
-
-
-
 	/**** transazioni ****/
 	@Bean
 	public PlatformTransactionManager getTransactionManager(){
@@ -90,6 +82,11 @@ public class Beans {
 		transactionManager.setEntityManagerFactory(getEntityManager().getObject());
 		return transactionManager;
 	}
+	
+	@Bean
+    public LocalValidatorFactoryBean validator() {
+        return new LocalValidatorFactoryBean();
+    }
 	
     @Bean
     @Scope("prototype")

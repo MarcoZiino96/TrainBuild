@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.idm.abstractClasses.AbstractVagone;
 import com.idm.config.Beans;
@@ -52,53 +53,45 @@ public class TrenoServiceImpl implements TrenoService {
 	}
 
 	@Override
-	public Treno createTreno(String string, Factory compagnia, Utente utente){
+	public Treno createTreno(String string, Factory compagnia, Utente utente) {
+		
+	    Treno treno = selectFactory(string, compagnia);
 
-		Treno treno = selectFactory(string, compagnia);
+	    if(treno.getVagoni().isEmpty()) {
+	        throw new RuntimeException("La lista è vuota");
+	    }
+	    
+	      Treno trenoSaved = trenoDao.create(treno);
 
-		if(treno.getVagoni().isEmpty()) {
-			throw new RuntimeException("La lista è vuota");
-		}
-		
-		treno.setSigla(string);
-		treno.setUtente(utente);
-		treno.setCompagnia(compagnia);
-		
-		
-		
+	   
+	    for (AbstractVagone vagone : treno.getVagoni()) {
+	        vagone.setTreno(trenoSaved); 
+	        abstractVagoneDaoImpl.add(vagone);
+	    }
+	    
+	    double prezzoTreno = treno.getVagoni().stream()
+	            .mapToDouble(AbstractVagone::getPrezzo) 
+	            .sum();
 
-		for (AbstractVagone vagone : treno.getVagoni()) {
-			
-			vagone.setTreno(treno); 
-			
-		}
-		
-		treno.setVagoni(treno.getVagoni());
-		
-     for (AbstractVagone vagone : treno.getVagoni()) {
-			
-    	 abstractVagoneDaoImpl.add(vagone);
-			
-		}
-		
-		double prezzoTreno = treno.getVagoni().stream()
-				.mapToDouble(AbstractVagone::getPrezzo) 
-				.sum();
+	    double lunghezzaTreno = treno.getVagoni().stream()
+	            .mapToDouble(AbstractVagone::getLunghezza) 
+	            .sum();
 
-		double lunghezzaTreno = treno.getVagoni().stream()
-				.mapToDouble(AbstractVagone::getLunghezza) 
-				.sum();
+	    double pesoTreno = treno.getVagoni().stream()
+	            .mapToDouble(AbstractVagone::getPeso) 
+	            .sum();
 
-		double pesoTreno = treno.getVagoni().stream()
-				.mapToDouble(AbstractVagone::getPeso) 
-				.sum();
+	    
+	    trenoSaved.setPrezzo(prezzoTreno);
+	    trenoSaved.setLunghezza(lunghezzaTreno);
+	    trenoSaved.setPeso(pesoTreno);
+	    trenoSaved.setSigla(string);
+	    trenoSaved.setUtente(utente);
+	    trenoSaved.setCompagnia(compagnia);
 
-		
-		treno.setPrezzo(prezzoTreno);
-		treno.setLunghezza(lunghezzaTreno);
-		treno.setPeso(pesoTreno);
-	    trenoDao.create(treno);
-		return treno;
+	    update(trenoSaved);
+
+	    return treno;
 	}
 
 	public Treno createTrenoProva(String string, Factory compagnia){

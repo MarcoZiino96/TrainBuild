@@ -94,5 +94,11 @@ public Utente findByEmail(String email){
 		System.out.println(u);
 		return u;
 	}
+	@Override
+	public List<Utente> getAllUsers() {
+		List<Utente> u = utenteDao.getAllUsers();
+		return u;
+	}
+
 
 }

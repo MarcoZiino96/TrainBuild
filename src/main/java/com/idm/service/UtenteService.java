@@ -17,6 +17,8 @@ public interface UtenteService {
 	public List<Utente> retrive();
 	public Utente findByUsername(String userName);
 	public Utente findByEmail(String email);
+	public List<Utente> getAllUsers();
+
 
 
 }
