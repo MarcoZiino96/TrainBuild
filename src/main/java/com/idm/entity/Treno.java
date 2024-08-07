@@ -27,7 +27,7 @@ public class Treno implements Bean {
 	private String sigla;
 	private String foto;
 	private Factory compagnia;
-	@OneToMany(mappedBy = "treno", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "treno",cascade = CascadeType.ALL, orphanRemoval = true)
 	List<AbstractVagone> vagoni;
 
 

@@ -18,7 +18,7 @@ public class ItaloBuilder extends TrenoBuilderAbstract {
 	   @Autowired
 	    private VagonePasseggeri vagonePasseggeri;
 
-    @Autowired
+       @Autowired
 	    private VagoneCargo vagoneCargo;
 	       
 
