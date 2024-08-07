@@ -1,6 +1,7 @@
 package com.idm.entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.idm.abstractClasses.AbstractVagone;
@@ -9,38 +10,31 @@ import com.idm.abstractClasses.TrenoBuilderAbstract;
 @Component
 public class ItaloBuilder extends TrenoBuilderAbstract {
 	
-	 @Autowired
-	    private VagoneRistorante vagoneRistorante;
-
-	    @Autowired
-	    private Locomotiva locomotiva;
-
-	   @Autowired
-	    private VagonePasseggeri vagonePasseggeri;
-
-       @Autowired
-	    private VagoneCargo vagoneCargo;
+	@Autowired
+    private ApplicationContext applicationContext;
 	       
 
 	    @Override
 	    protected AbstractVagone getCostruisciVagoneCargo() {
 	    	
-	        return vagoneCargo;
+	    	 return applicationContext.getBean(VagoneCargo.class);
 	    }
 
 	    @Override
 	    protected AbstractVagone getCostruisciLocomotiva() {
-	        return locomotiva;
+	    	return applicationContext.getBean(Locomotiva.class);    
+	                
+	               
 	    }
 
 	    @Override
 	    protected AbstractVagone getCostruisciVagoneRistorante() {
-	        return vagoneRistorante;
+	    	return applicationContext.getBean(VagoneRistorante.class);
 	    }
 
 	    @Override
 	    protected AbstractVagone getCostruisciVagonePasseggieri() {
-	        return vagonePasseggeri;
+	    	 return applicationContext.getBean(VagonePasseggeri.class);
 	    }
 
 
