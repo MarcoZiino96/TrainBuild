@@ -79,6 +79,12 @@ form {
 	<jsp:include page="header.jsp" />
 	<div class="container">
 		<h2>Crea Treno</h2>
+		
+		<c:if test="${not empty errorMessage}">
+            <div class="error-message">
+                <p>${errorMessage}</p>
+            </div>
+        </c:if>
 		<form action="newTrain" method="post">
 			<div class="form-group">
 				<label for="sigla">Sigla</label> <input type="text" id="sigla"

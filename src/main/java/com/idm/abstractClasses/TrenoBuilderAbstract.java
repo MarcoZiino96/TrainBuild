@@ -20,8 +20,6 @@ import com.idm.interfaces.Vagone;
 
 public abstract class TrenoBuilderAbstract {
 	
-	@Autowired
-	AbstractVagoneDao abstractVagoneDao;
 	 
 	public Treno creaTreno(String input){
 		
@@ -43,12 +41,12 @@ public abstract class TrenoBuilderAbstract {
 			
 			for (AbstractVagone vagone : vagoni) {
 	            vagone.setTreno(treno); 
+	            System.out.println(vagone);
 	        }
-			
-			System.out.println(vagoni);
-			
+
 			treno.setVagoni(vagoni);
 			System.out.println(vagoni);
+			
 
 		}catch(StringaException e){
 			System.out.println("Errore: "+ e.getSigla() + " Questa sigla non va bene " +e.getMessage());
@@ -87,18 +85,14 @@ public abstract class TrenoBuilderAbstract {
 		if (locomotivaTesta != 'H') {
 			throw new LocomotivaException("La locomotiva non è in testa al treno", tipo);
 		}
-		abstractVagoneDao.add(getCostruisciLocomotiva());
+
 		vagoni.add(getCostruisciLocomotiva()); // Aggiungi sempre una locomotiva in testa
 
 		if (locomotivaCoda == 'H') {
-			
-		abstractVagoneDao.add(getCostruisciLocomotiva());
 			vagoni.add(getCostruisciLocomotiva()); // Aggiungi una seconda locomotiva in coda se presente
 		}
 		
-		
 		return vagoni;
-
 	}
 
 	private List<AbstractVagone> creaVagoni(String composizione) {
@@ -114,6 +108,7 @@ public abstract class TrenoBuilderAbstract {
 					throw new CargoException("Se è presente un Cargo ('C'), tutti i vagoni devono essere Cargo.", composizione);
 				}
 				vagoni.add(getCostruisciVagoneCargo());
+
 			}
 			return vagoni;
 		}
@@ -122,13 +117,11 @@ public abstract class TrenoBuilderAbstract {
 
 			switch (tipo) {
 			case 'P':
-			
 				vagoni.add(getCostruisciVagonePasseggieri());
 				break;
 			case 'R':
 				if(ristoranteCount >= 1)
 				throw new RistoranteException("Ci può essere solo un ristorante", composizione);
-			
 				vagoni.add(getCostruisciVagoneRistorante());
 				ristoranteCount++;
 				break;
