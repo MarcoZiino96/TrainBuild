@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.idm.abstractClasses.AbstractVagone;
 import com.idm.config.Beans;
 import com.idm.dao.TrenoDao;
-import com.idm.dao.VotoDao;
+import com.idm.dao.impl.TrenoDaoImpl;
 import com.idm.entity.Factory;
 import com.idm.entity.FrecciaRossaBuilder;
 import com.idm.entity.ItaloBuilder;
@@ -36,14 +36,12 @@ public class TrenoServiceImpl implements TrenoService {
 	private TreNordBuilder treNordBuilder;
     @Autowired     
     private TrenoFilterService trenoFilterService;
-    
-    @Autowired
-    private VotoDao votoDao;
 
 	
     
 	public Treno find(Integer id) {
-		Treno trenoFind = trenoDao.find(id);
+		Treno trenoFind = trenoDao.find(id)
+;
 		return trenoFind;
 	}
 
@@ -108,7 +106,8 @@ public class TrenoServiceImpl implements TrenoService {
 	public Treno update(Treno treno,int id) {
 
 		
-		Treno treno1 = find(id);
+		Treno treno1 = find(id)
+;
 		treno1.setSigla(treno.getSigla());
 		treno1.setCompagnia(treno.getCompagnia());
 		treno1.setUtente(treno.getUtente());
@@ -128,7 +127,8 @@ public class TrenoServiceImpl implements TrenoService {
 
 	public void delete(Integer id) {
 		
-		trenoDao.delete(id);
+		trenoDao.delete(id)
+;
 	}
 
 	public List<Treno> retrive() {
@@ -174,9 +174,4 @@ public class TrenoServiceImpl implements TrenoService {
                 throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
         }
     }
-    
-    
 }
-    	
- 
-

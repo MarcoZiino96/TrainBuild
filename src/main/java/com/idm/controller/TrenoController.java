@@ -26,8 +26,6 @@ public class TrenoController {
     @Autowired
     private TrenoService trenoService;
     
-    @Autowired
-    private VotoService votoService;
     
     @GetMapping("/home")
     public String showHome(@ModelAttribute("treno") TrenoVO trenoVo, HttpSession session, Model model){

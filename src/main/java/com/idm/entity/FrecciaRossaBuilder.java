@@ -1,6 +1,7 @@
 package com.idm.entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -19,38 +20,43 @@ import com.idm.interfaces.Vagone;
 @Component
 public class FrecciaRossaBuilder extends TrenoBuilderAbstract {
 
-	   @Autowired
-	    private VagoneRistorante vagoneRistorante;
+	@Autowired
+	private VagoneRistorante vagoneRistorante;
 
-	    @Autowired
-	    private Locomotiva locomotiva;
+	@Autowired
+	private Locomotiva locomotiva;
 
-	   @Autowired
-	    private VagonePasseggeri vagonePasseggeri;
+	@Autowired
+	private VagonePasseggeri vagonePasseggeri;
 
-       @Autowired
-	    private VagoneCargo vagoneCargo;
-	       
+	@Autowired
+	private VagoneCargo vagoneCargo;
 
-	    @Override
-	    protected AbstractVagone getCostruisciVagoneCargo() {
-	    	
-	        return vagoneCargo;
-	    }
 
-	    @Override
-	    protected AbstractVagone getCostruisciLocomotiva() {
-	        return locomotiva;
-	    }
+	@Autowired
+	private ApplicationContext applicationContext;
 
-	    @Override
-	    protected AbstractVagone getCostruisciVagoneRistorante() {
-	        return vagoneRistorante;
-	    }
 
-	    @Override
-	    protected AbstractVagone getCostruisciVagonePasseggieri() {
-	        return vagonePasseggeri;
-	    }
+	@Override
+	protected AbstractVagone getCostruisciVagoneCargo() {
 
+		return applicationContext.getBean(VagoneCargo.class);
+	}
+
+	@Override
+	protected AbstractVagone getCostruisciLocomotiva() {
+		return applicationContext.getBean(Locomotiva.class);    
+
+
+	}
+
+	@Override
+	protected AbstractVagone getCostruisciVagoneRistorante() {
+		return applicationContext.getBean(VagoneRistorante.class);
+	}
+
+	@Override
+	protected AbstractVagone getCostruisciVagonePasseggieri() {
+		return applicationContext.getBean(VagonePasseggeri.class);
+	}
 }
