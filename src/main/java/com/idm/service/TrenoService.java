@@ -10,7 +10,7 @@ import com.idm.vo.TrenoVO;
 
 
 public interface TrenoService {
-	public Treno find(Integer id);
+	public Treno find(int id);
 	public Treno createTreno(String string, Factory compagnia, Utente utente);
 	public Treno createTrenoProva(String string, Factory compagnia);
 	public Treno update(Treno treno,int id);

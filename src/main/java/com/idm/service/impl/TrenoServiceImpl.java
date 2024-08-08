@@ -39,7 +39,7 @@ public class TrenoServiceImpl implements TrenoService {
 
 
 
-	public Treno find(Integer id) {
+	public Treno find(int id) {
 		Treno trenoFind = trenoDao.find(id)
 				;
 		return trenoFind;
