@@ -9,6 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.idm.converter.UtenteConverter;
+import com.idm.dto.UtenteDTO;
 import com.idm.entity.Utente;
 import com.idm.service.UtenteService;
 import com.idm.vo.UtenteVO;
@@ -42,8 +45,8 @@ public class UtenteController {
 		if (bindingResult.hasErrors()) {
 			return "preRegister";     
 		}
-		Utente usernameUtente = utenteService.findByUsername(utenteVo.getUsername());
-		Utente emailUtente = utenteService.findByEmail(utenteVo.getEmail());
+		UtenteVO usernameUtente = utenteService.findByUsername(utenteVo.getUsername());
+		UtenteVO emailUtente = utenteService.findByEmail(utenteVo.getEmail());
 
 		if(emailUtente != null &&  usernameUtente != null) {
 			bindingResult.rejectValue("email", "error.email", "Email già esistente");
@@ -63,7 +66,8 @@ public class UtenteController {
 		}
 
 		try {
-			utenteService.createUtente(utenteVo);
+			UtenteDTO u = UtenteConverter.fromVoToDto(utenteVo);
+			utenteService.createUtente(u);
 
 		} catch (Exception e) {
 			return "preRegister";
@@ -80,7 +84,7 @@ public class UtenteController {
 	        return "formlogin"; 
 	    }
 	    
-	    Utente utente = utenteService.findByUsername(utenteVoLogin.getUsername());
+	    UtenteVO utente = utenteService.findByUsername(utenteVoLogin.getUsername());
 
 	    if (utente == null) {
 	        bindingResult.rejectValue("username", "error.username", "L'username non esiste");

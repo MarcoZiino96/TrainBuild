@@ -1,6 +1,7 @@
 package com.idm.dao.impl;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Component;
@@ -41,5 +42,18 @@ public class VotoDaoImpl extends DaoImpl implements VotoDao{
 	@Override
 	public Voto find(Integer id) {
 		return manager.find(Voto.class, id );
+	}
+	
+	@Override
+	public Voto votoEsistente(Integer utente, Integer treno) {
+		try {
+			return manager.createQuery("SELECT v FROM Voto v WHERE v.utente.id = :utenteId AND v.treno.id = :trenoId", Voto.class)
+					.setParameter("utenteId", utente)
+					.setParameter("trenoId", treno)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null; 
+		}
+
 	}
 }

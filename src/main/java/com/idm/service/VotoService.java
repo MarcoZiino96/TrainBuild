@@ -7,5 +7,6 @@ public interface VotoService {
 	public  Voto findVoto(int id);
 	public  Voto updateVoto(Voto voto, int id);
 	public  void deleteVoto(int id);
+	public Voto votoEstistente(Integer utente, Integer treno);
 
 }

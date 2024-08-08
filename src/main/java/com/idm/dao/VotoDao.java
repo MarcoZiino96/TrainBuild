@@ -15,4 +15,6 @@ public Voto add(Voto p);
 	public Voto find(Integer id);
 	
 	public void delete(int id);
+	
+	public Voto votoEsistente(Integer utente, Integer treno);
 }

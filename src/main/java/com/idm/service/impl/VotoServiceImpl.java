@@ -50,4 +50,10 @@ public  Voto creaVoto( Voto voto) {
 	    votoDao = context.getBean(VotoDao.class);	
 		votoDao.delete(id);	
 	}
+
+	@Override
+	public Voto votoEstistente(Integer utente, Integer treno) {
+		
+		 return votoDao.votoEsistente(utente, treno);
+	}
 }
