@@ -31,7 +31,7 @@ form {
 }
 
 .form-group {
-	margin-bottom: 15px;
+	margin: 50px;
 }
 
 .form-group label {
@@ -82,78 +82,95 @@ form {
 
 		<c:if test="${not empty errorMessage}">
 			<div class="alert alert-danger">
+
 				<p>
-					<strong>Errore:</strong>
+					<strong>Errore: Questa sigla non va bene --></strong>
 					<c:out value="${errorMessage}" />
 				</p>
-				<c:if test="${not empty errorSigla}">
-					<p>
-						<strong>Sigla:</strong>
-						<c:out value="${errorSigla}" />
-					</p>
-				</c:if>
-				<c:if test="${not empty errorSuggerimento}">
-					<p>
-						<strong>Suggerimento:</strong>
-						<c:out value="${errorSuggerimento}" />
-					</p>
-				</c:if>
-				<c:if test="${not empty errorSiglaSuggerita}">
-					<p>
-						<strong>Sigla Suggerita:</strong>
-						<c:out value="${errorSiglaSuggerita}" />
-					</p>
-				</c:if>
 			</div>
 		</c:if>
-		<form action="newTrain" method="post">
-			<div class="form-group">
-				<label for="sigla">Sigla</label> <input type="text" id="sigla"
-					name="sigla" required>
+		<c:if test="${not empty errorSigla}">
+			<div class="alert alert-danger">
+				<p>
+					<strong>Sigla:</strong>
+					<c:out value="${errorSigla}" />
+				</p>
 			</div>
-			<div class="form-group">
-				<label for="compagnia">Compagnia</label> <select id="compagnia"
-					name="compagnia" required>
-					<option value="FR">Frecciarossa(FR)</option>
-					<option value="IT">Italo(IT)</option>
-					<option value="TN">Trenord(TN)</option>
-				</select>
+		</c:if>
+
+		<c:if test="${not empty errorSuggerimento}">
+			<div class="alert alert-success">
+				<p>
+					<strong>Suggerimento:</strong>
+					<c:out value="${errorSuggerimento}" />
+				</p>
 			</div>
-			<button type="submit" class="btn">Crea Treno</button>
-		</form>
 
-		<c:if test="${empty sessionScope.utente}">
+		</c:if>
+		<c:if test="${not empty errorSiglaSuggerita}">
+			<div class="alert alert-success">
+				<p>
+					<strong>Sigla Suggerita:</strong>
+					<c:out value="${errorSiglaSuggerita}" />
+				</p>
+			</div>
 
-			<div class="train-details">
-				<h2>Dettagli Treno</h2>
-				<div class="info">
-					<strong>Sigla:</strong> ${treno.sigla}
-				</div>
-				<div class="info">
-					<strong>Compagnia:</strong> ${treno.compagnia}
-				</div>
-				<div class="info">
-					<strong>Prezzo:</strong> ${treno.prezzo}
-				</div>
-				<div class="info">
-					<strong>Treno:</strong> ${treno.peso}
-				</div>
-				<div class="info">
-					<strong>lunghezza:</strong> ${treno.lunghezza}
-				</div>
-				<div class="info">
-					<strong>Utente:</strong>
-					<c:choose>
-						<c:when test="${treno.utente != null}">
+		</c:if>
+	</div>
+
+	<form action="newTrain" method="post">
+		<div class="form-group">
+			<label for="sigla">Sigla</label> <input type="text" id="sigla"
+				name="sigla" required>
+		</div>
+		<div class="form-group">
+			<label for="compagnia">Compagnia</label> <select id="compagnia"
+				name="compagnia" required>
+				<option value="FR">Frecciarossa(FR)</option>
+				<option value="IT">Italo(IT)</option>
+				<option value="TN">Trenord(TN)</option>
+			</select>
+		</div>
+		
+		<div class="text-center">
+		<button type="submit" class="btn btn-success">Crea Treno</button>
+		</div>
+		
+		
+	</form>
+
+	<c:if test="${empty sessionScope.utente}">
+
+		<div class="train-details form-group">
+			<h2>Dettagli Treno</h2>
+			<div class="info">
+				<strong>Sigla:</strong> ${treno.sigla}
+			</div>
+			<div class="info">
+				<strong>Compagnia:</strong> ${treno.compagnia}
+			</div>
+			<div class="info">
+				<strong>Prezzo:</strong> ${treno.prezzo}
+			</div>
+			<div class="info">
+				<strong>Treno:</strong> ${treno.peso}
+			</div>
+			<div class="info">
+				<strong>lunghezza:</strong> ${treno.lunghezza}
+			</div>
+			<div class="info">
+				<strong>Utente:</strong>
+				<c:choose>
+					<c:when test="${treno.utente != null}">
                             ${treno.utente.nome} ${treno.utente.cognome}
                         </c:when>
-						<c:otherwise>
+					<c:otherwise>
                             Nessun utente associato
                         </c:otherwise>
-					</c:choose>
-				</div>
+				</c:choose>
 			</div>
-	</div>
+		</div>
+
 	</c:if>
 </body>
 </html>
