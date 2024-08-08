@@ -17,11 +17,7 @@ public class TrenoVO {
 	private Factory compagnia;
 
 
-	
-	
-	
 
-	
 	public Integer getId() {
 		return id;
 	}

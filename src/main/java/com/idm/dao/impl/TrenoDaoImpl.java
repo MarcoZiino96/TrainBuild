@@ -9,18 +9,24 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.idm.dao.TrenoDao;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
+import com.idm.service.impl.TrenoFilterServiceImpl;
+import com.idm.vo.TrenoVO;
 
 @Component
 public class TrenoDaoImpl extends DaoImpl implements TrenoDao {
 
 	@PersistenceContext
 	EntityManager manager;
+	
+	@Autowired
+    TrenoFilterServiceImpl trenoFilterService;
 
 	@Override
 	public Treno find(Integer id) {
@@ -72,16 +78,9 @@ public class TrenoDaoImpl extends DaoImpl implements TrenoDao {
 	}
 
 	@Override
-	public List<Treno> findByFilter(TrenoFilter filter) {
-		
-		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
-		
-		CriteriaQuery<Treno> criteriaQuery = criteriaBuilder.createQuery(Treno.class); 
-		
-		Root<Treno> criteriaRoot = criteriaQuery.from(Treno.class);
-		
-		return null;
-	}
+    public List<Treno> findByFilter(TrenoFilter filter) {
+        return trenoFilterService.filterTreni(filter);
+    }
 
 	
 

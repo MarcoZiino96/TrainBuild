@@ -23,7 +23,9 @@ import com.idm.entity.Factory;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
+import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
+import com.idm.service.impl.TrenoFilterServiceImpl;
 import com.idm.vo.TrenoVO;
 import com.idm.vo.UtenteVO;
 
@@ -33,6 +35,9 @@ import com.idm.vo.UtenteVO;
 		
 		@Autowired
 		private TrenoService trenoService;
+		
+		@Autowired
+		private TrenoFilterServiceImpl trenoFilterServiceImpl;
 		
 		@GetMapping("/home")
 		public String showHome(@ModelAttribute("treno") TrenoVO trenoVo,HttpSession session, Model model){
@@ -84,6 +89,33 @@ import com.idm.vo.UtenteVO;
 		    model.addAttribute("direction", direction); 
 		    return "order"; 
 		}
+		
+		
+		@GetMapping("/filter")
+	    public String filter(
+	        @RequestParam(name = "lunghezzaMin", defaultValue = "0") int lunghezzaMin,
+	        @RequestParam(name = "lunghezzaMax", defaultValue = "0") int lunghezzaMax,
+	        @RequestParam(name = "prezzoMin", defaultValue = "0") int prezzoMin,
+	        @RequestParam(name = "prezzoMax", defaultValue = "0") int prezzoMax,
+	        @RequestParam(name = "siglaContains", defaultValue = "") String siglaContains,
+	        @RequestParam(name = "utente", defaultValue = "") String utente,
+	        Model model) {
+			
+			
+
+	        TrenoFilter filter = new TrenoFilter();
+	        filter.setLunghezzaMin(lunghezzaMin);
+	        filter.setLunghezzaMax(lunghezzaMax);
+	        filter.setPrezzoMin(prezzoMin);
+	        filter.setPrezzoMax(prezzoMax);
+	        filter.setSiglaContains(siglaContains);
+	        filter.setUtente(utente);
+
+	        List<TrenoVO> treni = trenoFilterServiceImpl.filterTreniVO(filter);
+	        model.addAttribute("treni", treni);
+
+	        return "filter"; 
+	    }
 
 	}
 

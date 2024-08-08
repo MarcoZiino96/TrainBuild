@@ -8,14 +8,13 @@ import org.springframework.stereotype.Component;
 import com.idm.abstractClasses.AbstractVagone;
 import com.idm.config.Beans;
 import com.idm.dao.TrenoDao;
+import com.idm.dao.VotoDao;
 import com.idm.entity.Factory;
 import com.idm.entity.FrecciaRossaBuilder;
 import com.idm.entity.ItaloBuilder;
 import com.idm.entity.TreNordBuilder;
 import com.idm.entity.Treno;
-import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
-import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
 import com.idm.vo.TrenoVO;
 
@@ -32,12 +31,8 @@ public class TrenoServiceImpl implements TrenoService {
 	@Autowired
 	private ItaloBuilder italoBuilder;
 	@Autowired
-	private TreNordBuilder treNordBuilder;
-    @Autowired     
-    private TrenoFilterService trenoFilterService;
-
-	
-    
+	private TreNordBuilder treNordBuilder; 
+ 
 	public Treno find(Integer id) {
 		Treno trenoFind = trenoDao.find(id);
 		return trenoFind;
@@ -51,6 +46,7 @@ public class TrenoServiceImpl implements TrenoService {
         if(treno.getVagoni().isEmpty()) {
         	throw new RuntimeException("La lista è vuota");
         }
+        
         
         double prezzoTreno = treno.getVagoni().stream()
                 .mapToDouble(AbstractVagone::getPrezzo) 
@@ -101,10 +97,10 @@ public class TrenoServiceImpl implements TrenoService {
 	       return treno;
 		}
 
-	public Treno update(Treno treno,int id) {
+	public Treno update(Treno treno) {
 
 		
-		Treno treno1 = find(id);
+		Treno treno1 = find(treno.getId());
 		treno1.setSigla(treno.getSigla());
 		treno1.setCompagnia(treno.getCompagnia());
 		treno1.setUtente(treno.getUtente());
@@ -170,6 +166,9 @@ public class TrenoServiceImpl implements TrenoService {
                 throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
         }
     }
+
+    
+    
 }
     	
  
