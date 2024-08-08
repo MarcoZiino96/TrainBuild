@@ -17,7 +17,6 @@ public class Treno implements Bean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
 	@ManyToOne
 	@JoinColumn(name = "utente_fk")
 	private Utente utente;

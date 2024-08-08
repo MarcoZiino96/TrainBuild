@@ -8,11 +8,13 @@ public class LocomotivaException extends TrenoException{
 
     @Override
     public String getSiglaSuggerita() {
-        return  "H" + super.getMessage() + " o " + "H" + super.getMessage() + "H";
+        return  "HPPP o HPPPH";
     }
 
     @Override
     public String getSuggerimento() {
-        return "Per creare un treno si prega di inserire " + this.getSiglaSuggerita() + " al posto di " + getMessage();
+        return "Per creare un treno si prega di inserire "
+    + this.getSiglaSuggerita() + " al posto di " + 
+     getMessage() ;
     }
 }

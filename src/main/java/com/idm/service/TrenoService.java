@@ -10,13 +10,14 @@ import com.idm.vo.TrenoVO;
 
 
 public interface TrenoService {
-	public Treno find(int id);
+	public Treno find(Integer id);
 	public Treno createTreno(String string, Factory compagnia, Utente utente);
 	public Treno createTrenoProva(String string, Factory compagnia);
-	public Treno update(Treno treno,int id);
+	public Treno update(Treno treno);
 	public void delete(Treno treno);
 	public void delete(Integer id);
 	public List<Treno> retrive();
 	public List<TrenoVO> retriveWithOrderVO(String ordine, String direction);
+
 
 }

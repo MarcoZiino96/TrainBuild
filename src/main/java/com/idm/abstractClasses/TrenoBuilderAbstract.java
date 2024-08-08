@@ -33,11 +33,12 @@ public abstract class TrenoBuilderAbstract {
 			validaStringa(strgMaiuscola);
 			vagoni = creaLocomotiva(strgMaiuscola);
 
-			if(strgMaiuscola.charAt(0) == 'H' && strgMaiuscola.charAt(input.length() - 1) == 'H' )
-				vagoni.addAll(creaVagoni(strgMaiuscola.substring(1, strgMaiuscola.length() - 1)));
+//			if(strgMaiuscola.charAt(0) == 'H' && strgMaiuscola.charAt(input.length() - 1) == 'H' )
+//				vagoni.addAll(creaVagoni(strgMaiuscola.substring(1, strgMaiuscola.length() - 1)));
 
-			else if (strgMaiuscola.charAt(0) == 'H')
-				vagoni.addAll(creaVagoni(strgMaiuscola.substring(1)));
+//			else if (strgMaiuscola.charAt(0) == 'H')
+//				vagoni.addAll(creaVagoni(strgMaiuscola.substring(1)));
+			vagoni.addAll(creaVagoni(strgMaiuscola));
 			
 			for (AbstractVagone vagone : vagoni) {
 	            vagone.setTreno(treno); 
@@ -48,31 +49,20 @@ public abstract class TrenoBuilderAbstract {
 			System.out.println(vagoni);
 			
 
-		}catch(StringaException e){
-			System.out.println("Errore: "+ e.getSigla() + " Questa sigla non va bene " +e.getMessage());
-			System.out.println("Suggerimento: Prova ad inserire  " + e.getSiglaSuggerita());
-			System.out.println("Suggerimento: " + e.getSuggerimento());
-		}
-		catch (LocomotivaException e){
-			System.out.println( e.getSigla() + " Questa sigla non va bene " +e.getMessage());
-			System.out.println("Suggerimento: Prova ad inserire " + e.getSiglaSuggerita());
-			System.out.println("Suggerimento: " + e.getSuggerimento());
+		}catch (StringaException e) {
+            throw e;
+        } catch (LocomotivaException e) {
+            throw e;
+        } catch (CargoException e) {
+            throw e;
+        } catch (RistoranteException e) {
+            throw e;
+        }
 
-		}catch (CargoException e){
-			System.out.println("Errore: "+ e.getSigla() + " Questa sigla non va bene " +e.getMessage());
-			System.out.println("Suggerimento: Prova ad inserire  " + e.getSiglaSuggerita());
-			System.out.println("Suggerimento: " + e.getSuggerimento());
-		}
-		catch (RistoranteException e){
+        return treno;
+    }
 
-			System.out.println("Errore: "+ e.getSigla() + " Questa sigla non va bene " +"H"+e.getMessage());
-			System.out.println("Suggerimento: Prova ad inserire  " + e.getSiglaSuggerita());
-			System.out.println("Suggerimento: " + e.getSuggerimento());
-		}
-		
-		return treno ;
-	}
-
+  
 
 	private List<AbstractVagone> creaLocomotiva(String tipo){
 		
@@ -97,13 +87,21 @@ public abstract class TrenoBuilderAbstract {
 
 	private List<AbstractVagone> creaVagoni(String composizione) {
 		
+		String vagoniComposizione = "";
 		boolean contieneCargo = composizione.indexOf('C') != -1;
 		int ristoranteCount = 0;
+		
+		if(composizione.charAt(0) == 'H' && composizione.charAt(composizione.length() - 1) == 'H' )
+			vagoniComposizione = composizione.substring(1, composizione.length() - 1);
+		
+		else if (composizione.charAt(0) == 'H')
+			vagoniComposizione = composizione.substring(1);
+		
 
 		List<AbstractVagone> vagoni = new ArrayList<>();
 
 		if (contieneCargo) {
-			for (char tipo : composizione.toCharArray()) {
+			for (char tipo : vagoniComposizione.toCharArray()) {
 				if (tipo != 'C') {
 					throw new CargoException("Se è presente un Cargo ('C'), tutti i vagoni devono essere Cargo.", composizione);
 				}
@@ -113,7 +111,7 @@ public abstract class TrenoBuilderAbstract {
 			return vagoni;
 		}
 
-		for (char tipo : composizione.toCharArray()) {
+		for (char tipo : vagoniComposizione.toCharArray()) {
 
 			switch (tipo) {
 			case 'P':
@@ -137,6 +135,7 @@ public abstract class TrenoBuilderAbstract {
 		if(input.length() < 2 || input.length() > 8)
 			throw  new StringaException("La stringa non è valida", input);
 	}
+	
 
 	abstract protected AbstractVagone getCostruisciVagoneCargo();
 
@@ -145,5 +144,7 @@ public abstract class TrenoBuilderAbstract {
 	abstract protected AbstractVagone  getCostruisciVagoneRistorante();
 
 	abstract protected AbstractVagone  getCostruisciVagonePasseggieri();
+	
+	
 }
 
