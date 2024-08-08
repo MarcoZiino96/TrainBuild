@@ -17,7 +17,7 @@ public class Voto implements Bean {
 	
 	@ManyToOne
 	@JoinColumn(name = "treno_fk")
-	private Treno Treno;
+	private Treno treno;
 	
 	private int voto;
 	
@@ -43,10 +43,10 @@ public class Voto implements Bean {
 		this.utente = utente;
 	}
 	public Treno getTreno() {
-		return Treno;
+		return treno;
 	}
 	public void setTreno(Treno treno) {
-		Treno = treno;
+		this.treno = treno;
 	}
 	public int getVoto() {
 		return voto;

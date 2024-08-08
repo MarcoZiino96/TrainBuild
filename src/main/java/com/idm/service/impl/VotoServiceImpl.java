@@ -15,9 +15,7 @@ public class VotoServiceImpl implements VotoService {
 	@Autowired
 	VotoDao votoDao;
 
-public  Voto creaVoto( Voto voto) {
-	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-    votoDao = context.getBean(VotoDao.class);		
+public  Voto creaVoto( Voto voto) {	
       Voto v = new Voto();
 		v.setTreno(voto.getTreno());
 		v.setUtente(voto.getUtente());

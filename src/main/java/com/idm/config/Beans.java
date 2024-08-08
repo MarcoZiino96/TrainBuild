@@ -75,14 +75,6 @@ public class Beans {
 		return adapter;
 	}
 	
-	@Bean
-    public LocalValidatorFactoryBean validator() {
-        return new LocalValidatorFactoryBean();
-    }
-	
-
-
-
 	/**** transazioni ****/
 	@Bean
 	public PlatformTransactionManager getTransactionManager(){
@@ -91,8 +83,13 @@ public class Beans {
 		return transactionManager;
 	}
 	
+	@Bean
+    public LocalValidatorFactoryBean validator() {
+        return new LocalValidatorFactoryBean();
+    }
+	
     @Bean
-    @Scope
+    @Scope("prototype")
     public Locomotiva locomotiva() {
         String potenza = "potenzaAlta"; // Valore di default
         double prezzo = 70000.0;        // Valore di default
@@ -102,7 +99,7 @@ public class Beans {
     }
 
     @Bean
-    @Scope
+    @Scope("prototype")
     public VagonePasseggeri vagonePasseggeri() {
         double peso = 1000.0;           // Valore di default
         double prezzo = 40000.0;        // Valore di default
@@ -112,7 +109,7 @@ public class Beans {
     }
 
     @Bean
-    @Scope
+    @Scope("prototype")
     public VagoneRistorante vagoneRistorante() {
         double peso = 1200.0;           // Valore di default
         double prezzo = 60000.0;        // Valore di default
@@ -122,7 +119,7 @@ public class Beans {
     }
 
     @Bean
-    @Scope
+    @Scope("prototype")
     public VagoneCargo vagoneCargo() {
         double peso = 1500.0;           // Valore di default
         double prezzo = 70000.0;        // Valore di default

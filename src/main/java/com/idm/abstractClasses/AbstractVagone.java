@@ -25,7 +25,6 @@ public abstract class AbstractVagone implements Vagone{
 	private double peso;
 	@Column
 	private double prezzo;
-	
 	@ManyToOne
 	@JoinColumn(name = "treno_fk")
 	private Treno treno;

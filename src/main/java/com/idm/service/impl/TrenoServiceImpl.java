@@ -4,17 +4,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.idm.abstractClasses.AbstractVagone;
 import com.idm.config.Beans;
+import com.idm.dao.AbstractVagoneDao;
 import com.idm.dao.TrenoDao;
-import com.idm.dao.VotoDao;
+import com.idm.dao.impl.AbstractVagoneDaoImpl;
 import com.idm.entity.Factory;
 import com.idm.entity.FrecciaRossaBuilder;
 import com.idm.entity.ItaloBuilder;
 import com.idm.entity.TreNordBuilder;
 import com.idm.entity.Treno;
+import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
+import com.idm.exception.CargoException;
+import com.idm.exception.LocomotivaException;
+import com.idm.exception.RistoranteException;
+import com.idm.exception.StringaException;
+import com.idm.service.AbstractVagoneService;
+import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
 import com.idm.vo.TrenoVO;
 
@@ -29,77 +41,115 @@ public class TrenoServiceImpl implements TrenoService {
 	@Autowired
 	private FrecciaRossaBuilder frecciaRossaBuilder;
 	@Autowired
+	AbstractVagoneDao abstractVagoneDaoImpl;
+	@Autowired
 	private ItaloBuilder italoBuilder;
 	@Autowired
 	private TreNordBuilder treNordBuilder; 
  
+	private TreNordBuilder treNordBuilder;
+	@Autowired     
+	private TrenoFilterService trenoFilterService;
+
+
+
 	public Treno find(Integer id) {
 		Treno trenoFind = trenoDao.find(id);
 		return trenoFind;
 	}
 
-	
-	public Treno createTreno(String string, Factory compagnia, Utente utente){
 
-       Treno treno = selectFactory(string, compagnia);
-    
-        if(treno.getVagoni().isEmpty()) {
-        	throw new RuntimeException("La lista è vuota");
-        }
-        
-        
-        double prezzoTreno = treno.getVagoni().stream()
-                .mapToDouble(AbstractVagone::getPrezzo) 
-                .sum();
-        
-        double lunghezzaTreno = treno.getVagoni().stream()
-                .mapToDouble(AbstractVagone::getLunghezza) 
-                .sum();
-        
-        double pesoTreno = treno.getVagoni().stream()
-                .mapToDouble(AbstractVagone::getPeso) 
-                .sum();
-        
-        treno.setSigla(string);
-        treno.setPrezzo(prezzoTreno);
-        treno.setLunghezza(lunghezzaTreno);
-        treno.setPeso(pesoTreno);
-        treno.setUtente(utente);
-        trenoDao.create(treno);
-       return treno;
-	}
-	
-	public Treno createTrenoProva(String string, Factory compagnia){
-
-	       Treno treno = selectFactory(string, compagnia);
+	@Override
+	public Treno createTreno(String string, Factory compagnia, Utente utente) {
+	   
+	    Treno treno;
 	    
-	        if(treno.getVagoni().isEmpty()) {
-	        	throw new RuntimeException("La lista è vuota");
-	        }
+	    try {
+	        treno = selectFactory(string, compagnia);
+	    } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
+	      
+	        throw e;
+	    }
+
+	    try {
 	        
+	        Treno trenoSaved = trenoDao.create(treno);
+
+	        
+	        for (AbstractVagone vagone : treno.getVagoni()) {
+	            vagone.setTreno(trenoSaved); 
+	            abstractVagoneDaoImpl.add(vagone);
+	        }
+
+	       
 	        double prezzoTreno = treno.getVagoni().stream()
 	                .mapToDouble(AbstractVagone::getPrezzo) 
 	                .sum();
-	        
+
 	        double lunghezzaTreno = treno.getVagoni().stream()
 	                .mapToDouble(AbstractVagone::getLunghezza) 
 	                .sum();
-	        
+
 	        double pesoTreno = treno.getVagoni().stream()
 	                .mapToDouble(AbstractVagone::getPeso) 
 	                .sum();
+
+	        trenoSaved.setPrezzo(prezzoTreno);
+	        trenoSaved.setLunghezza(lunghezzaTreno);
+	        trenoSaved.setPeso(pesoTreno);
+	        trenoSaved.setSigla(string);
+	        trenoSaved.setUtente(utente);
+	        trenoSaved.setCompagnia(compagnia);
+
 	        
-	        treno.setSigla(string);
-	        treno.setPrezzo(prezzoTreno);
-	        treno.setLunghezza(lunghezzaTreno);
-	        treno.setPeso(pesoTreno);
-	        treno.setCompagnia(compagnia);
-	       return treno;
-		}
+	        update(trenoSaved);
+
+	    } catch (RuntimeException e) {
+	        
+	        throw new RuntimeException("Errore durante la persistenza del treno: " + e.getMessage(), e);
+	    }
+
+	    return treno;
+	}
+	
+	
+	public Treno createTrenoProva(String string, Factory compagnia){
+
+		 Treno treno;
+		    
+		    try {
+		        treno = selectFactory(string, compagnia);
+		    } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
+		      
+		        throw e;
+		    }
+
+		    
+		   
+  
+		        double prezzoTreno = treno.getVagoni().stream()
+		                .mapToDouble(AbstractVagone::getPrezzo) 
+		                .sum();
+
+		        double lunghezzaTreno = treno.getVagoni().stream()
+		                .mapToDouble(AbstractVagone::getLunghezza) 
+		                .sum();
+
+		        double pesoTreno = treno.getVagoni().stream()
+		                .mapToDouble(AbstractVagone::getPeso) 
+		                .sum();
+
+		        treno.setPrezzo(prezzoTreno);
+		        treno.setLunghezza(lunghezzaTreno);
+		        treno.setPeso(pesoTreno);
+		        treno.setSigla(string);
+		        treno.setCompagnia(compagnia);
+
+		    return treno;
+	}
 
 	public Treno update(Treno treno) {
 
-		
 		Treno treno1 = find(treno.getId());
 		treno1.setSigla(treno.getSigla());
 		treno1.setCompagnia(treno.getCompagnia());
@@ -108,18 +158,19 @@ public class TrenoServiceImpl implements TrenoService {
 		treno1.setLunghezza(treno.getLunghezza());
 		treno1.setPeso(treno.getPeso());
 		treno1.setPrezzo(treno.getPrezzo());
-		
+
 		trenoDao.update(treno1);
 		return treno1;
 	}
 
+
 	public void delete(Treno treno) {
-	
+
 		trenoDao.delete(treno);
 	}
 
 	public void delete(Integer id) {
-		
+
 		trenoDao.delete(id);
 	}
 
@@ -130,8 +181,8 @@ public class TrenoServiceImpl implements TrenoService {
 	}
 
 	public List<Treno> retriveWithOrder(String ordine, String direction) {
-        List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
-        System.out.println(u);
+		List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
+		System.out.println(u);
 		return u;
     }
 	

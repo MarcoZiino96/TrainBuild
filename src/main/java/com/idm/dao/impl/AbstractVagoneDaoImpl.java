@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.idm.abstractClasses.AbstractVagone;
 import com.idm.dao.AbstractVagoneDao;
 
@@ -14,12 +15,8 @@ public class AbstractVagoneDaoImpl extends DaoImpl implements AbstractVagoneDao 
 	private EntityManager manager;
 
 	@Override
-	@Transactional
 	public AbstractVagone add(AbstractVagone vc) {
-
            manager.merge(vc);
-       
         return vc;
 	}
-
 }

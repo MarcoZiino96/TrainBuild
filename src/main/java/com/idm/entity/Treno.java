@@ -17,7 +17,6 @@ public class Treno implements Bean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
 	@ManyToOne
 	@JoinColumn(name = "utente_fk")
 	private Utente utente;
@@ -27,7 +26,7 @@ public class Treno implements Bean {
 	private String sigla;
 	private String foto;
 	private Factory compagnia;
-	@OneToMany(mappedBy = "treno", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "treno",cascade = CascadeType.ALL, orphanRemoval = true)
 	List<AbstractVagone> vagoni;
 
 
