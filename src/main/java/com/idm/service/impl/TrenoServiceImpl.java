@@ -100,7 +100,7 @@ public class TrenoServiceImpl implements TrenoService {
 	        trenoSaved.setCompagnia(compagnia);
 
 	        
-	        update(trenoSaved);
+	        trenoDao.update(trenoSaved);
 
 	    } catch (RuntimeException e) {
 	        
@@ -145,7 +145,7 @@ public class TrenoServiceImpl implements TrenoService {
 		    return treno;
 	}
 
-	public Treno update(Treno treno) {
+	public Treno update(Treno treno,int id) {
 
 		Treno treno1 = find(treno.getId());
 		treno1.setSigla(treno.getSigla());
