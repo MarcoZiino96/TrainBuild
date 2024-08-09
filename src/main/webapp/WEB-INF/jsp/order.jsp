@@ -199,6 +199,10 @@
                                         <button type="submit" class="btn btn-success">Modifica Treno</button>
                                     </div>
                                 </form>
+                                <form action="duplicaTreno" method="post" style="display:inline;">
+                                    <input type="hidden" name="trenoId" value="${treno.id}" />
+                                    <button type="submit">Duplica</button>
+                                </form>
                             </div>
                         </c:if>
                     </td>

@@ -134,19 +134,36 @@ public class TrenoController {
 
 	@PostMapping("/duplicaTreno")
 	public String duplicaTreno(@RequestParam Integer trenoId, HttpSession session, Model model ) {
-		Utente utente = (Utente) session.getAttribute("utente");
-		Treno treno;
+	    Utente utente = (Utente) session.getAttribute("utente");
 
-		try {
-			treno = trenoService.find(trenoId);
-			Treno trenoDuplicato = trenoService.createTreno(treno.getSigla(), treno.getCompagnia(), utente);
-			trenoDuplicato = trenoService.update(trenoDuplicato, trenoDuplicato.getId());
-			model.addAttribute("treno", trenoDuplicato);
-			return "redirect:/order";
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Impossibile duplicare il treno: " + e.getMessage());
-			return "order";
-		}
+	    try {
+	        
+	        Treno trenoOriginale = trenoService.find(trenoId);
+	        if (trenoOriginale == null) {
+	            model.addAttribute("errorMessage", "Treno non trovato.");
+	            return "order";
+	        }
+
+	      
+	        Treno trenoDuplicato = new Treno();
+	        trenoDuplicato.setSigla(trenoOriginale.getSigla());
+	        trenoDuplicato.setCompagnia(trenoOriginale.getCompagnia());
+	        trenoDuplicato.setPrezzo(trenoOriginale.getPrezzo());
+	        trenoDuplicato.setLunghezza(trenoOriginale.getLunghezza());
+	        trenoDuplicato.setPeso(trenoOriginale.getPeso());
+
+	        trenoDuplicato = trenoService.createTreno(trenoDuplicato.getSigla(), trenoDuplicato.getCompagnia(), utente);
+
+	        trenoDuplicato = trenoService.update(trenoDuplicato, trenoDuplicato.getId());
+
+	       
+	        model.addAttribute("treno", trenoDuplicato);
+	        return "redirect:/order";
+	        
+	    } catch (Exception e) {
+	        model.addAttribute("errorMessage", "Impossibile duplicare il treno: " + e.getMessage());
+	        return "order";
+	    }
 	}
 
 
