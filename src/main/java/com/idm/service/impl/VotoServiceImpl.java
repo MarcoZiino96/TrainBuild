@@ -16,7 +16,7 @@ public class VotoServiceImpl implements VotoService {
 	VotoDao votoDao;
 
 public  Voto creaVoto( Voto voto) {	
-      Voto v = new Voto();
+        Voto v = new Voto();
 		v.setTreno(voto.getTreno());
 		v.setUtente(voto.getUtente());
 		v.setVoto(voto.getVoto());
@@ -27,16 +27,15 @@ public  Voto creaVoto( Voto voto) {
 	}
 
 	public  Voto findVoto(int id) {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-	    votoDao = context.getBean(VotoDao.class);	
+		
 		Voto p = votoDao.find(id);
+		if(p == null)
+		throw new RuntimeException("Voto non trovato!!!");
 	
 		return p;
 	}
 	
 	public  Voto updateVoto(Voto voto, int id) {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-	    votoDao = context.getBean(VotoDao.class);	
 		Voto vOld = findVoto(id);
 		vOld.setTreno(voto.getTreno());
 		vOld.setUtente(voto.getUtente());
@@ -46,9 +45,8 @@ public  Voto creaVoto( Voto voto) {
 	}
 	
 	public  void deleteVoto(int id) {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-	    votoDao = context.getBean(VotoDao.class);	
-		votoDao.delete(id);	
+		Voto voto = findVoto(id);
+		votoDao.delete(voto.getId());	
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class TrenoServiceImpl implements TrenoService {
 	@Autowired
 	private ItaloBuilder italoBuilder;
 	@Autowired
-	private TreNordBuilder treNordBuilder;
+	private TreNordBuilder treNordBuilder; 
 	@Autowired     
 	private TrenoFilterService trenoFilterService;
 
@@ -55,6 +55,7 @@ public class TrenoServiceImpl implements TrenoService {
 		Treno trenoFind = trenoDao.find(id);
 		return trenoFind;
 	}
+
 
 	@Override
 	public Treno createTreno(String string, Factory compagnia, Utente utente) {
@@ -108,7 +109,8 @@ public class TrenoServiceImpl implements TrenoService {
 
 	    return treno;
 	}
-
+	
+	
 	public Treno createTrenoProva(String string, Factory compagnia){
 
 		 Treno treno;
@@ -122,7 +124,7 @@ public class TrenoServiceImpl implements TrenoService {
 
 		    
 		   
-   
+  
 		        double prezzoTreno = treno.getVagoni().stream()
 		                .mapToDouble(AbstractVagone::getPrezzo) 
 		                .sum();
@@ -150,7 +152,6 @@ public class TrenoServiceImpl implements TrenoService {
 		treno1.setSigla(treno.getSigla());
 		treno1.setCompagnia(treno.getCompagnia());
 		treno1.setUtente(treno.getUtente());
-		treno1.setFoto(treno.getFoto());
 		treno1.setLunghezza(treno.getLunghezza());
 		treno1.setPeso(treno.getPeso());
 		treno1.setPrezzo(treno.getPrezzo());
@@ -180,40 +181,42 @@ public class TrenoServiceImpl implements TrenoService {
 		List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
 		System.out.println(u);
 		return u;
-	}
+    }
+	
+    public List<TrenoVO> retriveWithOrderVO(String ordine, String direction) {
+    	List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
+    	List<TrenoVO> trenoVOs = new ArrayList<>();
+    	for (Treno treno : u) {
+    		TrenoVO vo = new TrenoVO();
+            vo.setId(treno.getId());
+            vo.setPrezzo(treno.getPrezzo());
+            vo.setPeso(treno.getPeso());
+            vo.setLunghezza(treno.getLunghezza());
+            vo.setSigla(treno.getSigla());
+            vo.setCompagnia(treno.getCompagnia());
+            vo.setUtente(treno.getUtente());
+            
+    	
+            trenoVOs.add(vo);
+    	}    	
+    	return trenoVOs;
+    }
+    
+    public Treno selectFactory(String sigla, Factory compagnia) {
+        switch(compagnia) {
+            case FR:
+                return frecciaRossaBuilder.creaTreno(sigla);
+            case IT:
+                return italoBuilder.creaTreno(sigla);
+            case TN:
+                return treNordBuilder.creaTreno(sigla);
+            default:
+                throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
+        }
+    }
 
-	public List<TrenoVO> retriveWithOrderVO(String ordine, String direction) {
-		List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
-		List<TrenoVO> trenoVOs = new ArrayList<>();
-		for (Treno treno : u) {
-			TrenoVO vo = new TrenoVO();
-			vo.setId(treno.getId());
-			vo.setPrezzo(treno.getPrezzo());
-			vo.setPeso(treno.getPeso());
-			vo.setLunghezza(treno.getLunghezza());
-			vo.setSigla(treno.getSigla());
-			vo.setFoto(treno.getFoto());
-			vo.setCompagnia(treno.getCompagnia());
-			vo.setUtente(treno.getUtente());
-
-			trenoVOs.add(vo);
-		}    	
-		return trenoVOs;
-	}
-
-	public Treno selectFactory(String sigla, Factory compagnia) {
-		switch(compagnia) {
-		case FR:
-			return frecciaRossaBuilder.creaTreno(sigla);
-		case IT:
-			return italoBuilder.creaTreno(sigla);
-		case TN:
-			return treNordBuilder.creaTreno(sigla);
-		default:
-			throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
-		}
-	}
+    
+    
 }
-
-
-
+    	
+ 

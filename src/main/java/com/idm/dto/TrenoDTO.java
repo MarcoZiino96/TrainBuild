@@ -18,13 +18,15 @@ public class TrenoDTO {
 	
 	private Factory compagnia;
 	
-	private Integer utente;
+	private UtenteDTO utente;
 
-	public Integer getUtente() {
+	
+
+	public UtenteDTO getUtente() {
 		return utente;
 	}
 
-	public void setUtente(Integer utente) {
+	public void setUtente(UtenteDTO utente) {
 		this.utente = utente;
 	}
 

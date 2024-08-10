@@ -11,13 +11,13 @@ import com.idm.vo.UtenteVO;
 
 public interface UtenteService {
 	
-	public UtenteVO find(Integer id);
-	public Utente createUtente(UtenteDTO utente);
-	public Utente update(UtenteDTO ref);
-	public void delete(UtenteDTO ref);
+	public Utente find(Integer id);
+	public Utente createUtente(UtenteVO utente);
+	public Utente update(Utente ref);
+	public void delete(Utente ref);
 	public void delete(int id);
-	public UtenteVO findByUsername(String userName);
-	public UtenteVO findByEmail(String email);
+	public Utente findByUsername(String userName);
+	public Utente findByEmail(String email);
 	public List<Utente> getAllUsers();
 
 

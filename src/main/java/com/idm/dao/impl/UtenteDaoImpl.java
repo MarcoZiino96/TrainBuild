@@ -22,15 +22,15 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao {
 	EntityManager manager;
 
 	@Override
-	public UtenteDTO find(Integer id) {
-		Utente t = manager.find(Utente.class, id);
-		UtenteDTO utente = UtenteConverter.fromEntityToDto(t);
+	public Utente find(Integer id) {
+		Utente utente = manager.find(Utente.class, id);
+//		UtenteDTO utenteDto = UtenteConverter.fromEntityToDto(utente);
 		return utente;
 	}
 
 	@Transactional
 	@Override
-	public Utente create(Utente ref) {
+	public Utente create(Utente ref) {	
 		manager.persist(ref);
 		return ref;
 	}
@@ -53,29 +53,28 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao {
 	@Override
 	@Transactional
 	public void delete(int id) {
-		UtenteDTO c = this.find(id);
-		Utente utente = UtenteConverter.fromDtoToEntity(c);
-		if (utente !=null)
-	   manager.remove(utente);
+		Utente c = this.find(id);
+		if (c!=null)
+	   manager.remove(c);
 	}
 
-	 public UtenteDTO findByUsername(String username) {
+	 public Utente findByUsername(String username) {
 		 
 	        try {
 	            Query query = manager.createQuery("SELECT u FROM Utente u WHERE u.username = :username", Utente.class);
 	            query.setParameter("username", username);
-	            return (UtenteDTO) query.getSingleResult();
+	            return (Utente) query.getSingleResult();
 	        } catch (NoResultException e) {
 	            e.getMessage();
 	            return null;
 	        }
 	    }
 	 
-	 public UtenteDTO findByEmail(String email) {
+	 public Utente findByEmail(String email) {
 	        try {
 	            Query query = manager.createQuery("SELECT u FROM Utente u WHERE u.email = :email", Utente.class);
 	            query.setParameter("email", email);
-	            return (UtenteDTO) query.getSingleResult();
+	            return (Utente) query.getSingleResult();
 	        } catch (NoResultException e) {
 	            e.getMessage();
 	            return null;

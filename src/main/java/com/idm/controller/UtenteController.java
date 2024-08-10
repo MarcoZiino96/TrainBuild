@@ -45,8 +45,8 @@ public class UtenteController {
 		if (bindingResult.hasErrors()) {
 			return "preRegister";     
 		}
-		UtenteVO usernameUtente = utenteService.findByUsername(utenteVo.getUsername());
-		UtenteVO emailUtente = utenteService.findByEmail(utenteVo.getEmail());
+		Utente usernameUtente = utenteService.findByUsername(utenteVo.getUsername());
+		Utente emailUtente = utenteService.findByEmail(utenteVo.getEmail());
 
 		if(emailUtente != null &&  usernameUtente != null) {
 			bindingResult.rejectValue("email", "error.email", "Email già esistente");
@@ -66,8 +66,8 @@ public class UtenteController {
 		}
 
 		try {
-			UtenteDTO u = UtenteConverter.fromVoToDto(utenteVo);
-			utenteService.createUtente(u);
+//			UtenteDTO u = UtenteConverter.fromVoToDto(utenteVo);
+			utenteService.createUtente(utenteVo);
 
 		} catch (Exception e) {
 			return "preRegister";
@@ -84,7 +84,7 @@ public class UtenteController {
 	        return "formlogin"; 
 	    }
 	    
-	    UtenteVO utente = utenteService.findByUsername(utenteVoLogin.getUsername());
+	    Utente utente = utenteService.findByUsername(utenteVoLogin.getUsername());
 
 	    if (utente == null) {
 	        bindingResult.rejectValue("username", "error.username", "L'username non esiste");

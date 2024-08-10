@@ -8,7 +8,7 @@ import com.idm.entity.Utente;
 public class TrenoVO {
 	
 	private Integer id;
-	private Integer utente;
+	private Utente utente;
 	private double prezzo;
 	private double peso;
 	private double lunghezza;
@@ -21,10 +21,11 @@ public class TrenoVO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getUtente() {
+	
+	public Utente getUtente() {
 		return utente;
 	}
-	public void setUtente(Integer utente) {
+	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
 	public double getPrezzo() {

@@ -1,21 +1,11 @@
 package com.idm.service.impl;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import com.idm.config.Beans;
 import com.idm.converter.UtenteConverter;
-import com.idm.dao.TrenoDao;
 import com.idm.dao.UtenteDao;
 import com.idm.dto.UtenteDTO;
-import com.idm.entity.Treno;
 import com.idm.entity.Utente;
 import com.idm.service.UtenteService;
 import com.idm.vo.UtenteVO;
@@ -27,48 +17,44 @@ public class UtenteServiceImpl implements UtenteService {
 	private UtenteDao utenteDao;
 
 
-	public UtenteVO find(Integer id) {
-		UtenteDTO utenteFind = utenteDao.find(id);
-		return UtenteConverter.fromDtoToVo(utenteFind);
+	public Utente find(Integer id) {
+	 return utenteDao.find(id);
+//		 UtenteConverter.fromDtoToVo(utenteFind);
 	}
 
-	public Utente createUtente(UtenteDTO utenteDto) {
-		UtenteDTO utenteNew = new UtenteDTO();
+	public Utente createUtente(UtenteVO utenteDto) {
+		Utente utenteNew = new Utente();
 		utenteNew.setCognome(utenteDto.getCognome());
 		utenteNew.setNome(utenteDto.getNome()); 
 		utenteNew.setEmail(utenteDto.getEmail());
-		utenteNew.setDataNascita(utenteDto.getDataNascita()); 
+		utenteNew.setDataNascita(LocalDate.parse(utenteDto.getDataNascita())); 
 		utenteNew.setPassword(utenteDto.getPassword());
 		utenteNew.setUsername(utenteDto.getUsername());
 
-		Utente utente = UtenteConverter.fromDtoToEntity(utenteNew);
-		return utenteDao.create(utente);
+//		Utente utente = UtenteConverter.fromDtoToEntity(utenteNew);
+		return utenteDao.create(utenteNew);
 		
 	}
 
 
-	public Utente update(UtenteDTO utenteDto) {
+	public Utente update(Utente utenteDto) {
 
-		UtenteDTO utenteDto1 = utenteDao.find(utenteDto.getId());
+		Utente utente1 = utenteDao.find(utenteDto.getId());
 
-		utenteDto1.setCognome(utenteDto.getCognome());
-		utenteDto1.setDataNascita(utenteDto.getDataNascita());
-		utenteDto1.setEmail(utenteDto.getEmail());
-		utenteDto1.setNome(utenteDto.getNome());
-		utenteDto1.setUsername(utenteDto.getUsername());
-		utenteDto1.setPassword(utenteDto.getPassword());
-
-		Utente utente = UtenteConverter.fromDtoToEntity(utenteDto1);
-
-		return utenteDao.update(utente);
-
-		 
+		utente1.setCognome(utenteDto.getCognome());
+		utente1.setDataNascita(utenteDto.getDataNascita());
+		utente1.setEmail(utenteDto.getEmail());
+		utente1.setNome(utenteDto.getNome());
+		utente1.setUsername(utenteDto.getUsername());
+		utente1.setPassword(utenteDto.getPassword());
+//		UtenteConverter.fromDtoToEntity(utenteDto)
+		return utenteDao.update(utente1);	 
 	}
 
 
-	public void delete(UtenteDTO ref) {
-		Utente utente = UtenteConverter.fromDtoToEntity(ref);
-		utenteDao.delete(utente);
+	public void delete(Utente ref) {
+//		Utente utente = UtenteConverter.fromDtoToEntity(ref);
+		utenteDao.delete(ref);
 
 	}
 
@@ -78,17 +64,17 @@ public class UtenteServiceImpl implements UtenteService {
 
 	}
 
-	public UtenteVO findByUsername(String username){
+	public Utente findByUsername(String username){
 
-		UtenteDTO utenteDto = utenteDao.findByUsername(username);
-		return UtenteConverter.fromDtoToVo(utenteDto);
+	return	utenteDao.findByUsername(username);
+		 
 	}
 
-	public UtenteVO findByEmail(String email){
+	public Utente findByEmail(String email){
 
-	UtenteDTO utenteDto = utenteDao.findByEmail(email);
+	return utenteDao.findByEmail(email);
 	
-		 return UtenteConverter.fromDtoToVo(utenteDto);
+		  
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.idm.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,13 +9,11 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.idm.dao.TrenoDao;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
-import com.idm.entity.Utente;
 
 @Component
 public class TrenoDaoImpl extends DaoImpl implements TrenoDao {
@@ -25,12 +24,13 @@ public class TrenoDaoImpl extends DaoImpl implements TrenoDao {
 	@Override
 	public Treno find(Integer id) {
 		Treno t = manager.find(Treno.class,id);
-		return t;
+	return	t;
 	}
 
 	@Transactional
 	@Override
-	public Treno create(Treno ref) {
+	public Treno create(Treno ref){
+//		Treno treno = TrenoConverter.fromDtoToEntity(ref);
 		manager.persist(ref);
 		return ref;
 	}
@@ -38,12 +38,14 @@ public class TrenoDaoImpl extends DaoImpl implements TrenoDao {
 	@Transactional
 	@Override
 	public Treno update(Treno ref) {
+//		Treno treno = TrenoConverter.fromDtoToEntity(ref);
 		manager.merge(ref);
 		return ref;
 	}
 	@Transactional
 	@Override
 	public void delete(Treno ref) {
+//		Treno treno = TrenoConverter.fromDtoToEntity(ref);
 		manager.remove(ref);
 	}
 
@@ -51,6 +53,14 @@ public class TrenoDaoImpl extends DaoImpl implements TrenoDao {
 	public List<Treno> retrive() {
 		Query q = manager.createQuery("select x from Treno x",Treno.class);
 		List<Treno> l = q.getResultList();
+		
+//		List<TrenoDTO> listDto = new ArrayList();
+//		
+//		for(Treno entity : l) {
+//			TrenoDTO dto = TrenoConverter.fromEntityToDto(entity);
+//			listDto.add(dto);
+//		}
+	
 		return l;
 	}
 	
@@ -58,14 +68,25 @@ public class TrenoDaoImpl extends DaoImpl implements TrenoDao {
     public List<Treno> retriveWithOrder(String ordine, String direction) {
         String jpql = "SELECT t FROM Treno t ORDER BY t." + ordine + " " + direction;
         Query query = manager.createQuery(jpql, Treno.class);
-        return query.getResultList();
+        List<Treno> l = query.getResultList();
+//        
+//        List<TrenoDTO> listDto = new ArrayList();
+//		
+//		for(Treno entity : l) {
+//			TrenoDTO dto = TrenoConverter.fromEntityToDto(entity);
+//			listDto.add(dto);
+//		}
+	
+		return l;
     }
 	
 
 	@Transactional
 	@Override
 	public void delete(int id) {
+		
 		Treno c = this.find(id); 
+//		Treno treno = TrenoConverter.fromDtoToEntity(c);
 		if (c!=null)
 			manager.remove(c);
 		
