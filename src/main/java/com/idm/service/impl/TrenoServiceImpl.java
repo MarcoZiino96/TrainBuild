@@ -47,7 +47,6 @@ public class TrenoServiceImpl implements TrenoService {
 	@Autowired
 	private TreNordBuilder treNordBuilder; 
  
-	private TreNordBuilder treNordBuilder;
 	@Autowired     
 	private TrenoFilterService trenoFilterService;
 
@@ -154,7 +153,6 @@ public class TrenoServiceImpl implements TrenoService {
 		treno1.setSigla(treno.getSigla());
 		treno1.setCompagnia(treno.getCompagnia());
 		treno1.setUtente(treno.getUtente());
-		treno1.setFoto(treno.getFoto());
 		treno1.setLunghezza(treno.getLunghezza());
 		treno1.setPeso(treno.getPeso());
 		treno1.setPrezzo(treno.getPrezzo());
@@ -196,7 +194,6 @@ public class TrenoServiceImpl implements TrenoService {
             vo.setPeso(treno.getPeso());
             vo.setLunghezza(treno.getLunghezza());
             vo.setSigla(treno.getSigla());
-            vo.setFoto(treno.getFoto());
             vo.setCompagnia(treno.getCompagnia());
             vo.setUtente(treno.getUtente());
     	

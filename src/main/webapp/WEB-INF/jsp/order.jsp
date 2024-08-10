@@ -83,7 +83,6 @@ margin: 30px;
   <table>
     <thead>
         <tr>
-            <th>Foto</th>
             <th>Compagnia</th>
             <th>Sigla</th>
             <th>Lunghezza</th>
@@ -95,7 +94,6 @@ margin: 30px;
     <tbody>
         <c:forEach var="treno" items="${treni}">
             <tr>
-                <td><img src="${treno.foto}" alt="Foto del treno" /></td>
                 <td>${treno.compagnia}</td>
                 <td>${treno.sigla}</td>
                 <td>${treno.lunghezza}</td>

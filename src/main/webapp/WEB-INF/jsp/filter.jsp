@@ -6,74 +6,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Filtra i treni:</title>
-    <style>
-    @charset "UTF-8";
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/filter.css">
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
 
-th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
 
-th {
-    background-color: #f2f2f2;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-}
-.titleOrder{
-text-align: center;
-}
-.titleOrder h2{
-margin: 20px;
-padding-top: 40px;
-}
-
-.formOrder{
-text-align: center;
-margin: 30px;
-}
-    </style>
 </head>
 
 <body>
 
     <jsp:include page="header.jsp" />
    
-   <div class="titleOrder"> 
+   <div class="filter"> 
     <h2>Applica un filtro alla lista dei treni</h2>
    </div> 
+      
+
+    <c:if test="${not empty error}">
+        <div style="color: red;">
+            ${error}
+        </div>
+    </c:if>
    
    
-   <div class="formOrder">
-    <form action="filterTreni" method="get">
+   <div class="formFilter">
+    <form action="filter" method="get">
         <label for="lunghezzaMin">Lunghezza Min:</label>
-        <input type="number" id="lunghezzaMin" name="lunghezzaMin" min="0" />
+        <input type="number" id="lunghezzaMin" name="lunghezzaMin" min="0" step="1" />
 
         <label for="lunghezzaMax">Lunghezza Max:</label>
-        <input type="number" id="lunghezzaMax" name="lunghezzaMax" min="0" />
+        <input type="number" id="lunghezzaMax" name="lunghezzaMax" min="0" step="1" />
 
         <label for="prezzoMin">Prezzo Min:</label>
-        <input type="number" id="prezzoMin" name="prezzoMin" min="0" step="0.01" />
+        <input type="number" id="prezzoMin" name="prezzoMin" min="0" step="1" />
 
         <label for="prezzoMax">Prezzo Max:</label>
-        <input type="number" id="prezzoMax" name="prezzoMax" min="0" step="0.01" />
+        <input type="number" id="prezzoMax" name="prezzoMax" min="0" step="1" />
+        
+        <label for="pesoMin">Peso Min:</label>
+        <input type="number" id="pesoMin" name="pesoMin" min="0" step="1" />
+
+        <label for="pesoMax">Peso Max:</label>
+        <input type="number" id="pesoMax" name="pesoMax" min="0" step="1" />
 
         <label for="siglaContains">Sigla Contiene:</label>
         <input type="text" id="siglaContains" name="siglaContains" />
@@ -89,7 +63,6 @@ margin: 30px;
   <table>
     <thead>
         <tr>
-            <th>Foto</th>
             <th>Compagnia</th>
             <th>Sigla</th>
             <th>Lunghezza</th>
@@ -101,7 +74,6 @@ margin: 30px;
     <tbody>
         <c:forEach var="treno" items="${treni}">
             <tr>
-                <td><img src="${treno.foto}" alt="Foto del treno" /></td>
                 <td>${treno.compagnia}</td>
                 <td>${treno.sigla}</td>
                 <td>${treno.lunghezza}</td>
@@ -112,6 +84,8 @@ margin: 30px;
         </c:forEach>
     </tbody>
 </table>
+
+<img src = "resources/train.png">
     
 
     

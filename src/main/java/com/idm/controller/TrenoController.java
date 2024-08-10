@@ -1,6 +1,7 @@
 package com.idm.controller;
-import java.util.List;
 
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.idm.entity.Factory;
 import com.idm.entity.Treno;
+import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
-import com.idm.service.TrenoFilterService;
 import com.idm.exception.CargoException;
 import com.idm.exception.LocomotivaException;
 import com.idm.exception.RistoranteException;
 import com.idm.exception.StringaException;
 import com.idm.service.TrenoService;
-import com.idm.service.impl.TrenoFilterServiceImpl;
-import com.idm.service.impl.TrenoServiceImpl;
+import com.idm.service.UtenteService;
+import com.idm.service.TrenoFilterService;
 import com.idm.vo.TrenoVO; 
 
 
@@ -30,9 +31,10 @@ import com.idm.vo.TrenoVO;
 		
 		@Autowired
 		private TrenoService trenoService;
-		
 		@Autowired
-		private TrenoFilterServiceImpl trenoFilterServiceImpl;
+		private TrenoFilterService trenoFilterService;
+		@Autowired
+		private UtenteService utenteService;
 		
 		@GetMapping("/home")
 		public String showHome(@ModelAttribute("treno") TrenoVO trenoVo,HttpSession session, Model model){
@@ -94,32 +96,77 @@ import com.idm.vo.TrenoVO;
 		
 		
 		@GetMapping("/filter")
-	    public String filter(
-	        @RequestParam(name = "lunghezzaMin", defaultValue = "0") int lunghezzaMin,
-	        @RequestParam(name = "lunghezzaMax", defaultValue = "0") int lunghezzaMax,
-	        @RequestParam(name = "prezzoMin", defaultValue = "0") int prezzoMin,
-	        @RequestParam(name = "prezzoMax", defaultValue = "0") int prezzoMax,
-	        @RequestParam(name = "siglaContains", defaultValue = "") String siglaContains,
-	        @RequestParam(name = "utente", defaultValue = "") String utente,
-	        Model model) {
-			
-			
+		public String filter(
+		    @RequestParam(name = "lunghezzaMin", required = false) Integer lunghezzaMin,
+		    @RequestParam(name = "lunghezzaMax", required = false) Integer lunghezzaMax,
+		    @RequestParam(name = "prezzoMin", required = false) Integer prezzoMin,
+		    @RequestParam(name = "prezzoMax", required = false) Integer prezzoMax,
+		    @RequestParam(name = "pesoMin", required = false) Integer pesoMin,
+		    @RequestParam(name = "pesoMax", required = false) Integer pesoMax,
+		    @RequestParam(name = "siglaContains", required = false) String siglaContains,
+		    @RequestParam(name = "utente", required = false) String utenteStr,
+		    Model model) {
 
-	        TrenoFilter filter = new TrenoFilter();
-	        filter.setLunghezzaMin(lunghezzaMin);
-	        filter.setLunghezzaMax(lunghezzaMax);
-	        filter.setPrezzoMin(prezzoMin);
-	        filter.setPrezzoMax(prezzoMax);
-	        filter.setSiglaContains(siglaContains);
-	        filter.setUtente(utente);
+		    TrenoFilter filter = new TrenoFilter();
 
-	        List<TrenoVO> treni = trenoFilterServiceImpl.filterTreniVO(filter);
-	        model.addAttribute("treni", treni);
+		    // Controlla e imposta i parametri
+		    if (utenteStr != null && !utenteStr.isEmpty()) {
+		        Utente utente = utenteService.findByUsername(utenteStr);
+		        if (utente == null) {
+		            model.addAttribute("error", "Nessun utente trovato con l'username fornito.");
+		            return "filter"; 
+		        } else {
+		            filter.setUtenteIds(Collections.singletonList(utente.getId()));
+		        }
+		    }
 
-	        return "filter"; 
-	    }
+		    if (lunghezzaMin != null && lunghezzaMin >= 0) {
+		        filter.setLunghezzaMin(lunghezzaMin);
+		    }
+		    if (lunghezzaMax != null && lunghezzaMax >= 0) {
+		        filter.setLunghezzaMax(lunghezzaMax);
+		    }
+		    if (prezzoMin != null && prezzoMin >= 0) {
+		        filter.setPrezzoMin(prezzoMin);
+		    }
+		    if (prezzoMax != null && prezzoMax >= 0) {
+		        filter.setPrezzoMax(prezzoMax);
+		    }
+		    if (pesoMin != null && pesoMin >= 0) {
+		        filter.setPesoMin(pesoMin);
+		    }
+		    if (pesoMax != null && pesoMax >= 0) {
+		        filter.setPesoMax(pesoMax);
+		    }
+		    if (siglaContains != null && !siglaContains.isEmpty()) {
+		        filter.setSiglaContains(siglaContains);
+		    }
+
+		    if (prezzoMin != null && prezzoMax != null && prezzoMin > prezzoMax) {
+		        model.addAttribute("error", "Il prezzo minimo non può essere maggiore del prezzo massimo.");
+		        return "filter"; 
+		    }
+		    if (pesoMin != null && pesoMax != null && pesoMin > pesoMax) {
+		        model.addAttribute("error", "Il peso minimo non può essere maggiore del peso massimo.");
+		        return "filter"; 
+		    }
+		    if (lunghezzaMin != null && lunghezzaMax != null && lunghezzaMin > lunghezzaMax) {
+		        model.addAttribute("error", "La lunghezza minima non può essere maggiore della lunghezza massima.");
+		        return "filter"; 
+		    }
+
+		    List<TrenoVO> treni = trenoFilterService.filterTreniVO(filter);
+		    if (siglaContains != null && !siglaContains.isEmpty() && treni.isEmpty()) {
+		        model.addAttribute("error", "Nessun treno trovato con la sigla specificata.");
+		    } else {
+		        model.addAttribute("treni", treni);
+		    }
+
+		    return "filter"; 
+		}
 
 	}
+	
 
 
 

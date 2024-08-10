@@ -1,5 +1,7 @@
 package com.idm.entity;
 
+import java.util.List;
+
 public class TrenoFilter {
 
 	private Integer prezzoMin = null;
@@ -10,8 +12,8 @@ public class TrenoFilter {
 	private Integer lunghezzaMax = null;
 	private String siglaContains = null;
 	private String utente = null;
+	private List<Integer> utenteIds;
 	
-	 private String termineRicerca;
 	
 
 	public Integer getPrezzoMin() {
@@ -62,12 +64,13 @@ public class TrenoFilter {
 	public void setUtente(String utente) {
 		this.utente = utente;
 	}
+    public List<Integer> getUtenteIds() {
+        return utenteIds;
+    }
+
+    public void setUtenteIds(List<Integer> utenteIds) {
+        this.utenteIds = utenteIds;
+    }
 	
-	public String getTermineRicerca() {
-		return termineRicerca;
-	}
-	public void setTermineRicerca(String termineRicerca) {
-		this.termineRicerca = termineRicerca;
-	}
 	
 }

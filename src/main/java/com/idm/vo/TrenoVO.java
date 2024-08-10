@@ -13,9 +13,7 @@ public class TrenoVO {
 	private Double peso;
 	private Double lunghezza;
 	private String sigla;
-	private String foto;
 	private Factory compagnia;
-
 
 
 	public Integer getId() {
@@ -53,12 +51,6 @@ public class TrenoVO {
 	}
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
-	}
-	public String getFoto() {
-		return foto;
-	}
-	public void setFoto(String foto) {
-		this.foto = foto;
 	}
 	public Factory getCompagnia() {
 		return compagnia;

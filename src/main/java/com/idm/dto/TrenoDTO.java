@@ -11,7 +11,6 @@ private Integer utenteId;
 	
 	private String sigla;
 	
-	private String foto;
 	
 	private String compagnia;
 	
@@ -46,12 +45,7 @@ private Integer utenteId;
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}
-	public String getFoto() {
-		return foto;
-	}
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
+
 	public String getCompagnia() {
 		return compagnia;
 	}

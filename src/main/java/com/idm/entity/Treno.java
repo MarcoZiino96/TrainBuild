@@ -24,7 +24,6 @@ public class Treno implements Bean {
 	private Double peso;
 	private Double lunghezza;
 	private String sigla;
-	private String foto;
 	private Factory compagnia;
 	@OneToMany(mappedBy = "treno",cascade = CascadeType.ALL, orphanRemoval = true)
 	List<AbstractVagone> vagoni;
@@ -46,17 +45,17 @@ public class Treno implements Bean {
 
 	public Treno() {
 	}
-	 public Treno(Double prezzo, Double peso, Double lunghezza, String sigla, String foto) {
+	 public Treno(Double prezzo, Double peso, Double lunghezza, String sigla) {
 			this.prezzo = prezzo;
 			this.peso = peso;
 			this.lunghezza = lunghezza;
 			this.sigla = sigla;
-			this.foto = foto;
+
 		}
 	
-	 public Treno(Factory compagnia, String foto, String sigla, Double lunghezza, Double peso, Double prezzo, Utente utente ) {
+	 public Treno(Factory compagnia, String sigla, Double lunghezza, Double peso, Double prezzo, Utente utente ) {
 		 this.compagnia = compagnia;
-		 this.foto = foto;
+
 		 this.sigla = sigla;
 		 this.lunghezza = lunghezza;
 		 this.peso = peso;
@@ -101,20 +100,6 @@ public class Treno implements Bean {
 		this.lunghezza = lunghezza;
 	}
 
-//	public Treno(Utente utente, int prezzo, Double peso, Double lunghezza, String sigla, String foto,
-//			List<AbstractVagone> vagoni) {
-//		this.utente = utente;
-//		this.prezzo = prezzo;
-//		this.peso = peso;
-//		this.lunghezza = lunghezza;
-//		this.sigla = sigla;
-//		this.foto = foto;
-//		this.vagoni = vagoni;
-//	}
-
-
-
-
 public void setPeso(Double peso) {
 	this.peso = peso;
 }
@@ -158,21 +143,15 @@ public void getId(int id) {
 		this.prezzo = prezzo;
 	}
 
-	public String getFoto() {
-		return foto;
-	}
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
-
-
 	@Override
 	public String toString() {
-		return "Treno [utente=" + utente + ", prezzo=" + prezzo + ", peso=" + peso + ", lunghezza=" + lunghezza
-				+ ", sigla=" + sigla +  ", getUtente()=" + getUtente() + ", getSigla()="
-				+ getSigla() + ", getFoto()=" + getFoto() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+		return "Treno [id=" + id + ", utente=" + utente + ", prezzo=" + prezzo + ", peso=" + peso + ", lunghezza="
+				+ lunghezza + ", sigla=" + sigla + ", compagnia=" + compagnia + ", vagoni=" + vagoni + "]";
 	}
+
+
+
+
+
 
 }

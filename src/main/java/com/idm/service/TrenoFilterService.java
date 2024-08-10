@@ -11,4 +11,5 @@ import com.idm.vo.TrenoVO;
 
 public interface TrenoFilterService {
 	public List<Treno> filterTreni(TrenoFilter filter);
+	List<TrenoVO> filterTreniVO(TrenoFilter filter);
 }
