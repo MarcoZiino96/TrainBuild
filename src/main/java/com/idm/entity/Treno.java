@@ -30,7 +30,7 @@ public class Treno implements Bean {
 	@OneToMany(mappedBy = "treno",cascade = CascadeType.ALL, orphanRemoval = true)
 	List<AbstractVagone> vagoni;
 	
-	@OneToMany(mappedBy = "treno",  fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "treno",  fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	List<Voto> voti; 
 
 
