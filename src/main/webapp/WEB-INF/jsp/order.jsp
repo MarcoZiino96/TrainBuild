@@ -128,6 +128,8 @@ Stile rating voto -->.star-rating {
 				<th>Peso</th>
 				<th>Prezzo</th>
 				<th>Utente</th>
+				<th> Voto</th>
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -139,6 +141,7 @@ Stile rating voto -->.star-rating {
 					<td>${treno.peso}</td>
 					<td>${treno.prezzo}</td>
 					<td>${treno.utente.username}</td>
+				    <td>${treno.mediaVoti}</td>
 
 
 					<td><form:form modelAttribute="voto" action="voto"

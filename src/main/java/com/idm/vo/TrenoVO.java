@@ -14,7 +14,14 @@ public class TrenoVO {
 	private double lunghezza;
 	private String sigla;
 	private Factory compagnia;
+	private double mediaVoti;
 	
+	public double getMediaVoti() {
+		return mediaVoti;
+	}
+	public void setMediaVoti(double mediaVoti) {
+		this.mediaVoti = mediaVoti;
+	}
 	public Integer getId() {
 		return id;
 	}
