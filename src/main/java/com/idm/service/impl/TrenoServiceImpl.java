@@ -47,8 +47,14 @@ public class TrenoServiceImpl implements TrenoService {
 	private ItaloBuilder italoBuilder;
 	@Autowired
 	private TreNordBuilder treNordBuilder; 
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 859098ea02c0c0dc819e9f349dc1a788af7420f8
 	@Autowired     
 	private TrenoFilterService trenoFilterService;
+
+
 
 	public Treno find(Integer id) {
 		Treno trenoFind = trenoDao.find(id)
@@ -195,6 +201,9 @@ public class TrenoServiceImpl implements TrenoService {
 	        		.mapToInt(Voto::getVoto)
 	        		.average()
 	        		.orElse(0.0);	
+=======
+>>>>>>> 859098ea02c0c0dc819e9f349dc1a788af7420f8
+    		TrenoVO vo = new TrenoVO();
             vo.setId(treno.getId());
             vo.setPrezzo(treno.getPrezzo());
             vo.setPeso(treno.getPeso());
@@ -202,9 +211,11 @@ public class TrenoServiceImpl implements TrenoService {
             vo.setSigla(treno.getSigla());
             vo.setCompagnia(treno.getCompagnia());
             vo.setUtente(treno.getUtente());
-
+<<<<<<< HEAD
             vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
             
+=======
+>>>>>>> 859098ea02c0c0dc819e9f349dc1a788af7420f8
     	
             trenoVOs.add(vo);
     	}    	
@@ -222,8 +233,18 @@ public class TrenoServiceImpl implements TrenoService {
             default:
                 throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
         }
-
+<<<<<<< HEAD
     }    
 }
     	
  
+=======
+    }
+
+    
+    
+}
+    	
+ 
+
+>>>>>>> 859098ea02c0c0dc819e9f349dc1a788af7420f8
