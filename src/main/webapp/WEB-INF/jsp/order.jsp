@@ -6,7 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista Treni</title>
-    <style>
+    
+     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/order.css"> 
+  <!--   <style>
     @charset "UTF-8";
 
 body {
@@ -18,16 +20,18 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: b2e3fb;
 }
 
 th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+	margin-top: 20px;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #E6E6FA;
 }
 
 tr:nth-child(even) {
@@ -49,7 +53,7 @@ padding-top: 40px;
 text-align: center;
 margin: 30px;
 }
-    </style>
+    </style> -->
 </head>
 
 <body>
