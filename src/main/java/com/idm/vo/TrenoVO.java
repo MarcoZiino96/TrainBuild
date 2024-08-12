@@ -6,16 +6,19 @@ import com.idm.entity.Factory;
 import com.idm.entity.Utente;
 
 public class TrenoVO {
-	
+
 	private Integer id;
+
 	private Utente utente;
 	private double prezzo;
 	private double peso;
 	private double lunghezza;
 	private String sigla;
 	private Factory compagnia;
+
 	private double mediaVoti;
-	
+
+
 	public double getMediaVoti() {
 		return mediaVoti;
 	}
@@ -28,7 +31,7 @@ public class TrenoVO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public Utente getUtente() {
 		return utente;
 	}
@@ -67,10 +70,10 @@ public class TrenoVO {
 	}
 
 
-	
-	
-	
 
-	
-	
+
+
+
+
+
 }

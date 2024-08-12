@@ -53,7 +53,8 @@ public class TrenoServiceImpl implements TrenoService {
 
 
 	public Treno find(Integer id) {
-		Treno trenoFind = trenoDao.find(id);
+		Treno trenoFind = trenoDao.find(id)
+;
 		return trenoFind;
 	}
 
@@ -101,8 +102,9 @@ public class TrenoServiceImpl implements TrenoService {
 	        trenoSaved.setSigla(string);
 	        trenoSaved.setUtente(utente);
 	        trenoSaved.setCompagnia(compagnia);
+
 	    
-	        update(trenoSaved);
+	        update(trenoSaved, trenoSaved.getId());
 
 	    } catch (RuntimeException e) {
 	        
@@ -148,7 +150,7 @@ public class TrenoServiceImpl implements TrenoService {
 		    return treno;
 	}
 
-	public Treno update(Treno treno) {
+	public Treno update(Treno treno,int id) {
 
 		Treno treno1 = find(treno.getId());
 		treno1.setSigla(treno.getSigla());
@@ -170,7 +172,8 @@ public class TrenoServiceImpl implements TrenoService {
 
 	public void delete(Integer id) {
 
-		trenoDao.delete(id);
+		trenoDao.delete(id)
+;
 	}
 
 	public List<Treno> retrive() {
@@ -220,10 +223,7 @@ public class TrenoServiceImpl implements TrenoService {
             default:
                 throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
         }
-    }
-
-    
-    
+    }    
 }
     	
  

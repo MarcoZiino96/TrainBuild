@@ -1,7 +1,6 @@
 package com.idm.dao;
 
 import java.util.List;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,8 +9,8 @@ import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
 import com.idm.vo.TrenoVO;
 
-
 public interface TrenoDao {
+
 
 	public Treno find(Integer id);
 	
