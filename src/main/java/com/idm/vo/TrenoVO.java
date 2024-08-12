@@ -25,6 +25,7 @@ public class TrenoVO {
 	public void setMediaVoti(double mediaVoti) {
 		this.mediaVoti = mediaVoti;
 	}
+
 	public Integer getId() {
 		return id;
 	}
