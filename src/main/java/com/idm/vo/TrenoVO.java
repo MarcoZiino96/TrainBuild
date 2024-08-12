@@ -18,7 +18,7 @@ public class TrenoVO {
 
 	private double mediaVoti;
 
-<<<<<<< HEAD
+
 
 	public double getMediaVoti() {
 		return mediaVoti;
@@ -26,8 +26,7 @@ public class TrenoVO {
 	public void setMediaVoti(double mediaVoti) {
 		this.mediaVoti = mediaVoti;
 	}
-=======
->>>>>>> 859098ea02c0c0dc819e9f349dc1a788af7420f8
+
 	public Integer getId() {
 		return id;
 	}
@@ -71,12 +70,5 @@ public class TrenoVO {
 	public void setCompagnia(Factory compagnia) {
 		this.compagnia = compagnia;
 	}
-
-
-
-
-
-
-
 
 }

@@ -8,10 +8,6 @@ import com.idm.dto.TrenoDTO;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
 import com.idm.vo.TrenoVO;
-<<<<<<< HEAD
-=======
-
->>>>>>> 859098ea02c0c0dc819e9f349dc1a788af7420f8
 
 public interface TrenoDao {
 

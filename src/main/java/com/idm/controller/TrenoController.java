@@ -1,4 +1,5 @@
 package com.idm.controller;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.idm.converter.UtenteConverter;
-import com.idm.dto.UtenteDTO;
 import com.idm.entity.Factory;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
@@ -20,12 +19,11 @@ import com.idm.exception.CargoException;
 import com.idm.exception.LocomotivaException;
 import com.idm.exception.RistoranteException;
 import com.idm.exception.StringaException;
+import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
 import com.idm.service.UtenteService;
 import com.idm.service.VotoService;
-import com.idm.service.impl.TrenoServiceImpl;
 import com.idm.vo.TrenoVO;
-import com.idm.vo.UtenteVO;
 import com.idm.vo.VotoVO;
 
 
@@ -81,97 +79,7 @@ public class TrenoController {
 		Utente utente = (Utente) session.getAttribute("utente");
 		if (utente == null) {
 			model.addAttribute("errorMessage", "Devi essere loggato per eliminare un treno.");
-	@Controller	
-	public class TrenoController {
-		
-		@GetMapping("/home")
-		public String showHome(@ModelAttribute("treno") TrenoVO trenoVo,HttpSession session, Model model){
-			Utente utente = (Utente) session.getAttribute("utente");
-			model.addAttribute("utente", utente);
 			return "home";
-		}
-		
-		
-		@GetMapping("/filter")
-		public String filter(
-		    @RequestParam(name = "lunghezzaMin", required = false) Integer lunghezzaMin,
-		    @RequestParam(name = "lunghezzaMax", required = false) Integer lunghezzaMax,
-		    @RequestParam(name = "prezzoMin", required = false) Integer prezzoMin,
-		    @RequestParam(name = "prezzoMax", required = false) Integer prezzoMax,
-		    @RequestParam(name = "pesoMin", required = false) Integer pesoMin,
-		    @RequestParam(name = "pesoMax", required = false) Integer pesoMax,
-		    @RequestParam(name = "siglaContains", required = false) String siglaContains,
-		    @RequestParam(name = "utente", required = false) String utenteStr,
-		    Model model) {
-
-		    TrenoFilter filter = new TrenoFilter();
-
-		    // Controlla e imposta i parametri
-		    if (utenteStr != null && !utenteStr.isEmpty()) {
-		        Utente utente = utenteService.findByUsername(utenteStr);
-		        if (utente == null) {
-		            model.addAttribute("error", "Nessun utente trovato con l'username fornito.");
-		            return "filter"; 
-		        } else {
-		            filter.setUtenteIds(Collections.singletonList(utente.getId()));
-		        }
-		    }
-
-		    if (lunghezzaMin != null && lunghezzaMin >= 0) {
-		        filter.setLunghezzaMin(lunghezzaMin);
-		    }
-		    if (lunghezzaMax != null && lunghezzaMax >= 0) {
-		        filter.setLunghezzaMax(lunghezzaMax);
-		    }
-		    if (prezzoMin != null && prezzoMin >= 0) {
-		        filter.setPrezzoMin(prezzoMin);
-		    }
-		    if (prezzoMax != null && prezzoMax >= 0) {
-		        filter.setPrezzoMax(prezzoMax);
-		    }
-		    if (pesoMin != null && pesoMin >= 0) {
-		        filter.setPesoMin(pesoMin);
-		    }
-		    if (pesoMax != null && pesoMax >= 0) {
-		        filter.setPesoMax(pesoMax);
-		    }
-		    if (siglaContains != null && !siglaContains.isEmpty()) {
-		        filter.setSiglaContains(siglaContains);
-		    }
-
-		    if (prezzoMin != null && prezzoMax != null && prezzoMin > prezzoMax) {
-		        model.addAttribute("error", "Il prezzo minimo non può essere maggiore del prezzo massimo.");
-		        return "filter"; 
-		    }
-		    if (pesoMin != null && pesoMax != null && pesoMin > pesoMax) {
-		        model.addAttribute("error", "Il peso minimo non può essere maggiore del peso massimo.");
-		        return "filter"; 
-		    }
-		    if (lunghezzaMin != null && lunghezzaMax != null && lunghezzaMin > lunghezzaMax) {
-		        model.addAttribute("error", "La lunghezza minima non può essere maggiore della lunghezza massima.");
-		        return "filter"; 
-		    }
-
-		    List<TrenoVO> treni = trenoFilterService.filterTreniVO(filter);
-		    if (siglaContains != null && !siglaContains.isEmpty() && treni.isEmpty()) {
-		        model.addAttribute("error", "Nessun treno trovato con la sigla specificata.");
-		    } else {
-		        model.addAttribute("treni", treni);
-		    }
-
-		    return "filter"; 
-		}
-
-	}
-
-		    List<TrenoVO> treni = trenoFilterService.filterTreniVO(filter);
-		    if (siglaContains != null && !siglaContains.isEmpty() && treni.isEmpty()) {
-		        model.addAttribute("error", "Nessun treno trovato con la sigla specificata.");
-		    } else {
-		        model.addAttribute("treni", treni);
-		    }
-
-		    return "filter"; 
 		}
 
 		try {
@@ -189,6 +97,7 @@ public class TrenoController {
 			return "order";
 		}
 	}
+
 
 	@PostMapping("/modificaTreno")
 	public String modificaTreno(@RequestParam Integer trenoId, @RequestParam String sigla, @RequestParam Factory compagnia, HttpSession session, Model model) {
@@ -314,6 +223,76 @@ public class TrenoController {
 				
 			}	
 			return "redirect:/order";
+	}
+	
+	@GetMapping("/filter")
+	public String filter(
+	    @RequestParam(name = "lunghezzaMin", required = false) Integer lunghezzaMin,
+	    @RequestParam(name = "lunghezzaMax", required = false) Integer lunghezzaMax,
+	    @RequestParam(name = "prezzoMin", required = false) Integer prezzoMin,
+	    @RequestParam(name = "prezzoMax", required = false) Integer prezzoMax,
+	    @RequestParam(name = "pesoMin", required = false) Integer pesoMin,
+	    @RequestParam(name = "pesoMax", required = false) Integer pesoMax,
+	    @RequestParam(name = "siglaContains", required = false) String siglaContains,
+	    @RequestParam(name = "utente", required = false) String utenteStr,
+	    Model model) {
+
+	    TrenoFilter filter = new TrenoFilter();
+
+	    // Controlla e imposta i parametri
+	    if (utenteStr != null && !utenteStr.isEmpty()) {
+	        Utente utente = utenteService.findByUsername(utenteStr);
+	        if (utente == null) {
+	            model.addAttribute("error", "Nessun utente trovato con l'username fornito.");
+	            return "filter"; 
+	        } else {
+	            filter.setUtenteIds(Collections.singletonList(utente.getId()));
+	        }
+	    }
+
+	    if (lunghezzaMin != null && lunghezzaMin >= 0) {
+	        filter.setLunghezzaMin(lunghezzaMin);
+	    }
+	    if (lunghezzaMax != null && lunghezzaMax >= 0) {
+	        filter.setLunghezzaMax(lunghezzaMax);
+	    }
+	    if (prezzoMin != null && prezzoMin >= 0) {
+	        filter.setPrezzoMin(prezzoMin);
+	    }
+	    if (prezzoMax != null && prezzoMax >= 0) {
+	        filter.setPrezzoMax(prezzoMax);
+	    }
+	    if (pesoMin != null && pesoMin >= 0) {
+	        filter.setPesoMin(pesoMin);
+	    }
+	    if (pesoMax != null && pesoMax >= 0) {
+	        filter.setPesoMax(pesoMax);
+	    }
+	    if (siglaContains != null && !siglaContains.isEmpty()) {
+	        filter.setSiglaContains(siglaContains);
+	    }
+
+	    if (prezzoMin != null && prezzoMax != null && prezzoMin > prezzoMax) {
+	        model.addAttribute("error", "Il prezzo minimo non può essere maggiore del prezzo massimo.");
+	        return "filter"; 
+	    }
+	    if (pesoMin != null && pesoMax != null && pesoMin > pesoMax) {
+	        model.addAttribute("error", "Il peso minimo non può essere maggiore del peso massimo.");
+	        return "filter"; 
+	    }
+	    if (lunghezzaMin != null && lunghezzaMax != null && lunghezzaMin > lunghezzaMax) {
+	        model.addAttribute("error", "La lunghezza minima non può essere maggiore della lunghezza massima.");
+	        return "filter"; 
+	    }
+
+	    List<TrenoVO> treni = trenoFilterService.filterTreniVO(filter);
+	    if (siglaContains != null && !siglaContains.isEmpty() && treni.isEmpty()) {
+	        model.addAttribute("error", "Nessun treno trovato con la sigla specificata.");
+	    } else {
+	        model.addAttribute("treni", treni);
+	    }
+
+	    return "filter"; 
 	}
 }
 

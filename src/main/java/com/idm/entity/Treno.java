@@ -63,18 +63,10 @@ public class Treno implements Bean {
 			this.peso = peso;
 			this.lunghezza = lunghezza;
 			this.sigla = sigla;
-<<<<<<< HEAD
-=======
-
->>>>>>> 859098ea02c0c0dc819e9f349dc1a788af7420f8
 		}
 	
 	 public Treno(Factory compagnia, String sigla, Double lunghezza, Double peso, Double prezzo, Utente utente ) {
 		 this.compagnia = compagnia;
-<<<<<<< HEAD
-=======
-
->>>>>>> 859098ea02c0c0dc819e9f349dc1a788af7420f8
 		 this.sigla = sigla;
 		 this.lunghezza = lunghezza;
 		 this.peso = peso;
@@ -161,27 +153,11 @@ public void getId(int id) {
 	public void setPrezzo(Double prezzo) {
 		this.prezzo = prezzo;
 	}
-
-<<<<<<< HEAD
-
-
 	@Override
 	public String toString() {
 		return "Treno [utente=" + utente + ", prezzo=" + prezzo + ", peso=" + peso + ", lunghezza=" + lunghezza
 				+ ", sigla=" + sigla +  ", getUtente()=" + getUtente() + ", getSigla()="
 				+ getSigla() +  ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
-=======
-	@Override
-	public String toString() {
-		return "Treno [id=" + id + ", utente=" + utente + ", prezzo=" + prezzo + ", peso=" + peso + ", lunghezza="
-				+ lunghezza + ", sigla=" + sigla + ", compagnia=" + compagnia + ", vagoni=" + vagoni + "]";
->>>>>>> 859098ea02c0c0dc819e9f349dc1a788af7420f8
-	}
-
-
-
-
-
-
+}
 }

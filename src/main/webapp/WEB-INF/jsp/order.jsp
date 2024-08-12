@@ -8,11 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Lista Treni</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/order.css"> 
 <style>
-    
-
-  
+@charset "UTF-8";
 
 body {
 	font-family: Arial, sans-serif;
@@ -29,11 +26,10 @@ th, td {
 	border: 1px solid #dddddd;
 	text-align: left;
 	padding: 8px;
-	margin-top: 20px;
 }
 
 th {
-	background-color: #E6E6FA;
+	background-color: #f2f2f2;
 }
 
 tr:nth-child(even) {
@@ -190,7 +186,6 @@ Stile rating voto -->.star-rating {
 			<p>${successMessage}</p>
 		</div>
 	</c:if>
-
 
 	<table>
 		<thead>
