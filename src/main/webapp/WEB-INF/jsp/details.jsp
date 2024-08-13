@@ -23,9 +23,10 @@
 }
 
 <!--
-Stile rating voto -->.star-rating {
+Stile rating voto -->
+.star-rating {
 	display: flex;
-	direction: ltr;
+	direction: rtl;
 }
 
 .star-rating input {
@@ -46,10 +47,8 @@ Stile rating voto -->.star-rating {
 	color: gold;
 }
 
-.star-rating input:checked+label, .star-rating input:checked+label ~
-	label {
-	color: gold;
-}
+
+
 
 .action-buttons {
 	display: flex;
@@ -175,11 +174,11 @@ Stile rating voto -->.star-rating {
 	function confermaEliminazione() {
 		return confirm("Sei sicuro di voler eliminare questo treno?");
 	}
-	
+
 	function toggleForm() {
-        var form = document.getElementById("modificaTrenoForm");
-        form.classList.toggle("hidden");
-    }
+		var form = document.getElementById("modificaTrenoForm");
+		form.classList.toggle("hidden");
+	}
 </script>
 </head>
 <body>
@@ -206,6 +205,33 @@ Stile rating voto -->.star-rating {
 			<div class="property">
 				<label>Utente:</label> <span>${utente.username}</span>
 			</div>
+			<div class="boxVoto">
+				<form:form modelAttribute="voto" action="voto" method="post">
+					<form:hidden path="id" />
+					<form:hidden path="trenoId" value="${treno.id}" />
+					<form:hidden path="utenteId" value="${sessionScope.utente.id}" />
+
+					<div class="star-rating">
+
+						<form:radiobutton path="voto" id="star5-${treno.id}" value="5" />
+						<label for="star5-${treno.id}" title="5 stelle">&#9733;</label>
+
+						<form:radiobutton path="voto" id="star4-${treno.id}" value="4" />
+						<label for="star4-${treno.id}" title="4 stelle">&#9733;</label>
+
+						<form:radiobutton path="voto" id="star3-${treno.id}" value="3" />
+						<label for="star3-${treno.id}" title="3 stelle">&#9733;</label>
+
+						<form:radiobutton path="voto" id="star2-${treno.id}" value="2" />
+						<label for="star2-${treno.id}" title="2 stelle">&#9733;</label>
+
+						<form:radiobutton path="voto" id="star1-${treno.id}" value="1" />
+						<label for="star1-${treno.id}" title="1 stella">&#9733;</label>
+
+					</div>
+					<button type="submit">Invia</button>
+				</form:form>
+			</div>
 			<div class="property">
 				<c:if test="${treno.utente.id == utente.id}">
 					<div class="action-buttons delete">
@@ -224,11 +250,13 @@ Stile rating voto -->.star-rating {
 				</c:if>
 
 			</div>
+
 		</div>
 	</div>
 
 	<c:if test="${treno.utente.id == utente.id}">
 		<div class="form-container">
+
 			<form id="modificaTrenoForm" class="hidden" action="modificaTreno"
 				method="post">
 				<input type="hidden" name="trenoId" value="${treno.id}" />
