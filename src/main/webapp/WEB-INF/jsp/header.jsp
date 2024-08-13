@@ -14,7 +14,10 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
 	rel="stylesheet"> 
-<style>
+	
+	 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css">
+	
+<!--<style>
 :root {
 	--primary-color: #3498db;
 	--secondary-color: #2c3e50;
@@ -96,12 +99,16 @@ body {
 }
 
 span {
-	margin-right: 0.2rem;
+	margin-right: 0.7rem;
 	margin-bottom: 0.2rem;
+	margin-left: 35px; 
+	position: relative;
+    top: 8px; 
 	font-size: 0.8rem;
 	font-weight: bold;
+
 }
-</style>
+</style> -->
 </head>
 <body>
 	<header>
@@ -118,14 +125,13 @@ span {
 						</li>
 						<c:if test="${not empty sessionScope.utente}">
 
-							<li class="nav-item"><a href="order" class="nav-link">Ricerca
+							<li class="nav-item"><a href="order" class="nav-link">
 									Ordinamento </a></li>
+							<li class="nav-item"><a href="filter" class="nav-link">
+									Ricerca </a></li>
 							<li class="nav-item">
 							    <span>
-							    ${sessionScope.utente.nome}
-							    </span> 
-								<span>
-							    ${sessionScope.utente.cognome}
+							    ${sessionScope.utente.username}
 							    </span> 
 							 </li>
 							<form:form action="logout" method="post">

@@ -4,7 +4,10 @@
 <html>
 <head>
 <title>Create Train</title>
-<style>
+
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css">
+
+<!--<style>
 body {
 	font-family: Arial, sans-serif;
 	background-color: #f4f4f4;
@@ -14,7 +17,7 @@ body {
 
 .container {
 	max-width: 600px;
-	margin: 50px auto;
+	margin: 30px auto;
 	padding: 20px;
 	background-color: #fff;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -46,15 +49,13 @@ form {
 	border-radius: 5px;
 }
 
-.btn {
+.submitBtn {
 	display: inline-block;
-	padding: 10px 20px;
-	color: #fff;
-	background-color: green;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	text-decoration: none;
+	padding: 10px 20px; 
+	background-color: #4CAF50;
+    color: white;
+    border:none;
+    border-radius: 4px;
 }
 
 .btn:hover {
@@ -73,12 +74,13 @@ form {
 	display: inline-block;
 	width: 120px;
 }
-</style>
+</style> -->
 </head>
 <body>
 	<jsp:include page="header.jsp" />
+	
 	<div class="container">
-		<h2>Crea Treno</h2>
+		<h2>Crea il tuo Treno:</h2>
 
 		<c:if test="${not empty errorMessage}">
 			<div class="alert alert-danger">
@@ -126,14 +128,14 @@ form {
 		<div class="form-group">
 			<label for="compagnia">Compagnia</label> <select id="compagnia"
 				name="compagnia" required>
-				<option value="FR">Frecciarossa(FR)</option>
-				<option value="IT">Italo(IT)</option>
-				<option value="TN">Trenord(TN)</option>
+				<option value="FR">Frecciarossa (FR)</option>
+				<option value="IT">Italo (IT)</option>
+				<option value="TN">Trenord (TN)</option>
 			</select>
 		</div>
 		
 		<div class="text-center">
-		<button type="submit" class="btn btn-success">Crea Treno</button>
+		<button type="submit" class="submitBtn">Crea Treno</button>
 		</div>
 		
 		

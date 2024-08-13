@@ -8,8 +8,9 @@
 <meta charset="UTF-8">
 <title>Filtra i treni:</title>
 
-<!--  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/filter.css"> -->
-
+ <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/filter.css"> 
+ 
+<!--
 <style>
 @charset "UTF-8";
 
@@ -86,9 +87,24 @@ tr:hover {
 	background-color: #4CAF50;
     color: white;
     border:none;
+    border-radius: 4px;
 }
 
-</style> 
+.error-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+</style> -->
 
 </head>
 
@@ -101,9 +117,11 @@ tr:hover {
 	</div>
 
 
-	<c:if test="${not empty error}">
-		<div style="color: red;">${error}</div>
-	</c:if>
+   <c:if test="${not empty error}">
+        <div class="error-container">
+            <div class="error-message">${error}</div>
+        </div>
+    </c:if>
 
 
 	<div class="formFilter">

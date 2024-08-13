@@ -25,7 +25,7 @@ public class UtenteController {
 	@GetMapping("/formlogin")
 	public String login(@ModelAttribute("utente") UtenteVOLogin utenteVoLogin, Model model ) {
 		
-		model.addAttribute("message1", "benvenuto nel login");
+		model.addAttribute("message1", "Benvenuto nel login");
 		return "formlogin";
 	}
 

@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <title>Lista Treni</title>
     
-     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/order.css"> 
-  <!--   <style>
+   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/order.css">
+   <!--<style>
     @charset "UTF-8";
 
 body {
@@ -20,26 +20,34 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: b2e3fb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-	border: 1px solid #dddddd;
+	border: 1px solid #666666; 
 	text-align: left;
-	padding: 8px;
+	padding: 12px;
 	margin-top: 20px;
 }
 
 th {
     background-color: #E6E6FA;
+	color: #333333;
+	text-transform: uppercase; 
+    font-weight: bold;
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #E6E6FA;
+}
+
+tr:nth-child(odd) {
+    background-color: #F8F8FF; 
 }
 
 tr:hover {
     background-color: #f1f1f1;
+	background-color: rgba(230, 230, 250, 0.2);
 }
 .titleOrder{
 text-align: center;
@@ -50,9 +58,19 @@ padding-top: 40px;
 }
 
 .formOrder{
-text-align: center;
-margin: 30px;
+	display: flex;
+	justify-content: center; 
+	gap: 50px; 
+	flex-wrap: wrap;
+	margin: 30px;
 }
+
+.button {
+	padding: 10px 20px; 
+	background-color: #4CAF50;
+    color: white;
+    border:none;
+    border-radius: 4px;
     </style> -->
 </head>
 
@@ -61,7 +79,7 @@ margin: 30px;
     <jsp:include page="header.jsp" />
    
    <div class="titleOrder"> 
-    <h2>Ricerca un treno con l'ordinamento che preferisci</h2>
+    <h2>Ordina i treni secondo l'ordinamento che preferisci</h2>
    </div> 
         
        <form class="formOrder">
@@ -80,7 +98,7 @@ margin: 30px;
         <option value="DESC">Decrescente</option>
     </select>
     
-        <button type="submit">Cerca</button>
+        <button class = "button" type="submit">Cerca</button>
     </form>
     
     
@@ -108,8 +126,6 @@ margin: 30px;
         </c:forEach>
     </tbody>
 </table>
-    
-
-    
+     
 </body>
 </html>
