@@ -19,6 +19,7 @@ public class TrenoVO {
 	private double mediaVoti;
 
 
+
 	public double getMediaVoti() {
 		return mediaVoti;
 	}
@@ -69,12 +70,5 @@ public class TrenoVO {
 	public void setCompagnia(Factory compagnia) {
 		this.compagnia = compagnia;
 	}
-
-
-
-
-
-
-
 
 }

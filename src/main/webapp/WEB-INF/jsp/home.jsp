@@ -9,19 +9,20 @@
 
 <!--<style>
 body {
-	font-family: Arial, sans-serif;
-	background-color: #f4f4f4;
-	margin: 0;
 	padding: 0;
+	color: white;
+	margin: 0;
 }
 
-.container {
-	max-width: 600px;
-	margin: 30px auto;
+.containerHome {
+	max-width: 50%;	
+	margin:auto;
 	padding: 20px;
-	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	font-family: Arial, sans-serif;
+	background-color: #fafafa; 
+	margin : 0;
 	border-radius: 8px;
+	color: black;	
 }
 
 h2 {
@@ -79,7 +80,8 @@ form {
 <body>
 	<jsp:include page="header.jsp" />
 	
-	<div class="container">
+	<div class="containerHome">
+		<div class="box">
 		<h2>Crea il tuo Treno:</h2>
 
 		<c:if test="${not empty errorMessage}">
@@ -118,7 +120,6 @@ form {
 			</div>
 
 		</c:if>
-	</div>
 
 	<form action="newTrain" method="post">
 		<div class="form-group">
@@ -141,38 +142,61 @@ form {
 		
 	</form>
 
-	<c:if test="${empty sessionScope.utente}">
+		<form action="newTrain" method="post">
+			<div class="form-group">
+				<label for="sigla">Sigla</label> <input type="text" id="sigla"
+					name="sigla" required>
+			</div>
+			<div class="form-group">
+				<label for="compagnia">Compagnia</label> <select id="compagnia"
+					name="compagnia" required>
+					<option value="FR">Frecciarossa(FR)</option>
+					<option value="IT">Italo(IT)</option>
+					<option value="TN">Trenord(TN)</option>
+				</select>
+			</div>
 
-		<div class="train-details form-group">
-			<h2>Dettagli Treno</h2>
-			<div class="info">
-				<strong>Sigla:</strong> ${treno.sigla}
+			<div class="text-center">
+				<button type="submit" class="btn btn-success">Crea Treno</button>
 			</div>
-			<div class="info">
-				<strong>Compagnia:</strong> ${treno.compagnia}
-			</div>
-			<div class="info">
-				<strong>Prezzo(€):</strong> ${treno.prezzo}
-			</div>
-			<div class="info">
-				<strong>Peso(Kg):</strong> ${treno.peso}
-			</div>
-			<div class="info">
-				<strong>lunghezza(m):</strong> ${treno.lunghezza}
-			</div>
-			<div class="info">
-				<strong>Utente:</strong>
-				<c:choose>
-					<c:when test="${treno.utente != null}">
+
+
+		</form>
+
+		<c:if test="${empty sessionScope.utente}">
+
+			<div class="train-details form-group">
+				<h2>Dettagli Treno</h2>
+				<div class="info">
+					<strong>Sigla:</strong> ${treno.sigla}
+				</div>
+				<div class="info">
+					<strong>Compagnia:</strong> ${treno.compagnia}
+				</div>
+				<div class="info">
+					<strong>Prezzo(€):</strong> ${treno.prezzo}
+				</div>
+				<div class="info">
+					<strong>Peso(Kg):</strong> ${treno.peso}
+				</div>
+				<div class="info">
+					<strong>lunghezza(m):</strong> ${treno.lunghezza}
+				</div>
+				<div class="info">
+					<strong>Utente:</strong>
+					<c:choose>
+						<c:when test="${treno.utente != null}">
                             ${treno.utente.nome} ${treno.utente.cognome}
                         </c:when>
-					<c:otherwise>
+						<c:otherwise>
                             Nessun utente associato
                         </c:otherwise>
-				</c:choose>
+					</c:choose>
+				</div>
 			</div>
-		</div>
 
-	</c:if>
+		</c:if>
+	</div>
+	</div>
 </body>
 </html>

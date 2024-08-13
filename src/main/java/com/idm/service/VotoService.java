@@ -12,5 +12,6 @@ public interface VotoService {
 	public  Voto updateVoto(Voto voto, int id);
 	public  void deleteVoto(int id);
 	public Voto votoEstistente(Integer utente, Integer treno);
+	public Voto salvaOUpdateVoto(VotoVO votoVo);
 
 }

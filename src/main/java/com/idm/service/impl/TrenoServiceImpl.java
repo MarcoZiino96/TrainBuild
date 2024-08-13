@@ -50,6 +50,8 @@ public class TrenoServiceImpl implements TrenoService {
 	@Autowired     
 	private TrenoFilterService trenoFilterService;
 
+
+
 	public Treno find(Integer id) {
 		Treno trenoFind = trenoDao.find(id)
 ;
@@ -189,13 +191,18 @@ public class TrenoServiceImpl implements TrenoService {
     	List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
     	List<TrenoVO> trenoVOs = new ArrayList<>();
     	for (Treno treno : u) {
+<<<<<<< HEAD
 
     		TrenoVO vo = new TrenoVO();
+=======
+>>>>>>> c5c273009f678313c0d5e265b9b5dc9090f2a8cc
     		
     		double mediaVoti = treno.getVoti().stream()
 	        		.mapToInt(Voto::getVoto)
 	        		.average()
 	        		.orElse(0.0);	
+
+    		TrenoVO vo = new TrenoVO();
             vo.setId(treno.getId());
             vo.setPrezzo(treno.getPrezzo());
             vo.setPeso(treno.getPeso());
@@ -203,9 +210,8 @@ public class TrenoServiceImpl implements TrenoService {
             vo.setSigla(treno.getSigla());
             vo.setCompagnia(treno.getCompagnia());
             vo.setUtente(treno.getUtente());
-
             vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
-            
+           
     	
             trenoVOs.add(vo);
     	}    	
@@ -228,3 +234,4 @@ public class TrenoServiceImpl implements TrenoService {
 }
     	
  
+

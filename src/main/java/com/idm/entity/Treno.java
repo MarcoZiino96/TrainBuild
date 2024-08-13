@@ -63,12 +63,10 @@ public class Treno implements Bean {
 			this.peso = peso;
 			this.lunghezza = lunghezza;
 			this.sigla = sigla;
-
 		}
 	
 	 public Treno(Factory compagnia, String sigla, Double lunghezza, Double peso, Double prezzo, Utente utente ) {
 		 this.compagnia = compagnia;
-
 		 this.sigla = sigla;
 		 this.lunghezza = lunghezza;
 		 this.peso = peso;
@@ -165,6 +163,4 @@ public void getId(int id) {
 				+ getSigla() +  ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
 	}
-
-
 }

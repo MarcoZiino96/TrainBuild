@@ -1,4 +1,5 @@
 package com.idm.controller;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.idm.converter.UtenteConverter;
-import com.idm.dto.UtenteDTO;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.idm.entity.Factory;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
@@ -24,20 +25,16 @@ import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
 import com.idm.service.UtenteService;
 import com.idm.service.VotoService;
-import com.idm.service.impl.TrenoServiceImpl;
 import com.idm.vo.TrenoVO;
-import com.idm.vo.UtenteVO;
 import com.idm.vo.VotoVO;
+
 
 @Controller	
 public class TrenoController {
 
 	@Autowired
 	private TrenoService trenoService;
-	
-	@Autowired
-	private VotoService votoService;
-	
+		
 	@Autowired
 	private TrenoFilterService trenoFilterService;
 	
@@ -50,13 +47,44 @@ public class TrenoController {
 		model.addAttribute("utente", utente);
 		return "home";
 	}
+	
+	@GetMapping("/details")
+	public String showDatails(HttpSession session, @ModelAttribute("voto") VotoVO votoVo, Model model){
+	    Utente utente = (Utente) session.getAttribute("utente");
+	    TrenoVO trenoVo = (TrenoVO) session.getAttribute("treno");
+	    model.addAttribute("utente", utente);
+	    model.addAttribute("treno", trenoVo);
+	    return "details";
+	}
+	
+	@GetMapping("/order")
+	public String ordina(
+			@RequestParam(required = false) String ordinamento,
+			@RequestParam(required = false) String direction,
+			Model model) {
+
+		if (ordinamento == null || ordinamento.isEmpty()) {
+			ordinamento = "compagnia"; 
+		}
+		if (direction == null || direction.isEmpty()) {
+			direction = "ASC"; 
+		}
+
+
+		List<TrenoVO> treni = trenoService.retriveWithOrderVO(ordinamento, direction);
+
+		model.addAttribute("treni",treni);
+		model.addAttribute("ordinamento", ordinamento); 
+		model.addAttribute("direction", direction); 
+		model.addAttribute("voto", new VotoVO());
+		return "order"; 
+	}
 
 
 	@PostMapping("/newTrain")
 	public String creaTreno(@RequestParam Factory compagnia, @RequestParam String sigla, HttpSession session, Model model) {
 		Utente utente = (Utente) session.getAttribute("utente");
 		Treno treno;
-
 		try {
 			if (utente == null) {
 				treno = trenoService.createTrenoProva(sigla, compagnia);
@@ -130,6 +158,16 @@ public class TrenoController {
 		return "filter"; 
 	}
 	
+	@PostMapping("/selectDetails")
+	public String selectTreno(@RequestParam("id") Integer id, HttpSession session) {
+	    Treno treno = trenoService.find(id);
+	    TrenoVO trenoVo = new TrenoVO();
+	    BeanUtils.copyProperties(treno, trenoVo);
+	    session.setAttribute("treno", trenoVo);
+	    return "redirect:/details";
+	}
+	
+	
 	@PostMapping("/eliminaTreno")
 	public String eliminaTreno(@RequestParam Integer trenoId, HttpSession session, Model model) {
 		Utente utente = (Utente) session.getAttribute("utente");
@@ -161,7 +199,6 @@ public class TrenoController {
 		Treno treno;
 
 		try {
-
 			Treno trenoAggiornato= trenoService.createTrenoProva(sigla, compagnia);
 
 			treno = trenoService.find(trenoId);

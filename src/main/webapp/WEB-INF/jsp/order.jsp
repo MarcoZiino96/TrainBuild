@@ -50,6 +50,25 @@ tr:nth-child(odd) {
 tr:hover {
 	background-color: rgba(230, 230, 250, 0.2);
 }
+
+.message {
+	text-align: center;
+	margin: 20px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	background-color: #f2f2f2;
+}
+
+.error {
+	border-color: red;
+	color: red;
+}
+
+.success {
+	border-color: green;
+	color: green;
+}
+
 .titleOrder{
 text-align: center;
 }
@@ -82,6 +101,14 @@ padding-top: 40px;
    <div class="titleOrder"> 
     <h2>Ordina i treni secondo l'ordinamento che preferisci</h2>
    </div> 
+   
+   <c:if test="${not empty successSave}">
+   	<div style="color: green;">${successSave}</div>
+   </c:if>
+
+   <c:if test="${not empty successModifica}">
+   	<div style="color: green;">${successModifica}</div>
+   </c:if>
         
        <form class="formOrder">
         <label for="ordinamento">Ordina per:</label>
@@ -102,6 +129,26 @@ padding-top: 40px;
         <button class = "button" type="submit">Cerca</button>
     </form>
     
+	<c:if test="${not empty errorMessage}">
+			<div class="message error">
+				<p>${errorMessage}</p>
+				<c:if test="${not empty errorSigla}">
+					<p>Sigla: ${errorSigla}</p>
+				</c:if>
+				<c:if test="${not empty errorSuggerimento}">
+					<p>Suggerimento: ${errorSuggerimento}</p>
+				</c:if>
+				<c:if test="${not empty errorSiglaSuggerita}">
+					<p>Sigla Suggerita: ${errorSiglaSuggerita}</p>
+				</c:if>
+			</div>
+		</c:if>
+		<c:if test="${not empty successMessage}">
+			<div class="message success">
+				<p>${successMessage}</p>
+			</div>
+		</c:if>
+
     
   <table>
     <thead>
@@ -112,6 +159,7 @@ padding-top: 40px;
             <th>Peso</th>
             <th>Prezzo</th>
             <th>Utente</th>
+			<th>Voto</th>
         </tr>
     </thead>
     <tbody>
@@ -123,6 +171,13 @@ padding-top: 40px;
                 <td>${treno.peso}</td>
                 <td>${treno.prezzo}</td>
                 <td>${treno.utente.username}</td>
+				<td>${treno.mediaVoti}</td>
+				<td>
+					<!-- Usa un form per inviare una richiesta POST -->
+											<form action="selectDetails" method="post">
+												<input type="hidden" name="id" value="${treno.id}" />
+												<button type="submit">Dettagli</button>
+											</form>
             </tr>
         </c:forEach>
     </tbody>
