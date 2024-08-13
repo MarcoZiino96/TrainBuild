@@ -7,6 +7,7 @@ import com.idm.interfaces.Bean;
 @Entity
 public class Voto implements Bean {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -53,6 +54,11 @@ public class Voto implements Bean {
 	}
 	public void setVoto(int voto) {
 		this.voto = voto;
+	}
+	
+	@Override
+	public String toString() {
+		return "Voto [id=" + id + ", utente=" + utente + ", treno=" + treno + ", voto=" + voto + "]";
 	}
 	
 	

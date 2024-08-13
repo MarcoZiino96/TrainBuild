@@ -152,13 +152,13 @@ form {
 				<strong>Compagnia:</strong> ${treno.compagnia}
 			</div>
 			<div class="info">
-				<strong>Prezzo:</strong> ${treno.prezzo}
+				<strong>Prezzo(€):</strong> ${treno.prezzo}
 			</div>
 			<div class="info">
-				<strong>Treno:</strong> ${treno.peso}
+				<strong>Peso(Kg):</strong> ${treno.peso}
 			</div>
 			<div class="info">
-				<strong>lunghezza:</strong> ${treno.lunghezza}
+				<strong>lunghezza(m):</strong> ${treno.lunghezza}
 			</div>
 			<div class="info">
 				<strong>Utente:</strong>

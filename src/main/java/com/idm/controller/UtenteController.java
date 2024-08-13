@@ -9,6 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.idm.converter.UtenteConverter;
+import com.idm.dto.UtenteDTO;
 import com.idm.entity.Utente;
 import com.idm.service.UtenteService;
 import com.idm.vo.UtenteVO;
@@ -24,7 +27,7 @@ public class UtenteController {
 
 	@GetMapping("/formlogin")
 	public String login(@ModelAttribute("utente") UtenteVOLogin utenteVoLogin, Model model ) {
-		
+
 		model.addAttribute("message1", "Benvenuto nel login");
 		return "formlogin";
 	}
@@ -35,7 +38,7 @@ public class UtenteController {
 
 		return "preRegister";
 	}
-	
+
 	@PostMapping("/postRegister")
 	public String registerUser(@Valid @ModelAttribute("utente") UtenteVO utenteVo, BindingResult bindingResult, Model model) {
 
@@ -63,6 +66,7 @@ public class UtenteController {
 		}
 
 		try {
+//			UtenteDTO u = UtenteConverter.fromVoToDto(utenteVo);
 			utenteService.createUtente(utenteVo);
 
 		} catch (Exception e) {
@@ -74,34 +78,34 @@ public class UtenteController {
 
 	@PostMapping("/formlogin")
 	public String login(@Valid @ModelAttribute("utente") UtenteVOLogin utenteVoLogin, 
-	                    BindingResult bindingResult, HttpSession session) {
+			BindingResult bindingResult, HttpSession session) {
 
-	    if (bindingResult.hasErrors()) {
-	        return "formlogin"; 
-	    }
-	    
-	    Utente utente = utenteService.findByUsername(utenteVoLogin.getUsername());
+		if (bindingResult.hasErrors()) {
+			return "formlogin"; 
+		}
 
-	    if (utente == null) {
-	        bindingResult.rejectValue("username", "error.username", "L'username non esiste");
-	        return "formlogin";
-	    }
-	    
-	    if (!utente.getPassword().equals(utenteVoLogin.getPassword())) {
-	        bindingResult.rejectValue("password", "error.password", "Password errata");
-	        return "formlogin";
-	    }
+		Utente utente = utenteService.findByUsername(utenteVoLogin.getUsername());
 
-	   try {
-		   session.setAttribute("utente", utente);
-		    
-	   }catch (Exception e) {
-		   System.out.println("Errore durante l'impostazione della sessione: " + e.getMessage());
+		if (utente == null) {
+			bindingResult.rejectValue("username", "error.username", "L'username non esiste");
+			return "formlogin";
+		}
+
+		if (!utente.getPassword().equals(utenteVoLogin.getPassword())) {
+			bindingResult.rejectValue("password", "error.password", "Password errata");
+			return "formlogin";
+		}
+
+		try {
+			session.setAttribute("utente", utente);
+
+		}catch (Exception e) {
+			System.out.println("Errore durante l'impostazione della sessione: " + e.getMessage());
 			return "preRegister";
 		}
 
-	   return "home";
-	    
+		return "home";
+
 	}
 
 
@@ -115,7 +119,7 @@ public class UtenteController {
 	public String showHeader(UtenteVOLogin utenteVo) {
 		return "header";
 	}
-	
+
 }
 
 

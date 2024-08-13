@@ -1,19 +1,21 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Lista Treni</title>
+<meta charset="UTF-8">
+<title>Lista Treni</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/order.css"> 
+<!--<style>
     
-   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/order.css">
-   <!--<style>
     @charset "UTF-8";
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+	font-family: Arial, sans-serif;
+	margin: 20px;
 }
 
 table {
@@ -46,7 +48,6 @@ tr:nth-child(odd) {
 }
 
 tr:hover {
-    background-color: #f1f1f1;
 	background-color: rgba(230, 230, 250, 0.2);
 }
 .titleOrder{

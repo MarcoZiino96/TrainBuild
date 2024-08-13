@@ -1,26 +1,35 @@
 package com.idm.dto;
 
 public class VotoDTO {
-	private  Integer utenteId;
+	
+	private Integer id;
+	
+	private  TrenoDTO treno;
 
-	private  Integer trenoId;
+	private  UtenteDTO utente;
 
 	private Integer voto;
 
-	public Integer getUtenteId() {
-		return utenteId;
+	public TrenoDTO getTreno() {
+		return treno;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public void setUtenteId(Integer utenteId) {
-		this.utenteId = utenteId;
+	public void setTreno(TrenoDTO treno) {
+		this.treno = treno;
 	}
 
-	public Integer getTrenoId() {
-		return trenoId;
+	public UtenteDTO getUtente() {
+		return utente;
 	}
 
-	public void setTrenoId(Integer trenoId) {
-		this.trenoId = trenoId;
+	public void setUtente(UtenteDTO utente) {
+		this.utente = utente;
 	}
 
 	public Integer getVoto() {
@@ -30,5 +39,7 @@ public class VotoDTO {
 	public void setVoto(Integer voto) {
 		this.voto = voto;
 	}
+
+	
 
 }

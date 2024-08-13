@@ -1,17 +1,27 @@
 package com.idm.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.idm.dao.VotoDao;
+import com.idm.entity.Treno;
+import com.idm.entity.Utente;
 import com.idm.entity.Voto;
+import com.idm.vo.VotoVO;
+import com.mysql.cj.Query;
+
+
 
 @Component
 public class VotoDaoImpl extends DaoImpl implements VotoDao{
-	
+
 	@PersistenceContext
 	private EntityManager manager;
 
@@ -22,11 +32,11 @@ public class VotoDaoImpl extends DaoImpl implements VotoDao{
 		manager.persist(v);
 		return v;
 	}
-	
+
 	@Override
 	@Transactional
-	public void update(Voto v) {
-		manager.merge(v);
+	public Voto update(Voto v) {
+		return manager.merge(v);
 	}
 
 	@Override
@@ -41,5 +51,18 @@ public class VotoDaoImpl extends DaoImpl implements VotoDao{
 	@Override
 	public Voto find(Integer id) {
 		return manager.find(Voto.class, id );
+	}
+	
+	@Override
+	public Voto votoEsistente(Integer utente, Integer treno) {
+		try {
+			return manager.createQuery("SELECT v FROM Voto v WHERE v.utente.id = :utenteId AND v.treno.id = :trenoId", Voto.class)
+					.setParameter("utenteId", utente)
+					.setParameter("trenoId", treno)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null; 
+		}
+
 	}
 }

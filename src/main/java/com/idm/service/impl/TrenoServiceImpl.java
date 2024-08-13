@@ -21,6 +21,7 @@ import com.idm.entity.TreNordBuilder;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
+import com.idm.entity.Voto;
 import com.idm.exception.CargoException;
 import com.idm.exception.LocomotivaException;
 import com.idm.exception.RistoranteException;
@@ -46,14 +47,12 @@ public class TrenoServiceImpl implements TrenoService {
 	private ItaloBuilder italoBuilder;
 	@Autowired
 	private TreNordBuilder treNordBuilder; 
- 
 	@Autowired     
 	private TrenoFilterService trenoFilterService;
 
-
-
 	public Treno find(Integer id) {
-		Treno trenoFind = trenoDao.find(id);
+		Treno trenoFind = trenoDao.find(id)
+;
 		return trenoFind;
 	}
 
@@ -92,6 +91,8 @@ public class TrenoServiceImpl implements TrenoService {
 	        double pesoTreno = treno.getVagoni().stream()
 	                .mapToDouble(AbstractVagone::getPeso) 
 	                .sum();
+	        
+	        
 
 	        trenoSaved.setPrezzo(prezzoTreno);
 	        trenoSaved.setLunghezza(lunghezzaTreno);
@@ -100,8 +101,8 @@ public class TrenoServiceImpl implements TrenoService {
 	        trenoSaved.setUtente(utente);
 	        trenoSaved.setCompagnia(compagnia);
 
-	        
-	        update(trenoSaved);
+	    
+	        update(trenoSaved, trenoSaved.getId());
 
 	    } catch (RuntimeException e) {
 	        
@@ -147,7 +148,7 @@ public class TrenoServiceImpl implements TrenoService {
 		    return treno;
 	}
 
-	public Treno update(Treno treno) {
+	public Treno update(Treno treno,int id) {
 
 		Treno treno1 = find(treno.getId());
 		treno1.setSigla(treno.getSigla());
@@ -169,7 +170,8 @@ public class TrenoServiceImpl implements TrenoService {
 
 	public void delete(Integer id) {
 
-		trenoDao.delete(id);
+		trenoDao.delete(id)
+;
 	}
 
 	public List<Treno> retrive() {
@@ -180,7 +182,6 @@ public class TrenoServiceImpl implements TrenoService {
 
 	public List<Treno> retriveWithOrder(String ordine, String direction) {
 		List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
-		System.out.println(u);
 		return u;
     }
 	
@@ -188,7 +189,13 @@ public class TrenoServiceImpl implements TrenoService {
     	List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
     	List<TrenoVO> trenoVOs = new ArrayList<>();
     	for (Treno treno : u) {
+
     		TrenoVO vo = new TrenoVO();
+    		
+    		double mediaVoti = treno.getVoti().stream()
+	        		.mapToInt(Voto::getVoto)
+	        		.average()
+	        		.orElse(0.0);	
             vo.setId(treno.getId());
             vo.setPrezzo(treno.getPrezzo());
             vo.setPeso(treno.getPeso());
@@ -196,6 +203,9 @@ public class TrenoServiceImpl implements TrenoService {
             vo.setSigla(treno.getSigla());
             vo.setCompagnia(treno.getCompagnia());
             vo.setUtente(treno.getUtente());
+
+            vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
+            
     	
             trenoVOs.add(vo);
     	}    	
@@ -213,11 +223,8 @@ public class TrenoServiceImpl implements TrenoService {
             default:
                 throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
         }
-    }
 
-    
-    
+    }    
 }
     	
  
-

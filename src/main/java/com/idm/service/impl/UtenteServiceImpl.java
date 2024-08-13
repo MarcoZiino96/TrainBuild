@@ -1,19 +1,11 @@
 package com.idm.service.impl;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import com.idm.config.Beans;
-import com.idm.dao.TrenoDao;
+import com.idm.converter.UtenteConverter;
 import com.idm.dao.UtenteDao;
-import com.idm.entity.Treno;
+import com.idm.dto.UtenteDTO;
 import com.idm.entity.Utente;
 import com.idm.service.UtenteService;
 import com.idm.vo.UtenteVO;
@@ -26,44 +18,42 @@ public class UtenteServiceImpl implements UtenteService {
 
 
 	public Utente find(Integer id) {
-		Utente utenteFind = utenteDao.find(id);
-		System.out.println(utenteFind);
-		return utenteFind;
+	 return utenteDao.find(id);
+//		 UtenteConverter.fromDtoToVo(utenteFind);
 	}
 
-
-
-	public Utente createUtente(UtenteVO utenteVo) {
+	public Utente createUtente(UtenteVO utenteDto) {
 		Utente utenteNew = new Utente();
-		utenteNew.setCognome(utenteVo.getCognome());
-		utenteNew.setNome(utenteVo.getNome()); 
-		utenteNew.setEmail(utenteVo.getEmail());
-		utenteNew.setDataNascita(LocalDate.parse(utenteVo.getDataNascita())); 
-		utenteNew.setPassword(utenteVo.getPassword());
-		utenteNew.setUsername(utenteVo.getUsername());
+		utenteNew.setCognome(utenteDto.getCognome());
+		utenteNew.setNome(utenteDto.getNome()); 
+		utenteNew.setEmail(utenteDto.getEmail());
+		utenteNew.setDataNascita(LocalDate.parse(utenteDto.getDataNascita())); 
+		utenteNew.setPassword(utenteDto.getPassword());
+		utenteNew.setUsername(utenteDto.getUsername());
 
-		utenteDao.create(utenteNew);
-		return utenteNew;
+//		Utente utente = UtenteConverter.fromDtoToEntity(utenteNew);
+		return utenteDao.create(utenteNew);
+		
 	}
 
 
-	public Utente update(Utente ref,int id) {
-		Utente utente = find(id);
+	public Utente update(Utente utenteDto) {
 
-		utente.setCognome(ref.getCognome());
-		utente.setDataNascita(ref.getDataNascita());
-		utente.setEmail(ref.getEmail());
-		utente.setNome(ref.getNome());
-		utente.setUsername(ref.getUsername());
-		utente.setPassword(ref.getPassword());
+		Utente utente1 = utenteDao.find(utenteDto.getId());
 
-		utenteDao.update(utente);
-
-		return utente;
+		utente1.setCognome(utenteDto.getCognome());
+		utente1.setDataNascita(utenteDto.getDataNascita());
+		utente1.setEmail(utenteDto.getEmail());
+		utente1.setNome(utenteDto.getNome());
+		utente1.setUsername(utenteDto.getUsername());
+		utente1.setPassword(utenteDto.getPassword());
+//		UtenteConverter.fromDtoToEntity(utenteDto)
+		return utenteDao.update(utente1);	 
 	}
 
 
 	public void delete(Utente ref) {
+//		Utente utente = UtenteConverter.fromDtoToEntity(ref);
 		utenteDao.delete(ref);
 
 	}
@@ -74,31 +64,23 @@ public class UtenteServiceImpl implements UtenteService {
 
 	}
 
-	public List<Utente> retrive(){
-		List<Utente> u = utenteDao.retrive();
-		System.out.println(u);
-		return u;
-	}
-	
 	public Utente findByUsername(String username){
-		
-		return utenteDao.findByUsername(username);
-	}
-public Utente findByEmail(String email){
-		
-		return utenteDao.findByEmail(email);
+
+	return	utenteDao.findByUsername(username);
+		 
 	}
 
-	public List<Utente> searchByUsername(String userName){
-		List<Utente> u = utenteDao.searchByUsername(userName);
-		System.out.println(u);
-		return u;
+	public Utente findByEmail(String email){
+
+	return utenteDao.findByEmail(email);
+	
+		  
 	}
+
 	@Override
 	public List<Utente> getAllUsers() {
 		List<Utente> u = utenteDao.getAllUsers();
 		return u;
 	}
-
 
 }
