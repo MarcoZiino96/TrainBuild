@@ -24,14 +24,11 @@
 	--accent-color: #e74c3c;
 }
 
-body {
-	background-color: var(--background-color);
-	color: var(--text-color);
-}
-
 .navbar {
-	background-color: white;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	background-color: #2F1847;
+	color: white;
+	box-shadow: 0 2px 10px #c62e65;
+	
 }
 
 .navbar-brand img {
@@ -39,13 +36,13 @@ body {
 }
 
 .nav-link {
-	color: var(--secondary-color);
+	color: white;
 	font-weight: 500;
 	transition: color 0.3s ease;
 }
 
 .nav-link:hover, .nav-link:focus {
-	color: var(--primary-color);
+	color: #901441;
 }
 
 .navbar-toggler {

@@ -205,7 +205,6 @@ public class TrenoServiceImpl implements TrenoService {
             vo.setSigla(treno.getSigla());
             vo.setCompagnia(treno.getCompagnia());
             vo.setUtente(treno.getUtente());
-
             vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
            
     	

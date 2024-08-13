@@ -1,8 +1,11 @@
 package com.idm.service.impl;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.idm.dao.VotoDao;
+import com.idm.entity.Treno;
+import com.idm.entity.Utente;
 import com.idm.entity.Voto;
 import com.idm.service.TrenoService;
 import com.idm.service.UtenteService;
@@ -14,8 +17,14 @@ public class VotoServiceImpl implements VotoService {
 
 	@Autowired
 	private VotoDao votoDao;
-
-
+	
+	@Autowired 
+	TrenoService  trenoService;
+	
+	@Autowired 
+	UtenteService utenteService;
+	
+	
 	public  Voto findVoto(int id) {
 
 		Voto p = votoDao.find(id);
@@ -40,7 +49,6 @@ public class VotoServiceImpl implements VotoService {
 		votoDao.delete(voto.getId());	
 	}
 
-
 	@Override
 	public Voto updateVoto(Voto voto, int id) {
 		Voto vOld = findVoto(id);
@@ -56,4 +64,29 @@ public class VotoServiceImpl implements VotoService {
 	public Voto votoEstistente(Integer utente, Integer treno) {
 		return votoDao.votoEsistente(utente, treno);
 	}
+	
+	public Voto salvaOUpdateVoto(VotoVO votoVo) {
+		
+		Voto exsistingVoto = votoEstistente(votoVo.getUtenteId(), votoVo.getTrenoId());
+		Utente utente = utenteService.find(votoVo.getUtenteId());
+		Treno treno = trenoService.find(votoVo.getTrenoId());
+		Voto voto;
+			if(exsistingVoto == null){
+				 voto = new Voto();
+				voto.setUtente(utente);
+				voto.setTreno(treno);
+				BeanUtils.copyProperties(votoVo, voto, "id");
+				creaVoto(voto);		
+			}else {
+				 voto = new Voto();
+				voto.setVoto(votoVo.getVoto());
+				voto.setUtente(exsistingVoto.getUtente());  
+			    voto.setTreno(exsistingVoto.getTreno());
+			    System.out.println(voto);
+				BeanUtils.copyProperties(votoVo, voto, "id");		     
+				Voto votoUpdate = updateVoto(voto, exsistingVoto.getId());	
+			}
+			return voto;
+}
+	
 }
