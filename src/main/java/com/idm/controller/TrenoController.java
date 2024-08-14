@@ -105,28 +105,6 @@ public class TrenoController {
 		}
 	}
 	
-	@GetMapping("/order")
-	public String ordina(
-			@RequestParam(required = false) String ordinamento,
-			@RequestParam(required = false) String direction,
-			Model model) {
-
-		if (ordinamento == null || ordinamento.isEmpty()) {
-			ordinamento = "compagnia"; 
-		}
-		if (direction == null || direction.isEmpty()) {
-			direction = "ASC"; 
-		}
-
-		List<TrenoVO> treni = trenoService.retriveWithOrderVO(ordinamento, direction);
-
-		model.addAttribute("treni",treni);
-		model.addAttribute("ordinamento", ordinamento); 
-		model.addAttribute("direction", direction); 
-		return "order"; 
-	}
-
-
 	@GetMapping("/filter")
 	public String filter(
 			@RequestParam(name = "lunghezzaMin", required = false) Integer lunghezzaMin,
@@ -261,35 +239,35 @@ public class TrenoController {
 	}
 	
 
-	@PostMapping("/voto")
-	public String voto(@ModelAttribute("voto") VotoVO votoVo, Model model) {
-		
-		Voto exsistingVoto = votoService.votoEstistente(votoVo.getUtenteId(), votoVo.getTrenoId());
-		Utente utente = utenteService.find(votoVo.getUtenteId());
-		Treno treno = trenoService.find(votoVo.getTrenoId());
-			if(exsistingVoto == null){
-				Voto voto = new Voto();
-				voto.setUtente(utente);
-				voto.setTreno(treno);
-				BeanUtils.copyProperties(votoVo, voto, "id");
-				votoService.creaVoto(voto);
-				model.addAttribute("voto", voto);
-				model.addAttribute("successSave", "voto salvato con successo!!");
-				
-			}else {
-				Voto votoCopy = new Voto();
-				votoCopy.setVoto(votoVo.getVoto());
-				votoCopy.setUtente(exsistingVoto.getUtente());  
-			    votoCopy.setTreno(exsistingVoto.getTreno());
-			    System.out.println(votoCopy);
-				BeanUtils.copyProperties(votoVo, votoCopy, "id");		     
-				Voto voto = votoService.updateVoto(votoCopy, exsistingVoto.getId());
-				model.addAttribute("voto", voto );
-				model.addAttribute("successModifica", "voto modifica con successo!!");	
-				
-			}	
-			return "redirect:/order";
-	}
+//	@PostMapping("/voto")
+//	public String voto(@ModelAttribute("voto") VotoVO votoVo, Model model) {
+//		
+//		Voto exsistingVoto = votoService.votoEstistente(votoVo.getUtenteId(), votoVo.getTrenoId());
+//		Utente utente = utenteService.find(votoVo.getUtenteId());
+//		Treno treno = trenoService.find(votoVo.getTrenoId());
+//			if(exsistingVoto == null){
+//				Voto voto = new Voto();
+//				voto.setUtente(utente);
+//				voto.setTreno(treno);
+//				BeanUtils.copyProperties(votoVo, voto, "id");
+//				votoService.creaVoto(voto);
+//				model.addAttribute("voto", voto);
+//				model.addAttribute("successSave", "voto salvato con successo!!");
+//				
+//			}else {
+//				Voto votoCopy = new Voto();
+//				votoCopy.setVoto(votoVo.getVoto());
+//				votoCopy.setUtente(exsistingVoto.getUtente());  
+//			    votoCopy.setTreno(exsistingVoto.getTreno());
+//			    System.out.println(votoCopy);
+//				BeanUtils.copyProperties(votoVo, votoCopy, "id");		     
+//				Voto voto = votoService.updateVoto(votoCopy, exsistingVoto.getId());
+//				model.addAttribute("voto", voto );
+//				model.addAttribute("successModifica", "voto modifica con successo!!");	
+//				
+//			}	
+//			return "redirect:/order";
+//	}
 }
 
 
