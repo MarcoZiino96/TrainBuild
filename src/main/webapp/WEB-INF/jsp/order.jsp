@@ -57,8 +57,20 @@ tr:hover {
 	border-color: green;
 	color: green;
 }
+.hidden{
+display: none;
+}
 </style>
-
+<script>
+	function toggleOrder() {
+		var form = document.getElementById("order");
+		form.classList.toggle("hidden");
+	}
+	function toggleFilter() {
+		var form = document.getElementById("filter");
+		form.classList.toggle("hidden");
+	}
+</script>
 
 </head>
 
@@ -69,17 +81,10 @@ tr:hover {
 
 	<div class="titleOrder">
 		<h2>Ricerca un treno con l'ordinamento che preferisci</h2>
+		<button onClick="toggleOrder()">Ordina</button>
 	</div>
 
-	<c:if test="${not empty successSave}">
-		<div style="color: green;">${successSave}</div>
-	</c:if>
-
-	<c:if test="${not empty successModifica}">
-		<div style="color: green;">${successModifica}</div>
-	</c:if>
-
-	<form class="formOrder">
+	<form id="order" class="formOrder hidden">
 		<label for="ordinamento">Ordina per:</label> <select id="ordinamento"
 			name="ordinamento">
 			<option value="compagnia">Compagnia</option>
@@ -96,25 +101,42 @@ tr:hover {
 		<button type="submit">Cerca</button>
 	</form>
 
-	<c:if test="${not empty errorMessage}">
-		<div class="message error">
-			<p>${errorMessage}</p>
-			<c:if test="${not empty errorSigla}">
-				<p>Sigla: ${errorSigla}</p>
-			</c:if>
-			<c:if test="${not empty errorSuggerimento}">
-				<p>Suggerimento: ${errorSuggerimento}</p>
-			</c:if>
-			<c:if test="${not empty errorSiglaSuggerita}">
-				<p>Sigla Suggerita: ${errorSiglaSuggerita}</p>
-			</c:if>
-		</div>
+	
+	
+	<div class="titleFilter">
+		<h2>Applica un filtro alla lista dei treni</h2>
+		<button onClick="toggleFilter()">Filtra</button>
+	</div>
+
+
+	<c:if test="${not empty error}">
+		<div style="color: red;">${error}</div>
 	</c:if>
-	<c:if test="${not empty successMessage}">
-		<div class="message success">
-			<p>${successMessage}</p>
-		</div>
-	</c:if>
+
+
+	<div id="filter" class="formFilter hidden">
+		<form action="filter" method="get">
+			<label for="lunghezzaMin">Lunghezza Min:</label> <input type="number"
+				id="lunghezzaMin" name="lunghezzaMin" min="0" step="1" /> <label
+				for="lunghezzaMax">Lunghezza Max:</label> <input type="number"
+				id="lunghezzaMax" name="lunghezzaMax" min="0" step="1" /> <label
+				for="prezzoMin">Prezzo Min:</label> <input type="number"
+				id="prezzoMin" name="prezzoMin" min="0" step="1" /> <label
+				for="prezzoMax">Prezzo Max:</label> <input type="number"
+				id="prezzoMax" name="prezzoMax" min="0" step="1" /> <label
+				for="pesoMin">Peso Min:</label> <input type="number" id="pesoMin"
+				name="pesoMin" min="0" step="1" /> <label for="pesoMax">Peso
+				Max:</label> <input type="number" id="pesoMax" name="pesoMax" min="0"
+				step="1" /> <label for="siglaContains">Sigla Contiene:</label> <input
+				type="text" id="siglaContains" name="siglaContains" /> <label
+				for="utente">Utente:</label> <input type="text" id="utente"
+				name="utente" />
+
+			<div class="button-container">
+				<button class="button" type="submit">Applica Filtro</button>
+			</div>
+		</form>
+	</div>
 
 	<table>
 		<thead>

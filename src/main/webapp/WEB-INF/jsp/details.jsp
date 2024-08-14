@@ -184,6 +184,26 @@ Stile rating voto -->
 <body>
 
 	<jsp:include page="header.jsp" />
+	
+	<c:if test="${not empty errorMessage}">
+		<div class="message error">
+			<p>${errorMessage}</p>
+			<c:if test="${not empty errorSigla}">
+				<p>Sigla: ${errorSigla}</p>
+			</c:if>
+			<c:if test="${not empty errorSuggerimento}">
+				<p>Suggerimento: ${errorSuggerimento}</p>
+			</c:if>
+			<c:if test="${not empty errorSiglaSuggerita}">
+				<p>Sigla Suggerita: ${errorSiglaSuggerita}</p>
+			</c:if>
+		</div>
+	</c:if>
+	<c:if test="${not empty successMessage}">
+		<div class="message success">
+			<p>${successMessage}</p>
+		</div>
+	</c:if>
 
 	<div class="boxCard">
 		<div class="card">

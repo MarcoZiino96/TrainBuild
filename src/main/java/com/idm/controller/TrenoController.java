@@ -100,7 +100,7 @@ public class TrenoController {
 	        Utente utente = utenteService.findByUsername(utenteStr);
 	        if (utente == null) {
 	            model.addAttribute("error", "Nessun utente trovato con l'username fornito.");
-	            return "filter"; 
+	            return "order"; 
 	        } else {
 	            filter.setUtenteIds(Collections.singletonList(utente.getId()));
 	        }
@@ -130,15 +130,15 @@ public class TrenoController {
 
 	    if (prezzoMin != null && prezzoMax != null && prezzoMin > prezzoMax) {
 	        model.addAttribute("error", "Il prezzo minimo non può essere maggiore del prezzo massimo.");
-	        return "filter"; 
+	        return "order"; 
 	    }
 	    if (pesoMin != null && pesoMax != null && pesoMin > pesoMax) {
 	        model.addAttribute("error", "Il peso minimo non può essere maggiore del peso massimo.");
-	        return "filter"; 
+	        return "order"; 
 	    }
 	    if (lunghezzaMin != null && lunghezzaMax != null && lunghezzaMin > lunghezzaMax) {
 	        model.addAttribute("error", "La lunghezza minima non può essere maggiore della lunghezza massima.");
-	        return "filter"; 
+	        return "order"; 
 	    }
 
 	    List<TrenoVO> treni = trenoFilterService.filterTreniVO(filter);
@@ -148,7 +148,7 @@ public class TrenoController {
 	        model.addAttribute("treni", treni);
 	    }
 
-	    return "filter"; 
+	    return "order"; 
 	}
 	
 	@PostMapping("/selectDetails")
