@@ -6,14 +6,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrazione Utente</title>
-    <style>
+    
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/preRegister.css">
+   <!-- 
+   <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-        }
+             } 
+            
+       #userRegister {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        }   
+         
         form {
             max-width: 500px;
             margin: 0 auto;
+            margin-bottom: 40px;
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -33,7 +45,7 @@
         input[type="submit"] {
             background-color: #4CAF50;
             color: white;
-            padding: 15px 20px;
+            padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -45,7 +57,7 @@
             width: 90%;
             margin: auto;
         }
-        h2, .submit{
+        .submit{
         text-align: center;
         font-size: 1.5rem;
         }
@@ -54,7 +66,8 @@
         font-size: 0.8rem;
         }
        
-    </style>
+    </style> -->
+    
 </head>
 <body>
 
@@ -62,7 +75,7 @@
          <jsp:include page="header.jsp" />
        
   <div class="container">
-        <h2>Registrazione Utente</h2>
+        <h2 id="userRegister">Registrazione Utente</h2>
       
         <form:form modelAttribute="utente" action="postRegister" method="post">
 

@@ -8,8 +8,9 @@
 <meta charset="UTF-8">
 <title>Filtra i treni:</title>
 
-<!--  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/filter.css"> -->
-
+ <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/filter.css"> 
+ 
+<!--
 <style>
 @charset "UTF-8";
 
@@ -86,9 +87,24 @@ tr:hover {
 	background-color: #4CAF50;
     color: white;
     border:none;
+    border-radius: 4px;
 }
 
-</style> 
+.error-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+</style> -->
 
 </head>
 
@@ -96,7 +112,45 @@ tr:hover {
 
 	<jsp:include page="header.jsp" />
 
+<<<<<<< HEAD
 	
+=======
+	<div class="titleFilter">
+		<h2>Applica un filtro alla lista dei treni</h2>
+	</div>
+
+
+   <c:if test="${not empty error}">
+        <div class="error-container">
+            <div class="error-message">${error}</div>
+        </div>
+    </c:if>
+
+
+	<div class="formFilter">
+		<form action="filter" method="get">
+			<label for="lunghezzaMin">Lunghezza Min:</label> <input type="number"
+				id="lunghezzaMin" name="lunghezzaMin" min="0" step="1" /> <label
+				for="lunghezzaMax">Lunghezza Max:</label> <input type="number"
+				id="lunghezzaMax" name="lunghezzaMax" min="0" step="1" /> <label
+				for="prezzoMin">Prezzo Min:</label> <input type="number"
+				id="prezzoMin" name="prezzoMin" min="0" step="1" /> <label
+				for="prezzoMax">Prezzo Max:</label> <input type="number"
+				id="prezzoMax" name="prezzoMax" min="0" step="1" /> <label
+				for="pesoMin">Peso Min:</label> <input type="number" id="pesoMin"
+				name="pesoMin" min="0" step="1" /> <label for="pesoMax">Peso
+				Max:</label> <input type="number" id="pesoMax" name="pesoMax" min="0"
+				step="1" /> <label for="siglaContains">Sigla Contiene:</label> <input
+				type="text" id="siglaContains" name="siglaContains" /> <label
+				for="utente">Utente:</label> <input type="text" id="utente"
+				name="utente" />
+
+			<div class="button-container">
+				<button class="button" type="submit">Applica Filtro</button>
+			</div>
+		</form>
+	</div>
+>>>>>>> 1fd753a0bf239fd8e8b5ea504ac83d5e7122dd98
 
 
 	<table>

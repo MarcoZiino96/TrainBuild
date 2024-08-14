@@ -153,11 +153,14 @@ public void getId(int id) {
 	public void setPrezzo(Double prezzo) {
 		this.prezzo = prezzo;
 	}
+
+
+
 	@Override
 	public String toString() {
 		return "Treno [utente=" + utente + ", prezzo=" + prezzo + ", peso=" + peso + ", lunghezza=" + lunghezza
 				+ ", sigla=" + sigla +  ", getUtente()=" + getUtente() + ", getSigla()="
 				+ getSigla() +  ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
-}
+	}
 }

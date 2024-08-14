@@ -6,16 +6,59 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Details</title>
+
 <style>
-.titleOrder {
-	text-align: center;
+* {
+	box-sizing: border-box;
 }
 
-.titleOrder h2 {
-	margin: 20px;
-	padding-top: 40px;
+body {
+	padding: 0;
+	background-color: #2f1847;
+	margin: 0;
 }
+
+.boxCard {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 10px auto;
+	margin-top: 60px;
+	width: 600px;
+	height: 600px;
+	padding: 60px;
+	background-color: #fafafa;
+	border: 1px solid #dee2e6;
+	border-radius: 8px;
+	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
+	font-family: Arial, sans-serif;
+	color: #2f1847;
+	margin-bottom: 20px;
+}
+
+.titleCard h2 {
+    font-size: 22px; 
+    color: #343a40;
+    margin-bottom: 35px; 
+}
+
+.property {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; 
+    padding: 10px 0; 
+}
+
+
 
 .formOrder {
 	text-align: center;
@@ -23,8 +66,7 @@
 }
 
 <!--
-Stile rating voto -->
-.star-rating {
+Stile rating voto -->.star-rating {
 	display: flex;
 	direction: rtl;
 }
@@ -46,9 +88,6 @@ Stile rating voto -->
 .star-rating label:hover, .star-rating label:hover ~ label {
 	color: gold;
 }
-
-
-
 
 .action-buttons {
 	display: flex;
@@ -84,19 +123,6 @@ Stile rating voto -->
 	justify-content: center;
 }
 
-.card {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	width: 300px;
-	padding: 20px;
-	background-color: #f8f9fa;
-	border: 1px solid #dee2e6;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	width: 300px;
-}
-
 .property {
 	display: flex;
 	justify-content: space-between;
@@ -106,6 +132,7 @@ Stile rating voto -->
 .property label {
 	font-weight: bold;
 	color: #343a40;
+	margin-right: 5px;
 }
 
 .property span {
@@ -154,6 +181,21 @@ Stile rating voto -->
 	display: flex;
 	justify-content: center;
 }
+
+#invia-btn {
+	background-color: #28a745;
+	color: #ffffff;
+	border: none;
+	padding: 10px 10px;
+	font-size: 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+
+ 
+
 
 .btn-success {
 	background-color: #28a745;
@@ -207,23 +249,28 @@ Stile rating voto -->
 
 	<div class="boxCard">
 		<div class="card">
+
+			<div class="titleCard">
+				<h2>Dettagli del treno:</h2>
+			</div>
+			
 			<div class="property">
-				<label>Sigla:</label> <span>${treno.sigla}</span>
+				<label>Sigla: </label> <span>${treno.sigla}</span>
 			</div>
 			<div class="property">
-				<label>Compagnia:</label> <span>${treno.compagnia}</span>
+				<label>Compagnia: </label> <span>${treno.compagnia}</span>
 			</div>
 			<div class="property">
-				<label>Prezzo:</label> <span>${treno.prezzo}</span>
+				<label>Prezzo: </label> <span>${treno.prezzo}</span>
 			</div>
 			<div class="property">
-				<label>Peso:</label> <span>${treno.peso}</span>
+				<label>Peso: </label> <span>${treno.peso}</span>
 			</div>
 			<div class="property">
-				<label>Lunghezza:</label> <span>${treno.lunghezza}</span>
+				<label>Lunghezza: </label> <span>${treno.lunghezza}</span>
 			</div>
 			<div class="property">
-				<label>Utente:</label> <span>${utente.username}</span>
+				<label>Utente: </label> <span>${utente.username}</span>
 			</div>
 			<div class="boxVoto">
 				<form:form modelAttribute="voto" action="voto" method="post">
@@ -249,7 +296,9 @@ Stile rating voto -->
 						<label for="star1-${treno.id}" title="1 stella">&#9733;</label>
 
 					</div>
-					<button type="submit">Invia</button>
+				
+				<div>
+					<button id= "invia-btn" type="submit">Invia</button>
 				</form:form>
 			</div>
 			<div class="property">
@@ -273,6 +322,8 @@ Stile rating voto -->
 
 		</div>
 	</div>
+
+
 
 	<c:if test="${treno.utente.id == utente.id}">
 		<div class="form-container">
@@ -303,10 +354,8 @@ Stile rating voto -->
 				</div>
 			</form>
 		</div>
+
 	</c:if>
-
-
-
 
 </body>
 </html>

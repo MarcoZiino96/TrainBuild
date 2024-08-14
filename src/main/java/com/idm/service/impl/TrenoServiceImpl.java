@@ -191,13 +191,15 @@ public class TrenoServiceImpl implements TrenoService {
     	List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
     	List<TrenoVO> trenoVOs = new ArrayList<>();
     	for (Treno treno : u) {
+
+
+    		TrenoVO vo = new TrenoVO();
     		
     		double mediaVoti = treno.getVoti().stream()
 	        		.mapToInt(Voto::getVoto)
 	        		.average()
 	        		.orElse(0.0);	
 
-    		TrenoVO vo = new TrenoVO();
             vo.setId(treno.getId());
             vo.setPrezzo(treno.getPrezzo());
             vo.setPeso(treno.getPeso());
