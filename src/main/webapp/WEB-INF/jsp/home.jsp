@@ -20,20 +20,19 @@ body {
 }
 
 .containerHome {
-	max-width: 50%;
-	padding: 40px;
-	font-family: Arial, sans-serif;
-	background-color: #fafafa;
-	border-radius: 8px;
-	box-shadow: 0 2px 10px #c62e65;
-	color: #2f1847;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin: 10px auto;
-	margin-top: 60px;
-	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
+    max-width: 50%;
+    padding: 40px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px #c62e65;
+    color: #2f1847;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    margin-top: 60px;
+    box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
 }
 
 .box {

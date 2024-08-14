@@ -8,6 +8,12 @@
 <meta charset="UTF-8">
 <title>Details</title>
 
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">-->
+
+
 <style>
 * {
 	box-sizing: border-box;
@@ -20,10 +26,15 @@ body {
 }
 
 .boxCard {
+	max-width: 50%;
+	padding: 40px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin-top: 40px;
+	margin: 10px auto;
+	margin-top: 60px;
 }
 
 .card {
@@ -31,44 +42,66 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 10px auto;
-	margin-top: 60px;
-	width: 600px;
-	height: 600px;
-	padding: 60px;
-	background-color: #fafafa;
-	border: 1px solid #dee2e6;
+	width: 900px;
+	height: 700px;
+	margin-bottom: 40px;
+	background-color: black;
+	color: #e0c680;
 	border-radius: 8px;
 	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
-	font-family: Arial, sans-serif;
-	color: #2f1847;
-	margin-bottom: 20px;
 }
 
 .titleCard h2 {
-    font-size: 22px; 
-    color: #343a40;
-    margin-bottom: 35px; 
+	font-size: 22px;
+	margin-bottom: 35px;
+}
+
+.property-list {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	padding: 20px 0;
+}
+
+.sigla-compagnia-property {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	margin-right: 40px;
+}
+
+.lunghezza-peso-property {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	margin-right: 40px;
+}
+
+.prezzo-peso-property {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	margin-right: 40px;
+}
+
+.property label {
+	font-weight: bold;
+	margin-right: 5px;
+	color: #e0c680;
 }
 
 .property {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px; 
-    padding: 10px 0; 
-}
-
-
-
-.formOrder {
-	text-align: center;
-	margin: 30px;
-}
-
-<!--
-Stile rating voto -->.star-rating {
 	display: flex;
-	direction: rtl;
+	content: space-between;
+	margin-bottom: 20px;
+	margin-right: 40px;
+}
+
+
+.star-rating {
+	display: flex;
+	flex-direction: row;
 }
 
 .star-rating input {
@@ -89,85 +122,70 @@ Stile rating voto -->.star-rating {
 	color: gold;
 }
 
-.action-buttons {
+#btn-invia {
 	display: flex;
+	justify-content: center;
 	align-items: center;
-	justify-content: space-between;
-	gap: 10px;
+	margin-top: 10px;
 }
 
-.action-buttons form {
-	margin: 0;
+#btn-invia button {
+	padding: 10px 20px;
+	border: none;
+	background-color: #e0c680;
+	color: #2f1847;
+	font-size: 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-bottom: 35px;
 }
 
-.action-buttons button {
-	margin: 0;
-	padding: 5px 10px;
-	font-size: 14px;
+#btn-invia :hover {
+	background-color: #bfa458;
+	color: #2f1847;
+}
+
+.btn-navbar {
+	background-color: #2f1847;
+	padding: 10px 0;
+	margin-top: 25px; margin-bottom : 20px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.btn-navbar-content {
+	display: flex;
+	gap: 30px;
+}
+
+.icon-button {
+	border-radius: 4px;
+	font-size: 24px;
+	width: 50px;
+	height: 50px;
 	cursor: pointer;
 }
 
-.delete {
-	border-radius: 30px;
+.icon-button:hover {
+	background-color: #e0c680;
+}
+
+#icon-button-delete {
 	background-color: red;
 }
 
-.modifica {
-	border-radius: 30px;
-	background-color: gold;
+#icon-button-delete:hover {
+	background-color: #cc0000;
 }
 
-.text-center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+#sigla {
+	margin-top: 20px;
+	margin-bottom: 30px;
 }
 
-.property {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
-}
-
-.property label {
-	font-weight: bold;
-	color: #343a40;
-	margin-right: 5px;
-}
-
-.property span {
-	color: #495057;
-}
-
-.property:last-child {
-	margin-bottom: 0;
-}
-
-.boxCard {
-	display: flex;
-	justify-content: center;
-	margin-top: 6rem;
-}
-
-.hidden {
-	display: none;
-}
-
-.form-container {
-	display: flex;
-	justify-content: center;
-	padding: 20px;
-}
-
-.form-group {
-	display: flex;
-	flex-direction: column;
-}
-
-.form-group label {
-	font-weight: bold;
-	color: #343a40;
-	margin-bottom: 5px;
+#compagnia {
+	margin-top: 20px;
 }
 
 .form-group input, .form-group select {
@@ -175,6 +193,8 @@ Stile rating voto -->.star-rating {
 	border: 1px solid #ced4da;
 	border-radius: 4px;
 	font-size: 16px;
+	width: 100%;
+	margin-bottom: 8px;
 }
 
 .text-center {
@@ -182,26 +202,16 @@ Stile rating voto -->.star-rating {
 	justify-content: center;
 }
 
-#invia-btn {
-	background-color: #28a745;
-	color: #ffffff;
-	border: none;
-	padding: 10px 10px;
-	font-size: 16px;
-	border-radius: 4px;
-	cursor: pointer;
-	transition: background-color 0.3s;
+.hidden {
+	display: none;
 }
 
-
- 
-
-
 .btn-success {
-	background-color: #28a745;
-	color: #ffffff;
+	background-color: #e0c680;
+	color: #2f1847
 	border: none;
 	padding: 10px 20px;
+	margin-top: 30px;
 	font-size: 16px;
 	border-radius: 4px;
 	cursor: pointer;
@@ -209,9 +219,12 @@ Stile rating voto -->.star-rating {
 }
 
 .btn-success:hover {
-	background-color: #218838;
+	background-color: #bfa458;
+	color: #2f1847;
 }
 </style>
+
+
 <script>
 	function confermaEliminazione() {
 		return confirm("Sei sicuro di voler eliminare questo treno?");
@@ -222,10 +235,75 @@ Stile rating voto -->.star-rating {
 		form.classList.toggle("hidden");
 	}
 </script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var trenoImageContainer = document.getElementById('treno-image-container');
+    var trenoData = document.getElementById('treno-data');
+    var trenoCompagnia = trenoData.getAttribute('data-compagnia');
+    
+    console.log('Compagnia:', trenoCompagnia); 
+
+    var trenoImage = document.createElement('img');
+    trenoImage.alt = 'Immagine Treno';
+    trenoImage.style.maxWidth = '100%';
+    trenoImage.style.height = 'auto';
+
+    switch(trenoCompagnia) {
+        case 'FR':
+            trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
+            break;
+        case 'IT':
+            trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
+            break;
+        case 'TN':
+            trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
+            break;
+        default:
+            trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
+    }
+
+    trenoImageContainer.appendChild(trenoImage);
+});
+
+
+</script>
+
 </head>
+
 <body>
 
 	<jsp:include page="header.jsp" />
+
+	<div class="btn-navbar">
+		<div class="btn-navbar-content">
+
+
+
+			<button class="icon-button" onclick="toggleForm()" title="Modifica">
+				<i class="fas fa-edit"></i>
+			</button>
+
+			<form action="duplicaTreno" method="post">
+				<input type="hidden" name="trenoId" value="${treno.id}" />
+				<button class="icon-button" type="submit" title="Duplica">
+					<i class="fas fa-copy"></i>
+				</button>
+			</form>
+
+			<form action="eliminaTreno" method="post"
+				onsubmit="return confermaEliminazione()">
+				<input type="hidden" name="trenoId" value="${treno.id}" />
+				<button class="icon-button" id="icon-button-delete" type="submit"
+					title="Elimina">
+					<i class="fas fa-trash-alt"></i>
+				</button>
+			</form>
+
+		</div>
+	</div>
+
 
 	<div class="boxCard">
 		<div class="card">
@@ -234,24 +312,46 @@ Stile rating voto -->.star-rating {
 				<h2>Dettagli del treno:</h2>
 			</div>
 			
-			<div class="property">
-				<label>Sigla: </label> <span>${treno.sigla}</span>
+			
+			     
+<div id="treno-image-container" style="text-align: center; margin-bottom: 20px;">
+    
+</div>
+        
+        <div id="treno-data" data-compagnia="${treno.compagnia}"></div>
+
+        
+			<div class="property-list">
+
+				<div class="sigla-compagnia-property">
+					<div class="property">
+						<label>SIGLA: </label> <span>${treno.sigla}</span>
+					</div>
+					<div class="property">
+						<label>COMPAGNIA: </label> <span>${treno.compagnia}</span>
+					</div>
+				</div>
+
+				<div class="lunghezza-peso-property">
+					<div class="property">
+						<label>LUNGHEZZA: </label> <span>${treno.lunghezza}</span>
+					</div>
+					<div class="property">
+						<label>PESO: </label> <span>${treno.peso}</span>
+					</div>
+				</div>
+
+				<div class="prezzo-utente-property">
+					<div class="property">
+						<label>PREZZO: </label> <span>${treno.prezzo}</span>
+					</div>
+					<div class="property">
+						<label>UTENTE: </label> <span>${utente.username}</span>
+					</div>
+				</div>
+
 			</div>
-			<div class="property">
-				<label>Compagnia: </label> <span>${treno.compagnia}</span>
-			</div>
-			<div class="property">
-				<label>Prezzo: </label> <span>${treno.prezzo}</span>
-			</div>
-			<div class="property">
-				<label>Peso: </label> <span>${treno.peso}</span>
-			</div>
-			<div class="property">
-				<label>Lunghezza: </label> <span>${treno.lunghezza}</span>
-			</div>
-			<div class="property">
-				<label>Utente: </label> <span>${utente.username}</span>
-			</div>
+
 			<div class="boxVoto">
 				<form:form modelAttribute="voto" action="voto" method="post">
 					<form:hidden path="id" />
@@ -259,7 +359,6 @@ Stile rating voto -->.star-rating {
 					<form:hidden path="utenteId" value="${sessionScope.utente.id}" />
 
 					<div class="star-rating">
-
 						<form:radiobutton path="voto" id="star5-${treno.id}" value="5" />
 						<label for="star5-${treno.id}" title="5 stelle">&#9733;</label>
 
@@ -274,68 +373,43 @@ Stile rating voto -->.star-rating {
 
 						<form:radiobutton path="voto" id="star1-${treno.id}" value="1" />
 						<label for="star1-${treno.id}" title="1 stella">&#9733;</label>
-
 					</div>
-				
-				<div>
-					<button id= "invia-btn" type="submit">Invia</button>
+
+					<div id="btn-invia">
+						<button id="invia-btn" type="submit">Invia</button>
+					</div>
 				</form:form>
 			</div>
-			<div class="property">
-				<c:if test="${treno.utente.id == utente.id}">
-					<div class="action-buttons delete">
-						<form action="eliminaTreno" method="post"
-							onsubmit="return confermaEliminazione()" style="display: inline;">
-							<input type="hidden" name="trenoId" value="${treno.id}" />
-							<button class="delete" type="submit">Elimina</button>
-						</form>
-					</div>
-					<button class="modifica" onclick="toggleForm()">Modifica</button>
 
-					<form action="duplicaTreno" method="post">
+
+			<c:if test="${treno.utente.id == utente.id}">
+				<div class="form-container">
+					<form id="modificaTrenoForm" class="hidden" action="modificaTreno"
+						method="post">
 						<input type="hidden" name="trenoId" value="${treno.id}" />
-						<button type="submit">Duplica</button>
+						<div class="form-group">
+							<label for="sigla">Sigla</label> <input type="text" id="sigla"
+								name="sigla" value="${treno.sigla}" required>
+						</div>
+						<div class="form-group">
+							<label for="compagnia">Compagnia</label> <select id="compagnia"
+								name="compagnia" required>
+								<option value="FR"
+									<c:if test="${treno.compagnia == 'FR'}">selected</c:if>>Frecciarossa
+									(FR)</option>
+								<option value="IT"
+									<c:if test="${treno.compagnia == 'IT'}">selected</c:if>>Italo
+									(IT)</option>
+								<option value="TN"
+									<c:if test="${treno.compagnia == 'TN'}">selected</c:if>>Trenord
+									(TN)</option>
+							</select>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn-success">Modifica Treno</button>
+						</div>
 					</form>
-				</c:if>
-
-			</div>
-
-		</div>
-	</div>
-
-
-
-	<c:if test="${treno.utente.id == utente.id}">
-		<div class="form-container">
-
-			<form id="modificaTrenoForm" class="hidden" action="modificaTreno"
-				method="post">
-				<input type="hidden" name="trenoId" value="${treno.id}" />
-
-				<div class="form-group">
-					<label for="sigla">Sigla</label> <input type="text" id="sigla"
-						name="sigla" value="${treno.sigla}" required>
 				</div>
-
-				<div class="form-group">
-					<label for="compagnia">Compagnia</label> <select id="compagnia"
-						name="compagnia" required>
-						<option value="FR"
-							<c:if test="${treno.compagnia == 'FR'}">selected</c:if>>Frecciarossa(FR)</option>
-						<option value="IT"
-							<c:if test="${treno.compagnia == 'IT'}">selected</c:if>>Italo(IT)</option>
-						<option value="TN"
-							<c:if test="${treno.compagnia == 'TN'}">selected</c:if>>Trenord(TN)</option>
-					</select>
-				</div>
-
-				<div class="text-center">
-					<button type="submit" class="btn-success">Modifica Treno</button>
-				</div>
-			</form>
-		</div>
-
-	</c:if>
-
+			</c:if>
 </body>
 </html>
