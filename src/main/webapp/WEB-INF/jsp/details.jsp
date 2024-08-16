@@ -98,10 +98,9 @@ body {
 	margin-right: 40px;
 }
 
-
 .star-rating {
 	display: flex;
-	flex-direction: row;
+	flex-direction: row-reverse;
 }
 
 .star-rating input {
@@ -148,7 +147,8 @@ body {
 .btn-navbar {
 	background-color: #2f1847;
 	padding: 10px 0;
-	margin-top: 25px; margin-bottom : 20px;
+	margin-top: 25px;
+	margin-bottom: 20px;
 	display: flex;
 	justify-content: center;
 	margin-bottom: 20px;
@@ -208,8 +208,7 @@ body {
 
 .btn-success {
 	background-color: #e0c680;
-	color: #2f1847
-	border: none;
+	color: #2f1847 border: none;
 	padding: 10px 20px;
 	margin-top: 30px;
 	font-size: 16px;
@@ -311,16 +310,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			<div class="titleCard">
 				<h2>Dettagli del treno:</h2>
 			</div>
-			
-			
-			     
-<div id="treno-image-container" style="text-align: center; margin-bottom: 20px;">
-    
-</div>
-        
-        <div id="treno-data" data-compagnia="${treno.compagnia}"></div>
 
-        
+
+
+			<div id="treno-image-container"
+				style="text-align: center; margin-bottom: 20px;"></div>
+
+			<div id="treno-data" data-compagnia="${treno.compagnia}"></div>
+
+
 			<div class="property-list">
 
 				<div class="sigla-compagnia-property">

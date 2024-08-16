@@ -22,10 +22,10 @@ body {
 .containerHome {
     max-width: 50%;
     padding: 40px;
-    background-color: #fafafa;
+    background-color: black;
     border-radius: 8px;
     box-shadow: 0 2px 10px #c62e65;
-    color: #2f1847;
+    color: #e0c680;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,7 +44,7 @@ body {
 
 h2 {
 	margin-bottom: 20px;
-	color: #333;
+	
 }
 
 form {
@@ -75,16 +75,16 @@ form {
 .submitBtn {
 	display: inline-block;
 	padding: 10px 20px;
-	background-color: #2f1847;
+	background-color: #e0c680;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	color: #fafafa;
+	color: #2f1847;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
 }
 
 .submitBtn:hover {
-	background-color: #cda434;
+	background-color: #bfa458;
 	color: #2f1847;
 }
 

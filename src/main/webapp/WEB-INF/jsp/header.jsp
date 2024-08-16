@@ -7,37 +7,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CreateYourTrain</title>
-	
-	<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css">-->
-	
-	
-
-	
+<title>CreateYourTrain</title>	
 <style>
-
-body {
-    margin: 0;
-    font-family: Verdana, Arial, Helvetica, sans-serif; 
+.body{
+ font-family: Verdana, Arial, Helvetica, sans-serif;
 }
-
-
 .navbar {
     background-color: #2f1847;
-    padding: 10px 20px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    font-family: Verdana, Arial, Helvetica, sans-serif; 
+    color: #fafafa;
+  
     font-size: 18px;
-    box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    box-shadow: 0 2px 20px #fafafa;
+    height: 100px;
 }
 
 .container {
-    max-width: 1200px; 
+    max-width: 1200px;
+    height: 80px;
     margin: 0 auto;
     display: flex;
-    justify-content: center; 
+    align-items: center;
 }
 
 .navbar-nav {
@@ -45,87 +35,85 @@ body {
     padding: 0;
     margin: 0;
     display: flex;
-    align-items: center;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    display: flex;
+    align-items: center; 
 }
 
 .nav-item {
-    margin: 0 20px; 
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-}
+    margin-right: 40px; 
 
-.nav-link {
-    text-decoration: none;
-    color: #fff; 
-    font-weight: bold;
-    font-size: inherit; 
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-.nav-link:hover {
-    color: #cda434; 
-}
-
-.user-logout-container {
-    display: flex;
-    align-items: center;
+.nav-item:last-child {
+    margin-right: 0; 
 }
 
 .username {
-    color: #fff;
-    margin-right: 10px; 
-    margin-left: 20px;
+    margin-right: -15px; 
+    margin-left: 50px;
+    font-size: 14px;
+    color: #cda434;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link:focus {
+    color: #cda434;
+}
+
+.logout-container {
+    display: flex;
+    align-items: center; 
 }
 
 .logoutBtn {
-    background-color: #cda434; 
+    padding: 10px 10px;
+    background-color: #fafafa;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color: #2f1847;
     border: none;
-    color: #2f1847; 
-    padding: 5px 10px;
-    cursor: pointer;
     border-radius: 4px;
-    font-size: inherit; 
+    cursor: pointer;
+    margin-top: 30px;
+    margin-bottom:10px;
 }
 
 .logoutBtn:hover {
-    background-color: #e0c680; 
+    background-color: #e0c680;
 }
-
-
-
-
-
 </style> 
 </head>
 <body>
-<header>
-   <nav class="navbar">
-    <div class="container">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Chi siamo</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Contatti</a></li>
-            <c:if test="${not empty sessionScope.utente}">
-                <li class="nav-item"><a class="nav-link" href="order">Ordinamento</a></li>
-                <li class="nav-item"><a class="nav-link" href="filter">Ricerca</a></li>
-                <li class="nav-item">
-                    <div class="user-logout-container">
-                        <span class="username">${sessionScope.utente.username}</span>
-                        <form action="logout" method="post">
-                            <input type="submit" value="Logout" class="logoutBtn">
-                        </form>
-                    </div>
-                </li>
-            </c:if>
-            <c:if test="${empty sessionScope.utente}">
-                <li class="nav-item"><a href="formlogin" class="nav-link">Login</a></li>
-                <li class="nav-item"><a href="preRegister" class="nav-link">Registrati</a></li>
-            </c:if>
-        </ul>
-    </div>
-</nav>
-
+	<header>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Chi siamo</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contatti</a></li>
+                <c:if test="${not empty sessionScope.utente}">
+                    <li class="nav-item"><a class="nav-link" href="order">Ricerca</a></li>
+                    <li class="nav-item">
+                        <span class="username">${sessionScope.utente.username}</span> 
+                    </li>
+                    <li class="nav-item">
+                       <div class="logout-container">
+                            <form action="logout" method="post">
+                                <input type="submit" value="Logout" class="logoutBtn">
+                            </form>
+                        </div>
+                    </li>
+                </c:if>
+                <c:if test="${empty sessionScope.utente}">
+                    <li class="nav-item"><a href="formlogin" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="preRegister" class="nav-link">Registrati</a></li>
+                </c:if>
+            </ul>
+        </div>
+    </nav>
 </header>
-
 </body>
 </html>
