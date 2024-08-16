@@ -1,0 +1,193 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	background-color: #2f1847;
+	margin: 0;
+}
+
+.boxCard {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 900px;
+	height: 600px;
+	margin-bottom: 40px;
+	background-color: #fafafa;
+	border-radius: 8px;
+	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
+}
+
+.titleCard h2 {
+	font-size: 22px;
+	margin-bottom: 35px;
+}
+
+.property-list {
+	display: flex;
+	flex-direction: row;
+	 justify-content: space-between;
+	margin-bottom: 10px;
+	padding: 20px 0;
+}
+
+.sigla-compagnia-property {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	margin-right: 40px;
+}
+
+.lunghezza-peso-property {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	margin-right: 40px;
+}
+
+.prezzo-peso-property {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	margin-right: 40px;
+}
+
+.property label {
+	font-weight: bold;
+	color: #343a40;
+	margin-right: 5px;
+}
+
+.property {
+	display: flex;
+	content: space-between;
+	margin-bottom: 20px;
+	margin-right: 40px;
+}
+
+
+
+.star-rating {
+	display: flex;
+	flex-direction: row;
+}
+
+.star-rating input {
+	display: none;
+}
+
+.star-rating label {
+	font-size: 24px;
+	color: #ccc;
+	cursor: pointer;
+}
+
+.star-rating input:checked ~ label {
+	color: gold;
+}
+
+.star-rating label:hover, .star-rating label:hover ~ label {
+	color: gold;
+}
+
+#btn-invia {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+
+#btn-invia button {
+	padding: 10px 20px;
+	border: none;
+	background-color: #2f1847;
+	color: #fafafa;
+	font-size: 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-bottom: 35px;
+}
+
+#btn-invia :hover {
+	background-color: #e0c680;
+	color: #2f1847;
+}
+
+.btn-navbar {
+	background-color: #2f1847;
+	padding: 10px 0;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.btn-navbar-content {
+	display: flex;
+	gap: 30px;
+}
+
+.icon-button {
+	border-radius: 4px;
+	font-size: 24px;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+}
+
+.icon-button:hover {
+	background-color: #e0c680;
+}
+
+#icon-button-delete {
+	background-color: red;
+}
+
+#icon-button-delete:hover {
+	background-color: #cc0000;
+}
+
+#sigla {
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.form-group input, .form-group select {
+	padding: 10px;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	font-size: 16px;
+	width: 100%;
+}
+
+.text-center {
+	display: flex;
+	justify-content: center;
+}
+
+
+.btn-success {
+	background-color: #2f1847;
+	color: #fafafa;
+	border: none;
+	padding: 10px 20px;
+	margin-top: 30px;
+	font-size: 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.btn-success:hover {
+	background-color: #e0c680;
+	color: #2f1847;
+}

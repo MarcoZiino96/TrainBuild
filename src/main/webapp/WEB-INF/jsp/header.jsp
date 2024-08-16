@@ -15,11 +15,11 @@
 .navbar {
     background-color: #2f1847;
     color: #fafafa;
-  
     font-size: 18px;
     padding: 10px;
     box-shadow: 0 2px 20px #fafafa;
     height: 100px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .container {
@@ -77,8 +77,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 30px;
-    margin-bottom:10px;
+
 }
 
 .logoutBtn:hover {

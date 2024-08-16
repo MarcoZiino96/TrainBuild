@@ -16,9 +16,11 @@ body {
 	padding: 0;
 	background-color: #2f1847;
 	margin: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .containerHome {
+<<<<<<< HEAD
 	background-color: #1d1d1d;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px #c62e65;
@@ -71,9 +73,9 @@ form {
 .submitBtn {
 	display: inline-block;
 	padding: 10px 20px;
-	background-color: #2f1847;
+	background-color: #e0c680;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	color: #fafafa;
+	color: #2f1847;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
@@ -81,7 +83,7 @@ form {
 }
 
 .submitBtn:hover {
-	background-color: #cda434;
+	background-color: #bfa458;
 	color: #2f1847;
 	transform: scale(1.1);
 }
