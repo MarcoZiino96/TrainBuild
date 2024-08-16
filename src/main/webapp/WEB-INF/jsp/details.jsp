@@ -211,6 +211,21 @@ Stile rating voto -->.star-rating {
 .btn-success:hover {
 	background-color: #218838;
 }
+
+.boxDanger{
+color:red;
+font-weight: bold;
+font-size: 1.5rem;
+text-align:center;
+}
+
+.boxSuccess{
+color:green;
+font-weight: bold;
+font-size: 1.5rem;
+text-align:center;
+}
+
 </style>
 <script>
 	function confermaEliminazione() {
@@ -227,20 +242,43 @@ Stile rating voto -->.star-rating {
 
 	<jsp:include page="header.jsp" />
 	
+
 	<c:if test="${not empty errorMessage}">
-		<div class="message error">
-			<p>${errorMessage}</p>
+				<div class="boxDanger">
+
+					<p>
+						<strong>Errore: Questa sigla è errata --></strong>
+						<c:out value="${errorMessage}" />
+					</p>
+				</div>
+			</c:if>
 			<c:if test="${not empty errorSigla}">
-				<p>Sigla: ${errorSigla}</p>
+				<div class="boxDanger">
+					<p>
+						<strong>Sigla:</strong>
+						<c:out value="${errorSigla}" />
+					</p>
+				</div>
 			</c:if>
+
 			<c:if test="${not empty errorSuggerimento}">
-				<p>Suggerimento: ${errorSuggerimento}</p>
+				<div class="boxSuccess">
+					<p>
+						<strong>Suggerimento:</strong>
+						<c:out value="${errorSuggerimento}" />
+					</p>
+				</div>
 			</c:if>
+			
 			<c:if test="${not empty errorSiglaSuggerita}">
-				<p>Sigla Suggerita: ${errorSiglaSuggerita}</p>
+				<div class="boxSuccess">
+					<p>
+						<strong>Sigla Suggerita:</strong>
+						<c:out value="${errorSiglaSuggerita}" />
+					</p>
+				</div>
 			</c:if>
-		</div>
-	</c:if>
+	
 	<c:if test="${not empty successMessage}">
 		<div class="message success">
 			<p>${successMessage}</p>

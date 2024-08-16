@@ -54,6 +54,7 @@ public class TrenoController {
 	    TrenoVO trenoVo = (TrenoVO) session.getAttribute("treno");
 	    model.addAttribute("utente", utente);
 	    model.addAttribute("treno", trenoVo);
+	   
 	    return "details";
 	}
 	
@@ -189,20 +190,17 @@ public class TrenoController {
 
 			treno = trenoService.update(treno, trenoId);
 			model.addAttribute("treno", treno);
-
 			return "redirect:/order";
-
 		} catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			model.addAttribute("errorSigla", e.getSigla());
 			model.addAttribute("errorSuggerimento", e.getSuggerimento());
 			model.addAttribute("errorSiglaSuggerita", e.getSiglaSuggerita());
-			model.addAttribute("treni", trenoService.retrive()); 
-
-			return "order"; 
-
-		}
-	}
+			model.addAttribute("voto", new VotoVO());
+			return "details";
+}
+			
+}
 
 	@PostMapping("/duplicaTreno")
 	public String duplicaTreno(@RequestParam Integer trenoId, HttpSession session, Model model ) {
