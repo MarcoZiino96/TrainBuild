@@ -5,12 +5,11 @@
 <head>
 <title>Create Train</title>
 
-<!--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css"> -->
+
 
 <style>
-
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
@@ -20,10 +19,7 @@ body {
 }
 
 .containerHome {
-	max-width: 50%;
-	padding: 40px;
-	font-family: Arial, sans-serif;
-	background-color: #fafafa;
+	background-color: #1d1d1d;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px #c62e65;
 	color: #2f1847;
@@ -31,8 +27,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 10px auto;
-	margin-top: 60px;
+	margin: 100px;
 	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
 }
 
@@ -45,7 +40,7 @@ body {
 
 h2 {
 	margin-bottom: 20px;
-	color: #333;
+	color: #cda434;
 }
 
 form {
@@ -82,11 +77,13 @@ form {
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
+	transition: transform 0.3s ease;
 }
 
 .submitBtn:hover {
 	background-color: #cda434;
 	color: #2f1847;
+	transform: scale(1.1);
 }
 
 .train-details .info {
@@ -102,11 +99,28 @@ form {
 	width: 100%;
 }
 
+label {
+	color: #cda434;
+	font-weight: bold;
+}
+
 .info strong {
 	display: inline-block;
 	width: 120px;
 }
-</style> 
+
+.boxDanger{
+color:red;
+font-weight: bold;
+font-size: 1.5rem;
+}
+
+.boxSuccess{
+color:green;
+font-weight: bold;
+font-size: 1.5rem;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -116,7 +130,7 @@ form {
 			<h2>Crea il tuo Treno:</h2>
 
 			<c:if test="${not empty errorMessage}">
-				<div class="alert alert-danger">
+				<div class="boxDanger">
 
 					<p>
 						<strong>Errore: Questa sigla è errata --></strong>
@@ -125,7 +139,7 @@ form {
 				</div>
 			</c:if>
 			<c:if test="${not empty errorSigla}">
-				<div class="alert alert-danger">
+				<div class="boxDanger">
 					<p>
 						<strong>Sigla:</strong>
 						<c:out value="${errorSigla}" />
@@ -134,7 +148,7 @@ form {
 			</c:if>
 
 			<c:if test="${not empty errorSuggerimento}">
-				<div class="alert alert-success">
+				<div class="boxSuccess">
 					<p>
 						<strong>Suggerimento:</strong>
 						<c:out value="${errorSuggerimento}" />
@@ -143,7 +157,7 @@ form {
 
 			</c:if>
 			<c:if test="${not empty errorSiglaSuggerita}">
-				<div class="alert alert-success">
+				<div class="boxSuccess">
 					<p>
 						<strong>Sigla Suggerita:</strong>
 						<c:out value="${errorSiglaSuggerita}" />
@@ -170,41 +184,43 @@ form {
 					<button type="submit" class="submitBtn">Crea Treno</button>
 				</div>
 
+			</form>
 
 
-				<c:if test="${empty sessionScope.utente}">
 
-					<div class="train-details form-group">
-						<h2>Dettagli Treno</h2>
-						<div class="info">
-							<strong>Sigla:</strong> ${treno.sigla}
-						</div>
-						<div class="info">
-							<strong>Compagnia:</strong> ${treno.compagnia}
-						</div>
-						<div class="info">
-							<strong>Prezzo(€):</strong> ${treno.prezzo}
-						</div>
-						<div class="info">
-							<strong>Peso(Kg):</strong> ${treno.peso}
-						</div>
-						<div class="info">
-							<strong>lunghezza(m):</strong> ${treno.lunghezza}
-						</div>
-						<div class="info">
-							<strong>Utente:</strong>
-							<c:choose>
-								<c:when test="${treno.utente != null}">
+			<c:if test="${empty sessionScope.utente}">
+
+				<div class="train-details form-group">
+					<h2>Dettagli Treno</h2>
+					<div class="info">
+						<strong>Sigla:</strong> ${treno.sigla}
+					</div>
+					<div class="info">
+						<strong>Compagnia:</strong> ${treno.compagnia}
+					</div>
+					<div class="info">
+						<strong>Prezzo(€):</strong> ${treno.prezzo}
+					</div>
+					<div class="info">
+						<strong>Peso(Kg):</strong> ${treno.peso}
+					</div>
+					<div class="info">
+						<strong>lunghezza(m):</strong> ${treno.lunghezza}
+					</div>
+					<div class="info">
+						<strong>Utente:</strong>
+						<c:choose>
+							<c:when test="${treno.utente != null}">
                             ${treno.utente.nome} ${treno.utente.cognome}
                         </c:when>
-								<c:otherwise>
+							<c:otherwise>
                             Nessun utente associato
                         </c:otherwise>
-							</c:choose>
-						</div>
+						</c:choose>
 					</div>
+				</div>
 
-				</c:if>
+			</c:if>
 		</div>
 	</div>
 </body>

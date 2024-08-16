@@ -123,7 +123,7 @@ public class TrenoController {
 				prezzoMin, prezzoMax, pesoMin, pesoMax, siglaContains);
 		if (error != null) {
 			model.addAttribute("error", error);
-			return "filter";
+			return "order";
 		}
 
 		List<TrenoVO> treni = trenoFilterService.filterTreniVOWithErrorHandling(filter);
@@ -133,7 +133,7 @@ public class TrenoController {
             model.addAttribute("treni", treni);
         }
 
-		return "filter"; 
+		return "order"; 
 	}
 	
 	@PostMapping("/selectDetails")
