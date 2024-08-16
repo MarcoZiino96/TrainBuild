@@ -17,6 +17,7 @@ body {
 	padding: 0;
 	background-color: #2f1847;
 	margin: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .containerHome {

@@ -43,7 +43,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	width: 900px;
-	height: 700px;
+	height: 900px;
 	margin-bottom: 40px;
 	background-color: black;
 	color: #e0c680;
@@ -54,6 +54,7 @@ body {
 .titleCard h2 {
 	font-size: 22px;
 	margin-bottom: 35px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .property-list {
@@ -62,6 +63,7 @@ body {
 	justify-content: space-between;
 	margin-bottom: 10px;
 	padding: 20px 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .sigla-compagnia-property {
