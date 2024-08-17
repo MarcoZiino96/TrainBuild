@@ -4,134 +4,15 @@
 <html>
 <head>
 <title>Create Train</title>
-
-
-
-<style>
-* {
-	box-sizing: border-box;
-}
-
-body {
-	padding: 0;
-	background-color: #2f1847;
-	margin: 0;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-.containerHome {
-<<<<<<< HEAD
-	background-color: #1d1d1d;
-	border-radius: 8px;
-	box-shadow: 0 2px 10px #c62e65;
-	color: #2f1847;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin: 100px;
-	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
-}
-
-.box {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-h2 {
-	margin-bottom: 20px;
-	color: #cda434;
-}
-
-form {
-	margin-bottom: 30px;
-}
-
-.form-group {
-	margin: 50px;
-}
-
-.form-group label {
-	display: block;
-	margin-bottom: 5px;
-}
-
-.form-group input, .form-group select {
-	width: 100%;
-	padding: 8px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-}
-
-.btnSubmit {
-	text-align: center;
-	width: 100%;
-}
-
-.submitBtn {
-	display: inline-block;
-	padding: 10px 20px;
-	background-color: #e0c680;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	color: #2f1847;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	transition: transform 0.3s ease;
-}
-
-.submitBtn:hover {
-	background-color: #bfa458;
-	color: #2f1847;
-	transform: scale(1.1);
-}
-
-.train-details .info {
-	margin-bottom: 10px;
-	padding: 10px;
-	background-color: #f9f9f9;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-}
-
-.train-details h2 {
-	text-align: center;
-	width: 100%;
-}
-
-label {
-	color: #cda434;
-	font-weight: bold;
-}
-
-.info strong {
-	display: inline-block;
-	width: 120px;
-}
-
-.boxDanger{
-color:red;
-font-weight: bold;
-font-size: 1.5rem;
-}
-
-.boxSuccess{
-color:green;
-font-weight: bold;
-font-size: 1.5rem;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css">
 </head>
 <body>
 	<jsp:include page="header.jsp" />
 
 	<div class="containerHome">
-		<div class="box">
-			<h2>Crea il tuo Treno:</h2>
-
-			<c:if test="${not empty errorMessage}">
+	<h2>Crea il tuo Treno:</h2>
+	
+	<c:if test="${not empty errorMessage}">
 				<div class="boxDanger">
 
 					<p>
@@ -167,7 +48,7 @@ font-size: 1.5rem;
 				</div>
 
 			</c:if>
-
+		<div class="box">
 			<form action="newTrain" method="post">
 				<div class="form-group">
 					<label for="sigla">Sigla</label> <input type="text" id="sigla"
@@ -207,18 +88,8 @@ font-size: 1.5rem;
 						<strong>Peso(Kg):</strong> ${treno.peso}
 					</div>
 					<div class="info">
-						<strong>lunghezza(m):</strong> ${treno.lunghezza}
-					</div>
-					<div class="info">
-						<strong>Utente:</strong>
-						<c:choose>
-							<c:when test="${treno.utente != null}">
-                            ${treno.utente.nome} ${treno.utente.cognome}
-                        </c:when>
-							<c:otherwise>
-                            Nessun utente associato
-                        </c:otherwise>
-						</c:choose>
+						<strong>Lunghezza(m):</strong> 
+						<span>${treno.lunghezza}</span>  
 					</div>
 				</div>
 

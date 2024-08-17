@@ -17,7 +17,7 @@
     color: #fafafa;
     font-size: 18px;
     padding: 10px;
-    box-shadow: 0 2px 20px #fafafa;
+    box-shadow: 0 0 15px 8px rgba(205, 164, 52, 0.2);
     height: 100px;
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }
@@ -34,7 +34,6 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
     display: flex;
     align-items: center; 
 }

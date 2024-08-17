@@ -16,7 +16,7 @@ public class PrenotazioneVO {
     private LocalDate dataPartenza;
 
     @NotNull
-    @Size(min = 1, max = 80)
+    @Size(min = 1, max = 20)
     private String coordinatePosto;
 
     @NotNull

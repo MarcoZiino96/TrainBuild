@@ -1,3 +1,4 @@
+
 * {
 	box-sizing: border-box;
 }
@@ -9,10 +10,13 @@ body {
 }
 
 .boxCard {
+	max-width: 50%;
+	padding: 40px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin: 10px auto;
 }
 
 .card {
@@ -20,25 +24,27 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 900px;
-	height: 600px;
 	margin-bottom: 40px;
-	background-color: #fafafa;
+	background-color: #1D1D1D;
+	color: #e0c680;
 	border-radius: 8px;
-	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
+	box-shadow: 0 0 15px 8px rgba(205, 164, 52, 0.2);
+	padding:20px;
 }
 
 .titleCard h2 {
 	font-size: 22px;
 	margin-bottom: 35px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .property-list {
 	display: flex;
 	flex-direction: row;
-	 justify-content: space-between;
+	justify-content: space-between;
 	margin-bottom: 10px;
 	padding: 20px 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .sigla-compagnia-property {
@@ -64,8 +70,8 @@ body {
 
 .property label {
 	font-weight: bold;
-	color: #343a40;
 	margin-right: 5px;
+	color: #e0c680;
 }
 
 .property {
@@ -75,11 +81,9 @@ body {
 	margin-right: 40px;
 }
 
-
-
 .star-rating {
 	display: flex;
-	flex-direction: row;
+	flex-direction: row-reverse;
 }
 
 .star-rating input {
@@ -87,9 +91,10 @@ body {
 }
 
 .star-rating label {
-	font-size: 24px;
+	font-size: 40px;
 	color: #ccc;
 	cursor: pointer;
+	margin-right: 15px;
 }
 
 .star-rating input:checked ~ label {
@@ -105,28 +110,31 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin-top: 10px;
+	
 }
 
 #btn-invia button {
 	padding: 10px 20px;
 	border: none;
-	background-color: #2f1847;
-	color: #fafafa;
+	background-color: #2F1847;
+	color: #bfa458;
 	font-size: 16px;
 	border-radius: 4px;
 	cursor: pointer;
 	margin-bottom: 35px;
+	transition: transform 0.3s ease;
 }
 
-#btn-invia :hover {
-	background-color: #e0c680;
-	color: #2f1847;
+#btn-invia button:hover {
+	background-color: #bfa458;
+	color: white;
+	transform: scale(1.1);
 }
 
 .btn-navbar {
 	background-color: #2f1847;
 	padding: 10px 0;
-	margin-bottom: 20px;
+	margin-top: 25px;
 	display: flex;
 	justify-content: center;
 }
@@ -142,23 +150,40 @@ body {
 	width: 50px;
 	height: 50px;
 	cursor: pointer;
+	transition: transform 0.3s ease;
 }
 
-.icon-button:hover {
+#iconModifica:hover,
+#iconDuplica:hover{
 	background-color: #e0c680;
+	color: white;
+	transform:scale(1.1);
 }
+
 
 #icon-button-delete {
 	background-color: red;
+	transition: transform 0.3s ease;
+	
 }
 
 #icon-button-delete:hover {
 	background-color: #cc0000;
+	color: white;
+	transform:scale(1.1);
 }
 
 #sigla {
 	margin-top: 20px;
 	margin-bottom: 30px;
+}
+#treno-image-container{
+	text-align: center; 
+	margin-bottom: 20px;
+}
+
+#compagnia {
+	margin-top: 20px;
 }
 
 .form-group input, .form-group select {
@@ -167,6 +192,7 @@ body {
 	border-radius: 4px;
 	font-size: 16px;
 	width: 100%;
+	margin-bottom: 8px;
 }
 
 .text-center {
@@ -174,20 +200,38 @@ body {
 	justify-content: center;
 }
 
+.hidden {
+	display: none;
+}
 
 .btn-success {
-	background-color: #2f1847;
-	color: #fafafa;
+	background-color:#2f1847 ;
+	color:  #e0c680;
 	border: none;
 	padding: 10px 20px;
 	margin-top: 30px;
 	font-size: 16px;
 	border-radius: 4px;
 	cursor: pointer;
-	transition: background-color 0.3s;
+	transition: transform 0.3s ease;
 }
 
 .btn-success:hover {
-	background-color: #e0c680;
-	color: #2f1847;
+	background-color: #bfa458;
+	color: white;
+	transform: scale(1.1);
+}
+
+.boxDanger {
+	color: red;
+	font-weight: bold;
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.boxSuccess {
+	color: green;
+	font-weight: bold;
+	font-size: 1.2rem;
+	text-align: center;
 }

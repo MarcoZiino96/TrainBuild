@@ -17,7 +17,22 @@ public class VagonePasseggeri extends AbstractVagone {
 	@Column(name = "numero_posti")
 	private int numeroPosti;
 	
+	 @Column(name = "posti_disponibili")
+	private int postiDisponibili;
 	
+	
+
+	public int getPostiDisponibili() {
+		return postiDisponibili;
+	}
+
+
+
+	public void setPostiDisponibili(int postiDisponibili) {
+		this.postiDisponibili = postiDisponibili;
+	}
+
+
 
 	public VagonePasseggeri() {
 		super();
@@ -28,6 +43,7 @@ public class VagonePasseggeri extends AbstractVagone {
 	public VagonePasseggeri( double lunghezza, double peso, double prezzo, int numeroPosti) {
 		super( lunghezza, peso, prezzo);
 		this.numeroPosti = numeroPosti;
+		 this.postiDisponibili = numeroPosti;
 	}
 
 
@@ -47,6 +63,14 @@ public class VagonePasseggeri extends AbstractVagone {
 	public void setNumeroPosti(int numeroPosti) {
 		this.numeroPosti = numeroPosti;
 	}
+	
+	 public void prenotaPosto() {
+	        if (postiDisponibili > 0) {
+	            postiDisponibili--;
+	        } else {
+	            throw new IllegalStateException("Nessun posto disponibile nel vagone");
+	        }
+	    }
 	
 	
 

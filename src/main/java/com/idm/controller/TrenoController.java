@@ -37,9 +37,7 @@ public class TrenoController {
 		
 	@Autowired
 	private TrenoFilterService trenoFilterService;
-	
-	@Autowired
-	private UtenteService utenteService;
+
 
 	@GetMapping("/home")
 	public String showHome(@ModelAttribute("treno") TrenoVO trenoVo,HttpSession session, Model model){
@@ -57,6 +55,13 @@ public class TrenoController {
 	   
 	    return "details";
 	}
+	
+	 @GetMapping("/prenota")
+	    public String getTreniConVagonePasseggeri(Model model) {
+	        List<TrenoVO> treni = trenoService.findTreniConVagonePasseggeri();
+	        model.addAttribute("treni", treni);
+	        return "prenota";
+	    }
 	
 	@GetMapping("/order")
 	public String ordina(

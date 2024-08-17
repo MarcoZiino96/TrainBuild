@@ -11,7 +11,7 @@ import com.idm.entity.Locomotiva;
 import com.idm.service.LocomotivaService;
 
 
-public class LocomotivaServiceImpl{
+public class LocomotivaServiceImpl extends Locomotiva{
 
 	@Autowired
 	private LocomotivaDao locomotivaDao;

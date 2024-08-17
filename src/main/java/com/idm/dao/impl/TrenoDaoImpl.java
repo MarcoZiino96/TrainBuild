@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -129,7 +130,20 @@ public class TrenoDaoImpl extends DaoImpl implements TrenoDao {
 	    return result;
 	}
 
-
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Treno> findTreniConVagonePasseggeri() {
+		try {
+			return manager.createQuery
+				 ("SELECT DISTINCT t FROM Treno t JOIN t.vagoni v WHERE TYPE(v) = VagonePasseggeri")
+				 .getResultList();
+		}catch (NoResultException e) {
+            e.getMessage();
+            return null;
+        }
+	}
+	
+	
 	
 
 }
