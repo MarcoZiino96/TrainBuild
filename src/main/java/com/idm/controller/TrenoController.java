@@ -74,6 +74,20 @@ public class TrenoController {
 		return "order";
 	}
 
+	@GetMapping("/gestioneTreni")
+	public String gestioneTreni(HttpSession session, Model model) {
+		Utente utente = (Utente) session.getAttribute("utente");
+		if (utente == null) {
+			model.addAttribute("errorMessage", "Devi essere loggato per gestire i treni.");
+			return "home";
+		}
+		List<Treno> treni = trenoService.retrive();
+		model.addAttribute("treni", treni);
+		return "gestioneTreni";  
+	}
+
+
+
 	@PostMapping("/eliminaTreno")
 	public String eliminaTreno(@RequestParam Integer trenoId, HttpSession session, Model model) {
 		Utente utente = (Utente) session.getAttribute("utente");
@@ -87,14 +101,14 @@ public class TrenoController {
 
 			if (treno.getUtente().getId() != utente.getId()) {
 				model.addAttribute("errorMessage", "Non hai il permesso di eliminare questo treno.");
-				return "order";
+				return "gestioneTreni";
 			}
 
 			trenoService.delete(trenoId);
-			return "redirect:/order";
+			return "redirect:/gestioneTreni";
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Errore durante l'eliminazione del treno.");
-			return "order";
+			return "gestioneTreni";
 		}
 	}
 
@@ -118,7 +132,7 @@ public class TrenoController {
 			treno = trenoService.update(treno, trenoId);
 			model.addAttribute("treno", treno);
 
-			return "redirect:/order";
+			return "redirect:/gestioneTreni";
 
 		} catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
 			model.addAttribute("errorMessage", e.getMessage());
@@ -127,43 +141,85 @@ public class TrenoController {
 			model.addAttribute("errorSiglaSuggerita", e.getSiglaSuggerita());
 			model.addAttribute("treni", trenoService.retrive()); 
 
-			return "order"; 
+			return "gestioneTreni"; 
 
 		}
 	}
 
 	@PostMapping("/duplicaTreno")
 	public String duplicaTreno(@RequestParam Integer trenoId, HttpSession session, Model model ) {
-	    Utente utente = (Utente) session.getAttribute("utente");
+		Utente utente = (Utente) session.getAttribute("utente");
 
-	    try {
-	        
-	        Treno trenoOriginale = trenoService.find(trenoId);
-	        if (trenoOriginale == null) {
-	            model.addAttribute("errorMessage", "Treno non trovato.");
-	            return "order";
-	        }
+		try {
 
-	      
-	        Treno trenoDuplicato = new Treno();
-	        trenoDuplicato.setSigla(trenoOriginale.getSigla());
-	        trenoDuplicato.setCompagnia(trenoOriginale.getCompagnia());
-	        trenoDuplicato.setPrezzo(trenoOriginale.getPrezzo());
-	        trenoDuplicato.setLunghezza(trenoOriginale.getLunghezza());
-	        trenoDuplicato.setPeso(trenoOriginale.getPeso());
+			Treno trenoOriginale = trenoService.find(trenoId);
+			if (trenoOriginale == null) {
+				model.addAttribute("errorMessage", "Treno non trovato.");
+				return "gestioneTreni";
+			}
 
-	        trenoDuplicato = trenoService.createTreno(trenoDuplicato.getSigla(), trenoDuplicato.getCompagnia(), utente);
 
-	        trenoDuplicato = trenoService.update(trenoDuplicato, trenoDuplicato.getId());
+			Treno trenoDuplicato = new Treno();
+			trenoDuplicato.setSigla(trenoOriginale.getSigla());
+			trenoDuplicato.setCompagnia(trenoOriginale.getCompagnia());
+			trenoDuplicato.setPrezzo(trenoOriginale.getPrezzo());
+			trenoDuplicato.setLunghezza(trenoOriginale.getLunghezza());
+			trenoDuplicato.setPeso(trenoOriginale.getPeso());
 
-	       
-	        model.addAttribute("treno", trenoDuplicato);
-	        return "redirect:/order";
-	        
-	    } catch (Exception e) {
-	        model.addAttribute("errorMessage", "Impossibile duplicare il treno: " + e.getMessage());
-	        return "order";
-	    }
+			trenoDuplicato = trenoService.createTreno(trenoDuplicato.getSigla(), trenoDuplicato.getCompagnia(), utente);
+
+			trenoDuplicato = trenoService.update(trenoDuplicato, trenoDuplicato.getId());
+
+
+			model.addAttribute("treno", trenoDuplicato);
+			return "redirect:/gestioneTreni";
+
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Impossibile duplicare il treno: " + e.getMessage());
+			return "gestioneTreni";
+		}
+	}
+
+	@PostMapping("/invertiTreno")
+	public String invertiTreno(@RequestParam Integer trenoId, HttpSession session, Model model) {
+		Utente utente = (Utente) session.getAttribute("utente");
+
+		try {
+			Treno trenoOriginale = trenoService.find(trenoId);
+			if (trenoOriginale == null) {
+				model.addAttribute("errorMessage", "Treno non trovato.");
+				return "redirect:/gestioneTreni"; 
+			}
+
+			String sigla = trenoOriginale.getSigla();
+
+
+			if (sigla.startsWith("H") || sigla.startsWith("h")) {
+
+				String siglaInversa;
+				
+				siglaInversa = sigla.substring(0, 1) + new StringBuilder(sigla.substring(1)).reverse().toString();
+
+
+				if (sigla.endsWith("H") || sigla.endsWith("h")) {
+
+					siglaInversa = new StringBuilder(sigla).reverse().toString();
+				}
+
+
+				trenoOriginale.setSigla(siglaInversa);
+				trenoService.update(trenoOriginale, trenoId);
+
+				model.addAttribute("successMessage", "La sigla è stata invertita con successo.");
+			} else {
+				model.addAttribute("errorMessage", "La sigla non inizia con 'H' o 'h'.");
+			}
+
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Impossibile invertire il treno: " + e.getMessage());
+		}
+
+		return "redirect:/gestioneTreni"; 
 	}
 
 

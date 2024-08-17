@@ -2,32 +2,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Lista Treni</title>
     <style>
-    @charset "UTF-8";
-
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
         margin: 20px;
+        color: #333;
+    }
+
+    h2 {
+        color: #444;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     th, td {
-        border: 1px solid #dddddd;
+        border: 1px solid #ddd;
         text-align: left;
-        padding: 8px;
+        padding: 12px;
     }
 
     th {
-        background-color: #f2f2f2;
+        background-color: #f8f8f8;
+        color: #555;
+        font-weight: bold;
     }
 
     tr:nth-child(even) {
@@ -37,69 +43,79 @@
     tr:hover {
         background-color: #f1f1f1;
     }
+
     .titleOrder {
         text-align: center;
-    }
-
-    .titleOrder h2 {
-        margin: 20px;
-        padding-top: 40px;
+        margin-bottom: 20px;
     }
 
     .formOrder {
         text-align: center;
-        margin: 30px;
+        margin: 30px auto;
+    }
+
+    .formOrder label {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .formOrder select, .formOrder button {
+        padding: 8px 12px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .formOrder button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .formOrder button:hover {
+        background-color: #0056b3;
     }
 
     .message {
         text-align: center;
-        margin: 20px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        background-color: #f2f2f2;
+        margin: 20px auto;
+        padding: 15px;
+        border-radius: 4px;
     }
 
     .error {
         border-color: red;
-        color: red;
+        background-color: #f8d7da;
+        color: #721c24;
     }
 
     .success {
         border-color: green;
-        color: green;
-    }
-
-    .action-buttons {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-    }
-
-    .action-buttons form {
-        margin: 0;
-    }
-
-    .action-buttons button {
-        margin: 0;
-        padding: 5px 10px;
-        font-size: 14px;
-        cursor: pointer;
+        background-color: #d4edda;
+        color: #155724;
     }
 
     .text-center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        text-align: center;
+    }
+
+    .text-center a.btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #007bff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .text-center a.btn:hover {
+        background-color: #0056b3;
     }
     </style>
-    <script>
-    function confermaEliminazione() {
-        return confirm("Sei sicuro di voler eliminare questo treno?");
-    }
-    </script>
 </head>
-
 <body>
 
     <jsp:include page="header.jsp" />
@@ -158,7 +174,6 @@
                 <th>Peso</th>
                 <th>Prezzo</th>
                 <th>Utente</th>
-                <th>Azioni</th> 
             </tr>
         </thead>
         <tbody>
@@ -171,45 +186,16 @@
                     <td>${treno.peso}</td>
                     <td>${treno.prezzo}</td>
                     <td>${treno.utente.username}</td>
-                    <td>
-                        <c:if test="${treno.utente.id == utente.id}">
-                            <div class="action-buttons">
-                                <form action="eliminaTreno" method="post" onsubmit="return confermaEliminazione()" style="display:inline;">
-                                    <input type="hidden" name="trenoId" value="${treno.id}" />
-                                    <button type="submit">Elimina</button>
-                                </form>
-                                <form action="modificaTreno" method="post" style="display:inline;">
-                                    <input type="hidden" name="trenoId" value="${treno.id}" />
-                                    
-                                    <div class="form-group">
-                                        <label for="sigla">Sigla</label> 
-                                        <input type="text" id="sigla" name="sigla" value="${treno.sigla}" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="compagnia">Compagnia</label> 
-                                        <select id="compagnia" name="compagnia" required>
-                                            <option value="FR" <c:if test="${treno.compagnia == 'FR'}">selected</c:if>>Frecciarossa(FR)</option>
-                                            <option value="IT" <c:if test="${treno.compagnia == 'IT'}">selected</c:if>>Italo(IT)</option>
-                                            <option value="TN" <c:if test="${treno.compagnia == 'TN'}">selected</c:if>>Trenord(TN)</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-success">Modifica Treno</button>
-                                    </div>
-                                </form>
-                                <form action="duplicaTreno" method="post" style="display:inline;">
-                                    <input type="hidden" name="trenoId" value="${treno.id}" />
-                                    <button type="submit">Duplica</button>
-                                </form>
-                            </div>
-                        </c:if>
-                    </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
+
+    <c:if test="${not empty utente}">
+        <div class="text-center">
+            <a href="gestioneTreni" class="btn btn-primary">Gestisci i Treni</a>
+        </div>
+    </c:if>
     
 </body>
 </html>
