@@ -90,10 +90,10 @@
         <div class="container">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Chi siamo</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Contatti</a></li>
+                <li class="nav-item"><a class="nav-link" href="prenota">Prenota</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Mie Prenotazioni</a></li>
                 <c:if test="${not empty sessionScope.utente}">
-                    <li class="nav-item"><a class="nav-link" href="order">Ricerca</a></li>
+                    <li class="nav-item"><a class="nav-link" href="order">Ricerca Treno</a></li>
                     <li class="nav-item">
                         <span class="username">${sessionScope.utente.username}</span> 
                     </li>

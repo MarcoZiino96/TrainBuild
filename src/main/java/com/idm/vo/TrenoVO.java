@@ -90,6 +90,6 @@ public class TrenoVO {
 	}
 	@Override
 	public String toString() {
-		return "TrenoVO [id=" + id + ", compagnia=" + compagnia + "]";
+		return "TrenoVO [id=" + id + ", compagnia=" + compagnia + vagoni +"]";
 	}
 }

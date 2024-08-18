@@ -1,19 +1,10 @@
 package com.idm.vo;
-
-import java.time.LocalDate;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class PrenotazioneVO {
 	@NotNull
     private Integer id;
-
-    @NotNull
-    private LocalDate dataAttivazione;
-
-    @NotNull
-    private LocalDate dataPartenza;
 
     @NotNull
     @Size(min = 1, max = 20)
@@ -31,22 +22,6 @@ public class PrenotazioneVO {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public LocalDate getDataAttivazione() {
-		return dataAttivazione;
-	}
-
-	public void setDataAttivazione(LocalDate dataAttivazione) {
-		this.dataAttivazione = dataAttivazione;
-	}
-
-	public LocalDate getDataPartenza() {
-		return dataPartenza;
-	}
-
-	public void setDataPartenza(LocalDate dataPartenza) {
-		this.dataPartenza = dataPartenza;
 	}
 
 	public String getCoordinatePosto() {
@@ -75,8 +50,7 @@ public class PrenotazioneVO {
 
 	@Override
 	public String toString() {
-		return "PrenotazioneVo [id=" + id + ", dataAttivazione=" + dataAttivazione + ", dataPartenza=" + dataPartenza
-				+ ", coordinatePosto=" + coordinatePosto + ", utenteId=" + utenteId + ", trenoId=" + trenoId + "]";
+		return "PrenotazioneVo [id=" + id + ", dataAttivazione=" + coordinatePosto + ", utenteId=" + utenteId + ", trenoId=" + trenoId + "]";
 	}
 	
 

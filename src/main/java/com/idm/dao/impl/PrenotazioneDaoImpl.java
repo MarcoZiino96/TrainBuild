@@ -2,6 +2,7 @@ package com.idm.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,14 @@ public class PrenotazioneDaoImpl extends DaoImpl implements PrenotazioneDao{
 	@Override
 	public Prenotazione find(Integer id) {
 		return manager.find(Prenotazione.class, id );
+	}
+	
+	public Prenotazione exsistingPrenotazione(int utenteId, int trenoId) {
+		Query query = manager.createQuery
+		("SELECT p FROM Prenotazione p WHERE  p.utente.id = :utenteId AND p.treno.id = :trenoId", Prenotazione.class);
+		query.setParameter("utenteId", utenteId);
+		query.setParameter("trenoId", trenoId);
+		return (Prenotazione)query.getSingleResult();
 	}
 
 	

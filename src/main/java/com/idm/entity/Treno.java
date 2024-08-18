@@ -23,7 +23,6 @@ public class Treno implements Bean {
 	@ManyToOne
 	@JoinColumn(name = "utente_fk")
 	private Utente utente;
-	
 	private Double prezzo;
 	private Double peso;
 	private Double lunghezza;
@@ -32,22 +31,22 @@ public class Treno implements Bean {
 	@Enumerated(EnumType.STRING)
 	private Factory compagnia;
 
-	@OneToMany(mappedBy = "treno",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "treno", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	List<AbstractVagone> vagoni;
 	
 	@OneToMany(mappedBy = "treno",  fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	List<Voto> voti; 
+	Set<Voto> voti; 
 	
-	@OneToMany(mappedBy = "treno", cascade = CascadeType.ALL)
-	private Set<Prenotazione> prenotazioni = new HashSet<>();
+//	@OneToMany(mappedBy = "treno", cascade = CascadeType.ALL)
+//	private Set<Prenotazione> prenotazioni = new HashSet<>();
 
 
 
-	public List<Voto> getVoti() {
+	public Set<Voto> getVoti() {
 		return voti;
 	}
 
-	public void setVoti(List<Voto> voti) {
+	public void setVoti(Set<Voto> voti) {
 		this.voti = voti;
 	}
 

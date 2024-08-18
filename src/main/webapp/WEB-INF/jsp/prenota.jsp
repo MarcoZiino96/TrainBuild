@@ -9,35 +9,62 @@
 <title>Insert title here</title>
 
 <style>
-body{
-background-color: #2F1847;
+body {
+	background-color: #2F1847;
 }
+
 .containerPrenota {
-    padding-top:30px;
-    display: flex;
-    flex-direction:column;
-    flex-wrap: wrap;
-    align-content: center;
-    gap:10px;
+	padding-top: 30px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 30px;
 }
 
 .cardPrenota {
-    box-sizing: border-box;
-    width:50%;
-    background-color: #1D1D1D;
-    color: #bfa458;
-    padding: 10px;
-    font-weight: bold;
-    border-radius: 50px;
-    box-shadow: 0 0 15px 8px rgba(205, 164, 52, 0.2);
-    display: flex;
-    justify-content:center;
-    gap: 10px;
+	box-sizing: border-box;
+	width: 550px;
+	background-color: #1D1D1D;
+	color: #bfa458;
+	padding: 10px;
+	font-weight: bold;
+	border-radius: 20px;
+	box-shadow: 0 0 15px 8px rgba(205, 164, 52, 0.2);
+	display: flex;
+	gap: 10px;
 }
 
 .boxProperty {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
+}
+
+.boxText {
+	width: 100%;
+}
+
+.boxDanger {
+	font-weight: bold;
+	color: red;
+}
+.boxSuccess {
+	font-weight: bold;
+	color: green;
+}
+.submitBtn {
+    padding: 10px 20px;
+    background-color: #2f1847;
+    color: #e0c680;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.submitBtn:hover {
+    background-color: #bfa458;
+    color: white;
+    transform: scale(1.1);
 }
 </style>
 
@@ -47,15 +74,13 @@ background-color: #2F1847;
 			.addEventListener(
 					'DOMContentLoaded',
 					function() {
-						// Seleziona tutti gli elementi con la classe 'imageContainer'
+
 						var trenoImageContainers = document
 								.querySelectorAll('.imageContainer');
 
-						// Seleziona tutti gli elementi con l'id 'treno-data' (assumendo che abbiano lo stesso ordine delle card)
 						var trenoDataElements = document
 								.querySelectorAll('#treno-data');
 
-						// Verifica che ci siano gli stessi numeri di imageContainers e trenoDataElements
 						if (trenoImageContainers.length === trenoDataElements.length) {
 							trenoDataElements
 									.forEach(function(dataElement, index) {
@@ -64,8 +89,9 @@ background-color: #2F1847;
 										var trenoImage = document
 												.createElement('img');
 										trenoImage.alt = 'Immagine Treno';
-										trenoImage.style.maxWidth = '100%';
-										trenoImage.style.height = '100%';
+										trenoImage.style.maxWidth = '250px';
+										trenoImage.style.height = '200px';
+										trenoImage.style.borderRadius = '20px';
 
 										switch (trenoCompagnia) {
 										case 'FR':
@@ -95,32 +121,61 @@ background-color: #2F1847;
 
 	<jsp:include page="header.jsp" />
 
+	<c:if test="${not empty errorMessage}">
+		<div class="boxDanger">
+			<p>
+				<c:out value="${errorMessage}" />
+			</p>
+		</div>
+	</c:if>
+	<c:if test="${not empty messaggio}">
+		<div class="boxSuccess">
+			<p>
+				<c:out value="${messaggio}" />
+			</p>
+		</div>
+	</c:if>
+
 	<div class="containerPrenota">
-	
+
+
+
 		<c:forEach var="treno" items="${treni}">
+
+
 
 			<div class="cardPrenota">
 
-<div class="boxImg">
- <div class="imageContainer"></div>
- <div id="treno-data" data-compagnia="${treno.compagnia}"></div>
-</div>
-            <div class="boxText">
-				<div class="boxProperty">
-					<h5>Compagnia: ${treno.compagnia}</h5>
-					<h5>Sigla:${treno.sigla}</h5>
+				<div class="boxImg">
+					<div class="imageContainer"></div>
+					<div id="treno-data" data-compagnia="${treno.compagnia}"></div>
 				</div>
-				<div class="boxProperty">
-					<h5>Lunghezza: ${treno.lunghezza} m</h5>
-					<h5>Peso:${treno.peso} Kg</h5>
+				<div class="boxText">
+					<div class="boxProperty">
+						<h5>Compagnia: ${treno.compagnia}</h5>
+						<h5>Sigla:${treno.sigla}</h5>
+					</div>
+					<div class="boxProperty">
+						<h5>Lunghezza: ${treno.lunghezza} m</h5>
+						<h5>Peso:${treno.peso} Kg</h5>
+					</div>
+					<div class="boxProperty">
+						<h5>Prezzo: ${treno.prezzo} €</h5>
+						<h5>Voto:${treno.mediaVoti}</h5>
+					</div>
+					<div class="boxProperty">
+						<form:form modelAttribute="prenotazione" action="prenota"
+							method="post">
+							<form:hidden path="trenoId" value="${treno.id}" />
+							<form:hidden path="utenteId" value="${sessionScope.utente.id}" />
+							<button class="submitBtn" type="submit">Prenota</button>
+						</form:form>
+					</div>
 				</div>
-				<div class="boxProperty">
-					<h5>Prezzo: ${treno.prezzo} €</h5>
-					<h5>Voto:${treno.mediaVoti}</h5>
-				</div>
-           </div>
+
+
 			</div>
-			
+
 		</c:forEach>
 	</div>
 

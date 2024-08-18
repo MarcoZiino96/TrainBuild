@@ -14,4 +14,6 @@ public interface PrenotazioneDao {
 	public Prenotazione find(Integer id);
 	
 	public void delete(int id);
+	
+	public Prenotazione exsistingPrenotazione(int utenteId, int trenoId);
 }

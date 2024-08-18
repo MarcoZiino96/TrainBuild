@@ -25,6 +25,7 @@ import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
 import com.idm.service.UtenteService;
 import com.idm.service.VotoService;
+import com.idm.vo.PrenotazioneVO;
 import com.idm.vo.TrenoVO;
 import com.idm.vo.VotoVO;
 
@@ -57,9 +58,11 @@ public class TrenoController {
 	}
 	
 	 @GetMapping("/prenota")
-	    public String getTreniConVagonePasseggeri(Model model) {
+	    public String getTreniConVagonePasseggeri(@ModelAttribute("prenotazione") PrenotazioneVO prenotazioneVo,HttpSession session,Model model) {
+		    Utente utente = (Utente) session.getAttribute("utente");
 	        List<TrenoVO> treni = trenoService.findTreniConVagonePasseggeri();
 	        model.addAttribute("treni", treni);
+	        model.addAttribute("utente", utente);
 	        return "prenota";
 	    }
 	

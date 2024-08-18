@@ -10,4 +10,5 @@ public interface PrenotazioneService {
 	public  Prenotazione findPrenotazione(int id);
 	public  Prenotazione updatePrenotazione(Prenotazione p, int id);
 	public  void deletePrenotazione(int id);
+	public Prenotazione exsistingPrenotazione(int utenteId, int trenoId);
 }
