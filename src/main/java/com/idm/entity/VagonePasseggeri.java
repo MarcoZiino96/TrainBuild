@@ -1,7 +1,11 @@
 package com.idm.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -17,8 +21,13 @@ public class VagonePasseggeri extends AbstractVagone {
 	@Column(name = "numero_posti")
 	private int numeroPosti;
 	
-	 @Column(name = "posti_disponibili")
+	@Column(name = "posti_disponibili")
 	private int postiDisponibili;
+	 
+    @OneToMany(mappedBy = "vagonePasseggeri", cascade = CascadeType.REMOVE)
+	    private List<Prenotazione> prenotazioni;
+	 
+	 
 	
 	
 

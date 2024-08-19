@@ -14,7 +14,7 @@ public class PrenotazioneVO {
     private Integer utenteId;
 
     @NotNull
-    private Integer trenoId;
+    private Integer vagoneId;
 
 	public Integer getId() {
 		return id;
@@ -40,17 +40,18 @@ public class PrenotazioneVO {
 		this.utenteId = utenteId;
 	}
 
-	public Integer getTrenoId() {
-		return trenoId;
+	
+	public Integer getVagoneId() {
+		return vagoneId;
 	}
 
-	public void setTrenoId(Integer trenoId) {
-		this.trenoId = trenoId;
+	public void setVagoneId(Integer vagoneId) {
+		this.vagoneId = vagoneId;
 	}
 
 	@Override
 	public String toString() {
-		return "PrenotazioneVo [id=" + id + ", dataAttivazione=" + coordinatePosto + ", utenteId=" + utenteId + ", trenoId=" + trenoId + "]";
+		return "PrenotazioneVo [id=" + id + ", dataAttivazione=" + coordinatePosto + ", utenteId=" + utenteId + ", trenoId=" + vagoneId + "]";
 	}
 	
 

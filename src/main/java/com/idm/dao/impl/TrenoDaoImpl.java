@@ -130,12 +130,11 @@ public class TrenoDaoImpl extends DaoImpl implements TrenoDao {
 	    return result;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Treno> findTreniConVagonePasseggeri() {
 		try {
 			return manager.createQuery
-				 ("SELECT DISTINCT t FROM Treno t JOIN t.vagoni v WHERE TYPE(v) = VagonePasseggeri")
+				 ("SELECT DISTINCT t FROM Treno t JOIN t.vagoni v WHERE TYPE(v) = VagonePasseggeri", Treno.class)
 				 .getResultList();
 		}catch (NoResultException e) {
             e.getMessage();

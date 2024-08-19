@@ -31,16 +31,12 @@ public class Treno implements Bean {
 	@Enumerated(EnumType.STRING)
 	private Factory compagnia;
 
-	@OneToMany(mappedBy = "treno", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "treno", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	List<AbstractVagone> vagoni;
 	
-	@OneToMany(mappedBy = "treno",  fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "treno",  fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	Set<Voto> voti; 
 	
-//	@OneToMany(mappedBy = "treno", cascade = CascadeType.ALL)
-//	private Set<Prenotazione> prenotazioni = new HashSet<>();
-
-
 
 	public Set<Voto> getVoti() {
 		return voti;

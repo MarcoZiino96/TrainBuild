@@ -82,9 +82,6 @@ public abstract class AbstractVagone implements Vagone{
 	}
 
 
-
-
-
 	public double getLunghezza()
 	{
 		return this.lunghezza;

@@ -1,5 +1,7 @@
 package com.idm.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -45,12 +47,20 @@ public class PrenotazioneDaoImpl extends DaoImpl implements PrenotazioneDao{
 		return manager.find(Prenotazione.class, id );
 	}
 	
-	public Prenotazione exsistingPrenotazione(int utenteId, int trenoId) {
+	public Prenotazione exsistingPrenotazione(int utenteId, int vagoneId) {
 		Query query = manager.createQuery
-		("SELECT p FROM Prenotazione p WHERE  p.utente.id = :utenteId AND p.treno.id = :trenoId", Prenotazione.class);
+		("SELECT p FROM Prenotazione p WHERE  p.utente.id = :utenteId AND p.vagonePasseggeri.treno.id = :trenoId", Prenotazione.class);
 		query.setParameter("utenteId", utenteId);
-		query.setParameter("trenoId", trenoId);
+		query.setParameter("trenoId", vagoneId);
 		return (Prenotazione)query.getSingleResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Prenotazione> prenotazioneUtenteById(int utenteId){
+		Query query = manager.createQuery
+				("SELECT p FROM Prenotazione p where p.utente.id = :utenteId", Prenotazione.class);
+		query.setParameter("utenteId", utenteId);
+		return  query.getResultList();
 	}
 
 	

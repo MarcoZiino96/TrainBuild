@@ -47,24 +47,27 @@ body {
 	font-weight: bold;
 	color: red;
 }
+
 .boxSuccess {
 	font-weight: bold;
 	color: green;
 }
+
 .submitBtn {
-    padding: 10px 20px;
-    background-color: #2f1847;
-    color: #e0c680;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+	padding: 10px 20px;
+	background-color: #2f1847;
+	color: #e0c680;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: transform 0.3s ease;
 }
+
 .submitBtn:hover {
-    background-color: #bfa458;
-    color: white;
-    transform: scale(1.1);
+	background-color: #bfa458;
+	color: white;
+	transform: scale(1.1);
 }
 </style>
 
@@ -121,56 +124,32 @@ body {
 
 	<jsp:include page="header.jsp" />
 
-	<c:if test="${not empty errorMessage}">
-		<div class="boxDanger">
-			<p>
-				<c:out value="${errorMessage}" />
-			</p>
-		</div>
-	</c:if>
-	<c:if test="${not empty messaggio}">
-		<div class="boxSuccess">
-			<p>
-				<c:out value="${messaggio}" />
-			</p>
-		</div>
-	</c:if>
 
 	<div class="containerPrenota">
 
 
 
-		<c:forEach var="treno" items="${treni}">
+		<c:forEach var="prenotazione" items="${prenotazioni}">
 
 
 
 			<div class="cardPrenota">
-
-				<div class="boxImg">
+			
+			<div class="boxImg">
 					<div class="imageContainer"></div>
-					<div id="treno-data" data-compagnia="${treno.compagnia}"></div>
+					<div id="treno-data" data-compagnia="${prenotazione.vagonePasseggeri.treno.compagnia}"></div>
 				</div>
+				
 				<div class="boxText">
 					<div class="boxProperty">
-						<h5>Compagnia: ${treno.compagnia}</h5>
-						<h5>Sigla:${treno.sigla}</h5>
+						<h5>Compagnia: ${prenotazione.vagonePasseggeri.treno.compagnia}</h5>
+						<h5>Sigla:${prenotazione.vagonePasseggeri.treno.sigla}</h5>
 					</div>
 					<div class="boxProperty">
-						<h5>Lunghezza: ${treno.lunghezza} m</h5>
-						<h5>Peso:${treno.peso} Kg</h5>
+					<h5>Codice Treno:${prenotazione.vagonePasseggeri.treno.id}</h5>
 					</div>
 					<div class="boxProperty">
-						<h5>Prezzo: ${treno.prezzo} €</h5>
-						<h5>Voto:${treno.mediaVoti}</h5>
-					</div>
-					<div class="boxProperty">
-						<form:form modelAttribute="prenotazione" action="prenota"
-							method="post">
-							<form:hidden path="vagoneId" value="${prenotazione.vagoneId}" />
-							<form:hidden path="utenteId" value="${sessionScope.utente.id}" />
-							 <input type="hidden" name="trenoId" value="${treno.id}" />
-							<button class="submitBtn" type="submit">Prenota</button>
-						</form:form>
+						<h5>CoordinatePosto: ${prenotazione.coordinatePosto}</h5>
 					</div>
 				</div>
 

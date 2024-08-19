@@ -22,8 +22,8 @@ public class Prenotazione implements Bean {
 	private Utente utente;
 
 	@ManyToOne
-	@JoinColumn(name="treno_fk")
-	private Treno treno;
+	@JoinColumn(name="vagonePasseggeri_fk")
+	private VagonePasseggeri vagonePasseggeri;
 
 	public Prenotazione() {
 	}
@@ -44,12 +44,13 @@ public class Prenotazione implements Bean {
 		this.utente = utente;
 	}
 
-	public Treno getTreno() {
-		return treno;
+
+	public VagonePasseggeri getVagonePasseggeri() {
+		return vagonePasseggeri;
 	}
 
-	public void setTreno(Treno treno) {
-		this.treno = treno;
+	public void setVagonePasseggeri(VagonePasseggeri vagonePasseggeri) {
+		this.vagonePasseggeri = vagonePasseggeri;
 	}
 
 	public String getCoordinatePosto() {
@@ -62,7 +63,7 @@ public class Prenotazione implements Bean {
 
 	@Override
 	public String toString() {
-		return "Prenotazione [id=" + id + ", dataAttivazione=" + ", coordinatePosto=" + coordinatePosto + ", utente=" + utente + ", treno=" + treno + "]";
+		return "Prenotazione [id=" + id + ", dataAttivazione=" + ", coordinatePosto=" + coordinatePosto + ", utente=" + utente + ", vagonePasseggeri=" + vagonePasseggeri + "]";
 	}
 
 

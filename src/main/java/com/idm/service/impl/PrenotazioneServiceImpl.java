@@ -32,32 +32,27 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
 	@Autowired
 	AbstractVagoneService abstractVagoneService;
 
-	public  Prenotazione creaPrenotazione( PrenotazioneVO pr) {
-
-		Treno treno = trenoService.find(pr.getTrenoId());
-		Utente utente = utenteService.find(pr.getUtenteId());
-
+	public  Prenotazione creaPrenotazione( PrenotazioneVO pr, int trenoId) {
+		
 		try {
-			exsistingPrenotazione(utente.getId(), treno.getId());
-		}catch (IllegalStateException e) {
-			throw e;
-		}
-		List<TrenoVO> treni = findTreniConVagonePasseggeri();
-		VagonePasseggeri vagone = findPrimoVagonePasseggeriDisponibile(treni);
-		if (vagone == null) {
-			throw new IllegalStateException("Nessun vagone passeggeri disponibile");
-		}
+		Utente utente = utenteService.find(pr.getUtenteId());
+		Treno treno = trenoService.find(trenoId);
+		VagonePasseggeri vagone = findPrimoVagonePasseggeriDisponibile(treno);
+		
+		exsistingPrenotazione(utente.getId(), treno.getId());
 
 		vagone.prenotaPosto();
 		abstractVagoneService.create(vagone);
 		Prenotazione p = new Prenotazione();
 		p.setUtente(utente);
-		p.setTreno(treno);
+		p.setVagonePasseggeri(vagone);
 		p.setCoordinatePosto(generaCoordinatePosto(vagone));
 		prenotazioneDao.add(p);
 
 		return p;
-
+		}catch(IllegalStateException e) {
+			throw e;
+		}
 	}
 
 	public  Prenotazione findPrenotazione(int id) {
@@ -69,7 +64,7 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
 	public  Prenotazione updatePrenotazione(Prenotazione p, int id) {
 		Prenotazione pOld = findPrenotazione(id);
 		pOld.setUtente(p.getUtente());
-		pOld.setTreno(p.getTreno());
+		pOld.setVagonePasseggeri(p.getVagonePasseggeri());
 		prenotazioneDao.update(pOld);
 		return pOld;
 	}
@@ -78,24 +73,19 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
 		prenotazioneDao.delete(id);	
 	}
 
-	private List<TrenoVO> findTreniConVagonePasseggeri() {
-		return trenoService.findTreniConVagonePasseggeri();
-	}
-
-	public VagonePasseggeri findPrimoVagonePasseggeriDisponibile(List<TrenoVO> treni) {
-		for (TrenoVO treno : treni) {
-			for (AbstractVagone vagone : treno.getVagoni()) {
-				if (vagone instanceof VagonePasseggeri) {
-					return (VagonePasseggeri) vagone;
-				}
-			}
-		}
-		return null; 
+	public VagonePasseggeri findPrimoVagonePasseggeriDisponibile(Treno treno) {
+	        for (AbstractVagone vagone : treno.getVagoni()) {
+	            if (vagone instanceof VagonePasseggeri && ((VagonePasseggeri) vagone).getPostiDisponibili() > 0) {
+	                return (VagonePasseggeri) vagone;
+	            }
+	        }
+	    
+	    throw new IllegalStateException("Non ci sono posti disponibili per questo treno");
 	}
 
 
 	private String generaCoordinatePosto(VagonePasseggeri vagone) {
-		int numeroPosto = vagone.getNumeroPosti() - vagone.getPostiDisponibili() + 1;
+		int numeroPosto = vagone.getNumeroPosti() - vagone.getPostiDisponibili();
 		int idVagone = vagone.getId();
 		return calcolaCoordinatePosto(numeroPosto, idVagone);
 	}
@@ -104,9 +94,9 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
 	private String calcolaCoordinatePosto(int numeroPosto, int idVagone){
 
 		int postiPerRiga = 8;
-		int riga = (numeroPosto -1) / postiPerRiga;
+		int riga = numeroPosto / postiPerRiga;
 
-		int colonna = (numeroPosto -1) % postiPerRiga + 1;
+		int colonna = numeroPosto % postiPerRiga + 1;
 		char letteraRiga = (char) ('A' + riga);
 		return letteraRiga + Integer.toString(colonna) + "-"+ "Vagone-" + idVagone;
 
@@ -123,6 +113,10 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+	
+	public List<Prenotazione> prenotazioniutenteById(int utenteId){		
+		return prenotazioneDao.prenotazioneUtenteById(utenteId);	
 	}
 }
 

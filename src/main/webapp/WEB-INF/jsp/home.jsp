@@ -55,7 +55,8 @@
 						name="sigla" required>
 				</div>
 				<div class="form-group">
-					<label for="compagnia">Compagnia</label> <select id="compagnia"
+					<label for="compagnia">Compagnia</label> 
+					<select id="compagnia"
 						name="compagnia" required>
 						<option value="FR">Frecciarossa (FR)</option>
 						<option value="IT">Italo (IT)</option>
