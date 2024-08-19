@@ -127,6 +127,9 @@ public class TrenoController {
 			treno.setPrezzo(trenoAggiornato.getPrezzo());
 			treno.setLunghezza(trenoAggiornato.getLunghezza());
 			treno.setPeso(trenoAggiornato.getPeso());
+			treno.setVagoni(treno.getVagoni());
+			
+			
 
 
 			treno = trenoService.update(treno, trenoId);
