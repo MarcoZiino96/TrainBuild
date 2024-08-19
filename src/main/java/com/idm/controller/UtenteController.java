@@ -9,118 +9,109 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.idm.converter.UtenteConverter;
+import com.idm.dto.UtenteDTO;
 import com.idm.entity.Utente;
 import com.idm.service.UtenteService;
 import com.idm.vo.UtenteVO;
 import com.idm.vo.UtenteVOLogin;
 
-
-
 @Controller
 public class UtenteController {
 
-	@Autowired
-	UtenteService utenteService;
+    @Autowired
+    UtenteService utenteService;
 
-	@GetMapping("/formlogin")
-	public String login(@ModelAttribute("utente") UtenteVOLogin utenteVoLogin, Model model ) {
+    @GetMapping("/formlogin")
+    public String login(@ModelAttribute("utente") UtenteVOLogin utenteVoLogin, Model model) {
+        model.addAttribute("message1", "Benvenuto nel login");
+        return "formlogin";
+    }
 
-		model.addAttribute("message1", "benvenuto nel login");
-		return "formlogin";
-	}
+    @GetMapping("/preRegister")
+    public String showRegister(@ModelAttribute("utente") UtenteVO utenteVo) {
+        return "preRegister";
+    }
 
+    @PostMapping("/postRegister")
+    public String registerUser(@Valid @ModelAttribute("utente") UtenteVO utenteVo, BindingResult bindingResult, Model model) {
 
-	@GetMapping("/preRegister")
-	public String showRegister(@ModelAttribute("utente") UtenteVO utenteVo) {
+        if (bindingResult.hasErrors()) {
+            return "preRegister";
+        }
+        Utente usernameUtente = utenteService.findByUsername(utenteVo.getUsername());
+        Utente emailUtente = utenteService.findByEmail(utenteVo.getEmail());
 
-		return "preRegister";
-	}
+        if (emailUtente != null && usernameUtente != null) {
+            bindingResult.rejectValue("email", "error.email", "Email già esistente");
+            bindingResult.rejectValue("username", "error.username", "Username già esistente");
+            return "preRegister";
 
-	@PostMapping("/postRegister")
-	public String registerUser(@Valid @ModelAttribute("utente") UtenteVO utenteVo, BindingResult bindingResult, Model model) {
+        }
 
-		if (bindingResult.hasErrors()) {
-			return "preRegister";     
-		}
-		Utente usernameUtente = utenteService.findByUsername(utenteVo.getUsername());
-		Utente emailUtente = utenteService.findByEmail(utenteVo.getEmail());
+        if (emailUtente != null) {
+            bindingResult.rejectValue("email", "error.email", "Email già esistente");
+            return "preRegister";
+        }
 
-		if(emailUtente != null &&  usernameUtente != null) {
-			bindingResult.rejectValue("email", "error.email", "Email già esistente");
-			bindingResult.rejectValue("username", "error.username", "Username già esistente");
-			return "preRegister";
+        if (usernameUtente != null) {
+            bindingResult.rejectValue("username", "error.username", "Username già esistente");
+            return "preRegister";
+        }
 
-		}
+        try {
+            // UtenteDTO u = UtenteConverter.fromVoToDto(utenteVo);
+            utenteService.createUtente(utenteVo);
 
-		if (emailUtente != null) {
-			bindingResult.rejectValue("email", "error.email", "Email già esistente");
-			return "preRegister";
-		}
+        } catch (Exception e) {
+            return "preRegister";
+        }
 
-		if(usernameUtente != null) {
-			bindingResult.rejectValue("username", "error.username", "Username già esistente");
-			return "preRegister";
-		}
+        return "formlogin";
+    }
 
-		try {
-			utenteService.createUtente(utenteVo);
+    @PostMapping("/formlogin")
+    public String login(@Valid @ModelAttribute("utente") UtenteVOLogin utenteVoLogin,
+                        BindingResult bindingResult, HttpSession session) {
 
-		} catch (Exception e) {
-			return "preRegister";
-		}
+        if (bindingResult.hasErrors()) {
+            return "formlogin";
+        }
 
-		return "formlogin";
-	}
+        Utente utente = utenteService.findByUsername(utenteVoLogin.getUsername());
 
-	@PostMapping("/formlogin")
-	public String login(@Valid @ModelAttribute("utente") UtenteVOLogin utenteVoLogin, 
-			BindingResult bindingResult, HttpSession session) {
+        if (utente == null) {
+            bindingResult.rejectValue("username", "error.username", "L'username non esiste");
+            return "formlogin";
+        }
 
-		if (bindingResult.hasErrors()) {
-			return "formlogin"; 
-		}
+        if (!utente.getPassword().equals(utenteVoLogin.getPassword())) {
+            bindingResult.rejectValue("password", "error.password", "Password errata");
+            return "formlogin";
+        }
 
-		Utente utente = utenteService.findByUsername(utenteVoLogin.getUsername());
+        try {
+            session.setAttribute("utente", utente);
 
-		if (utente == null) {
-			bindingResult.rejectValue("username", "error.username", "L'username non esiste");
-			return "formlogin";
-		}
+        } catch (Exception e) {
+            System.out.println("Errore durante l'impostazione della sessione: " + e.getMessage());
+            return "preRegister";
+        }
 
-		if (!utente.getPassword().equals(utenteVoLogin.getPassword())) {
-			bindingResult.rejectValue("password", "error.password", "Password errata");
-			return "formlogin";
-		}
+        return "home";
 
-		try {
-			session.setAttribute("utente", utente);
+    }
 
-		}catch (Exception e) {
-			System.out.println("Errore durante l'impostazione della sessione: " + e.getMessage());
-			return "preRegister";
-		}
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/formlogin";
+    }
 
-		return "home";
-
-	}
-
-
-	@PostMapping("/logout")
-	public String logout( HttpSession session) {
-		session.invalidate();
-		return "redirect:/formlogin";
-	}
-
-	@GetMapping("/header")
-	public String showHeader(UtenteVOLogin utenteVo) {
-		return "header";
-	}
+    @GetMapping("/header")
+    public String showHeader(UtenteVOLogin utenteVo) {
+        return "header";
+    }
 
 }
-
-
-
-
-
-
-

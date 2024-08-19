@@ -6,63 +6,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrazione Utente</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-        input[type="text"], input[type="email"], input[type="password"], input[type="date"] {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .container {
-            width: 90%;
-            margin: auto;
-        }
-        h2, .submit{
-        text-align: center;
-        font-size: 1.5rem;
-        }
-        .message{
-        color:red;
-        font-size: 0.8rem;
-        }
-       
-    </style>
+    
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/preRegister.css">
+  
+    
 </head>
 <body>
 
         
          <jsp:include page="header.jsp" />
        
-  <div class="container">
-        <h2>Registrazione Utente</h2>
+  <div class="boxRegister">
+        <h2 id="userRegister">Registrazione Utente</h2>
       
         <form:form modelAttribute="utente" action="postRegister" method="post">
 
@@ -91,7 +46,7 @@
             <form:errors path="password" cssClass="message" />
 
             <div class="submit">
-            <input type="submit" value="Registrati" />
+            <button type="submit" value="Registrati">Registrami</button>
             </div>
             
         </form:form> 

@@ -4,173 +4,98 @@
 <html>
 <head>
 <title>Create Train</title>
-<style>
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f4f4f4;
-	margin: 0;
-	padding: 0;
-}
-
-.container {
-	max-width: 600px;
-	margin: 50px auto;
-	padding: 20px;
-	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	border-radius: 8px;
-}
-
-h2 {
-	margin-bottom: 20px;
-	color: #333;
-}
-
-form {
-	margin-bottom: 30px;
-}
-
-.form-group {
-	margin: 50px;
-}
-
-.form-group label {
-	display: block;
-	margin-bottom: 5px;
-}
-
-.form-group input, .form-group select {
-	width: 100%;
-	padding: 8px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-}
-
-.btn {
-	display: inline-block;
-	padding: 10px 20px;
-	color: #fff;
-	background-color: green;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	text-decoration: none;
-}
-
-.btn:hover {
-	background-color: #0056b3;
-}
-
-.train-details .info {
-	margin-bottom: 10px;
-	padding: 10px;
-	background-color: #f9f9f9;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-}
-
-.info strong {
-	display: inline-block;
-	width: 120px;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css">
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<div class="container">
-		<h2>Crea Treno</h2>
 
-		<c:if test="${not empty errorMessage}">
-			<div class="alert alert-danger">
+	<div class="containerHome">
+	<h2>Crea il tuo Treno:</h2>
+	
+	<c:if test="${not empty errorMessage}">
+				<div class="boxDanger">
 
-				<p>
-					<strong>Errore: Questa sigla non va bene --></strong>
-					<c:out value="${errorMessage}" />
-				</p>
-			</div>
-		</c:if>
-		<c:if test="${not empty errorSigla}">
-			<div class="alert alert-danger">
-				<p>
-					<strong>Sigla:</strong>
-					<c:out value="${errorSigla}" />
-				</p>
-			</div>
-		</c:if>
+					<p>
+						<strong>Errore: Questa sigla è errata --></strong>
+						<c:out value="${errorMessage}" />
+					</p>
+				</div>
+			</c:if>
+			<c:if test="${not empty errorSigla}">
+				<div class="boxDanger">
+					<p>
+						<strong>Sigla:</strong>
+						<c:out value="${errorSigla}" />
+					</p>
+				</div>
+			</c:if>
 
-		<c:if test="${not empty errorSuggerimento}">
-			<div class="alert alert-success">
-				<p>
-					<strong>Suggerimento:</strong>
-					<c:out value="${errorSuggerimento}" />
-				</p>
-			</div>
+			<c:if test="${not empty errorSuggerimento}">
+				<div class="boxSuccess">
+					<p>
+						<strong>Suggerimento:</strong>
+						<c:out value="${errorSuggerimento}" />
+					</p>
+				</div>
 
-		</c:if>
-		<c:if test="${not empty errorSiglaSuggerita}">
-			<div class="alert alert-success">
-				<p>
-					<strong>Sigla Suggerita:</strong>
-					<c:out value="${errorSiglaSuggerita}" />
-				</p>
-			</div>
+			</c:if>
+			<c:if test="${not empty errorSiglaSuggerita}">
+				<div class="boxSuccess">
+					<p>
+						<strong>Sigla Suggerita:</strong>
+						<c:out value="${errorSiglaSuggerita}" />
+					</p>
+				</div>
 
-		</c:if>
+			</c:if>
+		<div class="box">
+			<form action="newTrain" method="post">
+				<div class="form-group">
+					<label for="sigla">Sigla</label> <input type="text" id="sigla"
+						name="sigla" required>
+				</div>
+				<div class="form-group">
+					<label for="compagnia">Compagnia</label> 
+					<select id="compagnia"
+						name="compagnia" required>
+						<option value="FR">Frecciarossa (FR)</option>
+						<option value="IT">Italo (IT)</option>
+						<option value="TN">Trenord (TN)</option>
+					</select>
+				</div>
+
+				<div class="btnSubmit">
+					<button type="submit" class="submitBtn">Crea Treno</button>
+				</div>
+
+			</form>
+
+
+
+			<c:if test="${empty sessionScope.utente}">
+
+				<div class="train-details form-group">
+					<h2>Dettagli Treno</h2>
+					<div class="info">
+						<strong>Sigla:</strong> ${treno.sigla}
+					</div>
+					<div class="info">
+						<strong>Compagnia:</strong> ${treno.compagnia}
+					</div>
+					<div class="info">
+						<strong>Prezzo(€):</strong> ${treno.prezzo}
+					</div>
+					<div class="info">
+						<strong>Peso(Kg):</strong> ${treno.peso}
+					</div>
+					<div class="info">
+						<strong>Lunghezza(m):</strong> 
+						<span>${treno.lunghezza}</span>  
+					</div>
+				</div>
+
+			</c:if>
+		</div>
 	</div>
-
-	<form action="newTrain" method="post">
-		<div class="form-group">
-			<label for="sigla">Sigla</label> <input type="text" id="sigla"
-				name="sigla" required>
-		</div>
-		<div class="form-group">
-			<label for="compagnia">Compagnia</label> <select id="compagnia"
-				name="compagnia" required>
-				<option value="FR">Frecciarossa(FR)</option>
-				<option value="IT">Italo(IT)</option>
-				<option value="TN">Trenord(TN)</option>
-			</select>
-		</div>
-		
-		<div class="text-center">
-		<button type="submit" class="btn btn-success">Crea Treno</button>
-		</div>
-		
-		
-	</form>
-
-	<c:if test="${empty sessionScope.utente}">
-
-		<div class="train-details form-group">
-			<h2>Dettagli Treno</h2>
-			<div class="info">
-				<strong>Sigla:</strong> ${treno.sigla}
-			</div>
-			<div class="info">
-				<strong>Compagnia:</strong> ${treno.compagnia}
-			</div>
-			<div class="info">
-				<strong>Prezzo:</strong> ${treno.prezzo}
-			</div>
-			<div class="info">
-				<strong>Treno:</strong> ${treno.peso}
-			</div>
-			<div class="info">
-				<strong>lunghezza:</strong> ${treno.lunghezza}
-			</div>
-			<div class="info">
-				<strong>Utente:</strong>
-				<c:choose>
-					<c:when test="${treno.utente != null}">
-                            ${treno.utente.nome} ${treno.utente.cognome}
-                        </c:when>
-					<c:otherwise>
-                            Nessun utente associato
-                        </c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-
-	</c:if>
 </body>
 </html>

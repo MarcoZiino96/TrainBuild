@@ -10,7 +10,9 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.idm.converter.UtenteConverter;
 import com.idm.dao.UtenteDao;
+import com.idm.dto.UtenteDTO;
 import com.idm.entity.Utente;
 
 @Component
@@ -21,13 +23,14 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao {
 
 	@Override
 	public Utente find(Integer id) {
-		Utente t = manager.find(Utente.class, id);
-		return t;
+		Utente utente = manager.find(Utente.class, id);
+//		UtenteDTO utenteDto = UtenteConverter.fromEntityToDto(utente);
+		return utente;
 	}
 
 	@Transactional
 	@Override
-	public Utente create(Utente ref) {
+	public Utente create(Utente ref) {	
 		manager.persist(ref);
 		return ref;
 	}
@@ -46,22 +49,17 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao {
 
 	}
 
-	@Override
-	public List<Utente> retrive() {
-		Query q = manager.createQuery("select x from Utente x", Utente.class);
-		List<Utente> l = q.getResultList();
-		return l;
-	}
 
 	@Override
 	@Transactional
 	public void delete(int id) {
-		Utente c = this.find(id); 
+		Utente c = this.find(id);
 		if (c!=null)
-			manager.remove(c);
+	   manager.remove(c);
 	}
 
 	 public Utente findByUsername(String username) {
+		 
 	        try {
 	            Query query = manager.createQuery("SELECT u FROM Utente u WHERE u.username = :username", Utente.class);
 	            query.setParameter("username", username);
@@ -82,13 +80,6 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao {
 	            return null;
 	        }
 	    }
-	
-	@Override
-	public List<Utente> searchByUsername(String username) {
-		return manager.createQuery("select u from Utente u where u.username =:searchUser",Utente.class)
-				.setParameter("searchUser", username).getResultList();
-		
-	}	
 	
 	@Override
 	public List<Utente> getAllUsers() {

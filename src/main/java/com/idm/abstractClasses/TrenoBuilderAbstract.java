@@ -38,11 +38,9 @@ public abstract class TrenoBuilderAbstract {
 			
 			for (AbstractVagone vagone : vagoni) {
 	            vagone.setTreno(treno); 
-	            System.out.println(vagone);
 	        }
 
 			treno.setVagoni(vagoni);
-			System.out.println(vagoni);
 			
 
 		}catch (StringaException e) {

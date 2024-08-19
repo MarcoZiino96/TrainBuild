@@ -3,18 +3,21 @@ package com.idm.dto;
 import java.time.LocalDate;
 
 public class UtenteDTO {
-private String nome;
 	
+	private Integer id;
+
+	private String nome;
+
 	private String cognome;
-	
-	private LocalDate dataNascita;
-	
+
+	private String dataNascita;
+
 	private String password;
-	
+
 	private String username;
-	
+
 	private String email;
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -27,10 +30,10 @@ private String nome;
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
-	public LocalDate getDataNascita() {
+	public String getDataNascita() {
 		return dataNascita;
 	}
-	public void setDataNascita(LocalDate dataNascita) {
+	public void setDataNascita(String dataNascita) {
 		this.dataNascita = dataNascita;
 	}
 	public String getPassword() {
@@ -50,6 +53,12 @@ private String nome;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

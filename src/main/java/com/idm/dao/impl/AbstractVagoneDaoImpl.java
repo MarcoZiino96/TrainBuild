@@ -11,14 +11,12 @@ import com.idm.dao.AbstractVagoneDao;
 @Component
 public class AbstractVagoneDaoImpl extends DaoImpl implements AbstractVagoneDao {
 
-	@PersistenceContext
-	private EntityManager manager;
+    @PersistenceContext
+    private EntityManager manager;
 
-	@Override
-	public AbstractVagone add(AbstractVagone vc) {
-
-		manager.merge(vc);
-		return vc;
-
-	}
+    @Override
+    public AbstractVagone add(AbstractVagone vc) {
+        manager.merge(vc);
+        return vc;
+    }
 }

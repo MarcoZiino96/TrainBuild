@@ -1,5 +1,8 @@
 package com.idm.entity;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +27,24 @@ public class Treno implements Bean {
 	private Double peso;
 	private Double lunghezza;
 	private String sigla;
-	private String foto;
+	
+	@Enumerated(EnumType.STRING)
 	private Factory compagnia;
-	@OneToMany(mappedBy = "treno",cascade = CascadeType.ALL, orphanRemoval = true)
+
+	@OneToMany(mappedBy = "treno", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	List<AbstractVagone> vagoni;
+	
+	@OneToMany(mappedBy = "treno",  fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	Set<Voto> voti; 
+	
 
+	public Set<Voto> getVoti() {
+		return voti;
+	}
 
+	public void setVoti(Set<Voto> voti) {
+		this.voti = voti;
+	}
 
 	public List<AbstractVagone> getVagoni() {
 		return vagoni;
@@ -46,17 +61,15 @@ public class Treno implements Bean {
 
 	public Treno() {
 	}
-	 public Treno(Double prezzo, Double peso, Double lunghezza, String sigla, String foto) {
+	 public Treno(Double prezzo, Double peso, Double lunghezza, String sigla) {
 			this.prezzo = prezzo;
 			this.peso = peso;
 			this.lunghezza = lunghezza;
 			this.sigla = sigla;
-			this.foto = foto;
 		}
 	
-	 public Treno(Factory compagnia, String foto, String sigla, Double lunghezza, Double peso, Double prezzo, Utente utente ) {
+	 public Treno(Factory compagnia, String sigla, Double lunghezza, Double peso, Double prezzo, Utente utente ) {
 		 this.compagnia = compagnia;
-		 this.foto = foto;
 		 this.sigla = sigla;
 		 this.lunghezza = lunghezza;
 		 this.peso = peso;
@@ -101,20 +114,6 @@ public class Treno implements Bean {
 		this.lunghezza = lunghezza;
 	}
 
-//	public Treno(Utente utente, int prezzo, Double peso, Double lunghezza, String sigla, String foto,
-//			List<AbstractVagone> vagoni) {
-//		this.utente = utente;
-//		this.prezzo = prezzo;
-//		this.peso = peso;
-//		this.lunghezza = lunghezza;
-//		this.sigla = sigla;
-//		this.foto = foto;
-//		this.vagoni = vagoni;
-//	}
-
-
-
-
 public void setPeso(Double peso) {
 	this.peso = peso;
 }
@@ -158,21 +157,13 @@ public void getId(int id) {
 		this.prezzo = prezzo;
 	}
 
-	public String getFoto() {
-		return foto;
-	}
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
 
 
 	@Override
 	public String toString() {
 		return "Treno [utente=" + utente + ", prezzo=" + prezzo + ", peso=" + peso + ", lunghezza=" + lunghezza
 				+ ", sigla=" + sigla +  ", getUtente()=" + getUtente() + ", getSigla()="
-				+ getSigla() + ", getFoto()=" + getFoto() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ getSigla() +  ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
 	}
-
 }
