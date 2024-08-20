@@ -1,3 +1,4 @@
+
 * {
 	box-sizing: border-box;
 }
@@ -15,23 +16,33 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin-top: 40px;
-	margin: 10px auto;
-	margin-top: 60px;
+	margin: 220px auto;
 }
+
+.btn-navbar {
+	background-color: #2f1847;
+	padding: 40px 0;
+	display: flex;
+	justify-content: center;
+	position:fixed;
+	top:120px;
+	width: 100%;
+	z-index:100;
+	height: 100px;
+}
+
 
 .card {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 900px;
-	height: 900px;
 	margin-bottom: 40px;
-	background-color: black;
+	background-color: #1D1D1D;
 	color: #e0c680;
 	border-radius: 8px;
-	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
+	box-shadow: 0 0 15px 8px rgba(205, 164, 52, 0.2);
+	padding:20px;
 }
 
 .titleCard h2 {
@@ -93,9 +104,10 @@ body {
 }
 
 .star-rating label {
-	font-size: 24px;
+	font-size: 40px;
 	color: #ccc;
 	cursor: pointer;
+	margin-right: 15px;
 }
 
 .star-rating input:checked ~ label {
@@ -111,33 +123,27 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin-top: 10px;
+	
 }
 
 #btn-invia button {
 	padding: 10px 20px;
 	border: none;
-	background-color: #e0c680;
-	color: #2f1847;
+	background-color: #2F1847;
+	color: #bfa458;
 	font-size: 16px;
 	border-radius: 4px;
 	cursor: pointer;
 	margin-bottom: 35px;
+	transition: transform 0.3s ease;
 }
 
 #btn-invia :hover {
 	background-color: #bfa458;
-	color: #2f1847;
+	color: white;
+	transform: scale(1.1);
 }
 
-.btn-navbar {
-	background-color: #2f1847;
-	padding: 10px 0;
-	margin-top: 25px;
-	margin-bottom: 20px;
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
-}
 
 .btn-navbar-content {
 	display: flex;
@@ -150,23 +156,41 @@ body {
 	width: 50px;
 	height: 50px;
 	cursor: pointer;
+	transition: transform 0.3s ease;
 }
 
-.icon-button:hover {
+#iconModifica:hover,
+#iconDuplica:hover,
+#iconInverti:hover{
 	background-color: #e0c680;
+	color: white;
+	transform:scale(1.1);
 }
+
 
 #icon-button-delete {
 	background-color: red;
+	transition: transform 0.3s ease;
+	
 }
 
 #icon-button-delete:hover {
-	background-color: #cc0000;
+	color: white;
+	transform:scale(1.1);
 }
+
 
 #sigla {
 	margin-top: 20px;
 	margin-bottom: 30px;
+}
+#treno-image-container{
+	text-align: center; 
+	margin-bottom: 20px;
+}
+
+#compagnia {
+	margin-top: 20px;
 }
 
 #compagnia {
@@ -192,17 +216,33 @@ body {
 }
 
 .btn-success {
-	background-color: #e0c680;
-	color: #2f1847 border: none;
+	background-color:#2f1847 ;
+	color:  #e0c680;
+	border: none;
 	padding: 10px 20px;
 	margin-top: 30px;
 	font-size: 16px;
 	border-radius: 4px;
 	cursor: pointer;
-	transition: background-color 0.3s;
+	transition: transform 0.3s ease;
 }
 
 .btn-success:hover {
 	background-color: #bfa458;
-	color: #2f1847;
+	color: white;
+	transform: scale(1.1);
+}
+
+.boxDanger {
+	color: red;
+	font-weight: bold;
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.boxSuccess {
+	color: green;
+	font-weight: bold;
+	font-size: 1.2rem;
+	text-align: center;
 }

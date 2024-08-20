@@ -18,8 +18,7 @@ public interface TrenoService {
 	public void delete(Integer id);
 	public List<Treno> retrive();
 	public List<TrenoVO> retriveWithOrderVO(String ordine, String direction);
-
-
+	List<TrenoVO> findTreniConVagonePasseggeri();
 }
 
 

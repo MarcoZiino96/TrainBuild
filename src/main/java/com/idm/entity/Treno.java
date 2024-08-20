@@ -1,5 +1,8 @@
 package com.idm.entity;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,26 +23,26 @@ public class Treno implements Bean {
 	@ManyToOne
 	@JoinColumn(name = "utente_fk")
 	private Utente utente;
-	
 	private Double prezzo;
 	private Double peso;
 	private Double lunghezza;
 	private String sigla;
+	
+	@Enumerated(EnumType.STRING)
 	private Factory compagnia;
 
-	@OneToMany(mappedBy = "treno",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "treno", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	List<AbstractVagone> vagoni;
 	
-	@OneToMany(mappedBy = "treno",  fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	List<Voto> voti; 
+	@OneToMany(mappedBy = "treno",  fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	Set<Voto> voti; 
+	
 
-
-
-	public List<Voto> getVoti() {
+	public Set<Voto> getVoti() {
 		return voti;
 	}
 
-	public void setVoti(List<Voto> voti) {
+	public void setVoti(Set<Voto> voti) {
 		this.voti = voti;
 	}
 

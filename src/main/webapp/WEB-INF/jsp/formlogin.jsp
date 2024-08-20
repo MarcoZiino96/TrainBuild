@@ -1,22 +1,24 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login Form</title>
-        
+    <title>TrainBuild</title>
+   
+	<link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">     
    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/formlogin.css">
      <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/formlogin.js"></script> 
      
 </head>
 
-    <body> 
+<body>
 
-       <header>
-          <jsp:include page="header.jsp" />
-       </header>
+	<header>
+		<jsp:include page="header.jsp" />
+	</header>
 
+	<div class="boxLogin">
        <h2 id = "welcomeLogin">${message1}</h2>
 
     
@@ -35,7 +37,7 @@
             </div>
                
         </form:form>   
-        
 
-</body>  
+	</div>
+</body>
 </html>

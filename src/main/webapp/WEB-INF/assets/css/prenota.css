@@ -1,0 +1,72 @@
+body {
+	background-color: #2F1847;
+	margin:0px;
+}
+
+.containerPrenota {
+	margin: 250px 100px 100px 100px;
+	text-align: center;
+	font-size: 1.3rem;	
+}
+.containerCard{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 30px;
+}
+
+.cardPrenota {
+	box-sizing: border-box;
+	width: 550px;
+	background-color: #1D1D1D;
+	color: #bfa458;
+	padding: 10px;
+	font-weight: bold;
+	border-radius: 20px;
+	box-shadow: 0 0 15px 8px rgba(205, 164, 52, 0.2);
+	display: flex;
+	gap: 10px;
+	transition: transform 0.3s ease;
+}
+.cardPrenota:hover{
+	transform: scale(1.1);
+}
+
+.boxProperty {
+	display: flex;
+	justify-content: space-around;
+}
+
+.boxText {
+	width: 100%;
+}
+
+.boxDanger {
+	font-weight: bold;
+	color: red;
+	padding:40px;
+}
+.boxSuccess {
+	font-weight: bold;
+	color: green;
+}
+.submitBtn {
+    padding: 10px 20px;
+    background-color: #2f1847;
+    color: #e0c680;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.submitBtn:hover {
+    background-color: #bfa458;
+    color: white;
+    transform: scale(1.1);
+}
+.empty{
+text-align: center;
+color:#CDA434;
+font-size: 2rem;
+ }

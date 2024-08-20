@@ -2,31 +2,19 @@ body {
 	font-family: Arial, sans-serif;
 	background-color: #2F1847;
 	margin: 0px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 }
 
-.container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin: 100px auto;
-	padding: 20px;
-}
 
 #userRegister {
-	display: flex;
-	flex-direction: column;
 	text-align: center;
 	font-size: 2.5rem;
-	margin-top: 800px;
+	margin-top: 40px;
 	margin-bottom: 40px;
 }
 
 .boxRegister {
 	background-color: #1d1d1d;
-	margin: 100px;
+	margin: 250px 100px 100px 100px;
 	padding: 20px;
 	border-radius: 50px;
 	box-shadow: 0 0 15px 8px rgba(205, 164, 52, 0.2);
@@ -34,7 +22,7 @@ body {
 
 form {
 	max-width: 600px;
-	margin: auto;
+	margin: 0 auto;
 	margin-bottom: 40px;
 }
 

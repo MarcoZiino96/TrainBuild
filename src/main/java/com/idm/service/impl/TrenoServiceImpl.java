@@ -47,9 +47,7 @@ public class TrenoServiceImpl implements TrenoService {
 	private ItaloBuilder italoBuilder;
 	@Autowired
 	private TreNordBuilder treNordBuilder; 
-	@Autowired     
-	private TrenoFilterService trenoFilterService;
-
+	
 
 
 	public Treno find(Integer id) {
@@ -178,7 +176,6 @@ public class TrenoServiceImpl implements TrenoService {
 
 	public List<Treno> retrive() {
 		List<Treno> u = trenoDao.retrive();
-		System.out.println(u);
 		return u;
 	}
 
@@ -227,7 +224,38 @@ public class TrenoServiceImpl implements TrenoService {
                 throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
         }
 
-    }    
+    }
+
+
+	@Override
+	public List<TrenoVO> findTreniConVagonePasseggeri() {
+		
+		List<Treno> treni = trenoDao.findTreniConVagonePasseggeri();
+		List<TrenoVO> trenoVOs = new ArrayList<>();
+    	for (Treno treno : treni) {
+
+
+    		TrenoVO vo = new TrenoVO();
+    		
+    		double mediaVoti = treno.getVoti().stream()
+	        		.mapToInt(Voto::getVoto)
+	        		.average()
+	        		.orElse(0.0);	
+
+            vo.setId(treno.getId());
+            vo.setPrezzo(treno.getPrezzo());
+            vo.setPeso(treno.getPeso());
+            vo.setLunghezza(treno.getLunghezza());
+            vo.setSigla(treno.getSigla());
+            vo.setCompagnia(treno.getCompagnia());
+            vo.setUtente(treno.getUtente());
+            vo.setVagoni(treno.getVagoni());
+            vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);	
+            trenoVOs.add(vo);
+    	}    	
+    	return trenoVOs;
+		
+	}    
 }
     	
  

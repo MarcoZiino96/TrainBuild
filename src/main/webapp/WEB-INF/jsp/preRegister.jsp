@@ -4,21 +4,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Registrazione Utente</title>
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/preRegister.css">
+<meta charset="UTF-8">
+<title>TrainBuild</title>
+<link rel="icon"
+	href="${pageContext.request.contextPath}\resources\img\favicon.png"
+	type="image/x-icon">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/preRegister.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/preRegister.js"></script> 
-
 
 </head>
 <body>
 
 
 	<jsp:include page="header.jsp" />
-
-	<div class="container">
+	<div class="boxRegister">
 		<h2 id="userRegister">Registrazione Utente</h2>
 
 		<form:form modelAttribute="utente" action="postRegister" method="post">
@@ -58,7 +61,5 @@
 
 		</form:form>
 	</div>
-
-	
 </body>
 </html>
