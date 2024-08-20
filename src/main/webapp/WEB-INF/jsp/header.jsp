@@ -8,41 +8,68 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CreateYourTrain</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/header.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 	<header>
 		<nav class="navbar">
-			<div class="container">
+			<c:if test="${empty sessionScope.utente}">
+				
+					<ul class="navNoLogin">
+						<div class="boxNoLogin">
+							<li class=nav-item><img class="imgLogo" alt="logo"
+								src="${pageContext.request.contextPath}/resources/img/logo-TrainBuild.png">
+							</li>
+						</div>
+						<div class="boxNoLogin">
+							<li class="nav-item"><a class="nav-link" href="home">Home</a>
+							</li>
+							<li class="nav-item"><a href="formlogin" class="nav-link">Login</a></li>
+							<li class="nav-item"><a href="preRegister" class="nav-link">Registrati</a></li>
+
+						</div>
+					</ul>
+			</c:if>
+
+			<c:if test="${not empty sessionScope.utente}">
 				<ul class="navbar-nav">
-					<li class="nav-item">
-					<a class="nav-link" href="home">Home</a>
-					</li>
-					<c:if test="${not empty sessionScope.utente}">
-						<li class="nav-item">
-						<a class="nav-link" href="order">Ricerca
-								Treno
-						</a>
+					<div class="boxLink">
+						<li class=nav-item><img class="imgLogo" alt="logo"
+							src="${pageContext.request.contextPath}/resources/img/logo-TrainBuild.png">
 						</li>
-						<li class="nav-item"><a class="nav-link" href="prenota">Prenota</a></li>
-						<li class="nav-item"><a class="nav-link" href="miePrenotazioni">Mie
-								Prenotazioni</a></li>
-						<li class="nav-item"><span class="username">${sessionScope.utente.username}</span>
+					</div>
+
+					<div class="boxLink">
+						<li class="nav-item"><a class="nav-link" href="home">Home</a>
 						</li>
-						<li class="nav-item">
-							<div class="logout-container">
+						
+							<li class="nav-item"><a class="nav-link" href="order">Ricerca
+									Treno </a></li>
+							<li class="nav-item"><a class="nav-link" href="prenota">Prenota</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="miePrenotazioni">Mie Prenotazioni</a></li>
+						
+					</div>
+
+					<div class="boxLink">
+						
+							<li class="nav-item"><p class="username">${sessionScope.utente.username}</p>
+							</li>
+							<li class="nav-item">
 								<form action="logout" method="post">
-									<input type="submit" value="Logout" class="logoutBtn">
+									<button type="submit" class="logoutBtn">
+										<i class="fas fa-sign-out-alt"></i>
+									</button>
 								</form>
-							</div>
-						</li>
-					</c:if>
-					<c:if test="${empty sessionScope.utente}">
-						<li class="nav-item"><a href="formlogin" class="nav-link">Login</a></li>
-						<li class="nav-item"><a href="preRegister" class="nav-link">Registrati</a></li>
-					</c:if>
+							</li>
+						</c:if>
+					</div>
+
 				</ul>
-			</div>
+			
 		</nav>
 	</header>
 </body>

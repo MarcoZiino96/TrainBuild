@@ -41,12 +41,13 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
 		
 		exsistingPrenotazione(utente.getId(), treno.getId());
 
-		vagone.prenotaPosto();
-		abstractVagoneService.create(vagone);
+		
 		Prenotazione p = new Prenotazione();
 		p.setUtente(utente);
 		p.setVagonePasseggeri(vagone);
 		p.setCoordinatePosto(generaCoordinatePosto(vagone));
+		vagone.prenotaPosto();
+		abstractVagoneService.create(vagone);
 		prenotazioneDao.add(p);
 
 		return p;
@@ -57,7 +58,6 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
 
 	public  Prenotazione findPrenotazione(int id) {
 		Prenotazione p = prenotazioneDao.find(id);
-		System.out.println(p);
 		return p;
 	}
 
@@ -97,8 +97,9 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
 		int riga = numeroPosto / postiPerRiga;
 
 		int colonna = numeroPosto % postiPerRiga + 1;
+			
 		char letteraRiga = (char) ('A' + riga);
-		return letteraRiga + Integer.toString(colonna) + "-"+ "Vagone-" + idVagone;
+		return "Posto-"+ letteraRiga +  colonna + "-"+ "Vagone-" + idVagone;
 
 	}
 

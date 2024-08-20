@@ -4,15 +4,12 @@ body {
 }
 
 .containerPrenota {
-	margin: 250px 100px 100px 100px;
-	text-align: center;
-	font-size: 1.3rem;	
-}
-.containerCard{
+	padding-top: 30px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 30px;
+	margin: 250px 100px 100px 100px;
 }
 
 .cardPrenota {
@@ -39,31 +36,34 @@ body {
 
 .boxText {
 	width: 100%;
+	font-size: 1.1rem;
 }
 
 .boxDanger {
 	font-weight: bold;
 	color: red;
-	padding:40px;
 }
+
 .boxSuccess {
 	font-weight: bold;
 	color: green;
 }
+
 .submitBtn {
-    padding: 10px 20px;
-    background-color: #2f1847;
-    color: #e0c680;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+	padding: 10px 20px;
+	background-color: #2f1847;
+	color: #e0c680;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: transform 0.3s ease;
 }
+
 .submitBtn:hover {
-    background-color: #bfa458;
-    color: white;
-    transform: scale(1.1);
+	background-color: #bfa458;
+	color: white;
+	transform: scale(1.1);
 }
 .empty{
 text-align: center;

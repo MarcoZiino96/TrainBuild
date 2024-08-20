@@ -6,69 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-<style>
-body {
-	background-color: #2F1847;
-}
-
-.containerPrenota {
-	padding-top: 30px;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 30px;
-}
-
-.cardPrenota {
-	box-sizing: border-box;
-	width: 550px;
-	background-color: #1D1D1D;
-	color: #bfa458;
-	padding: 10px;
-	font-weight: bold;
-	border-radius: 20px;
-	box-shadow: 0 0 15px 8px rgba(205, 164, 52, 0.2);
-	display: flex;
-	gap: 10px;
-}
-
-.boxProperty {
-	display: flex;
-	justify-content: space-around;
-}
-
-.boxText {
-	width: 100%;
-}
-
-.boxDanger {
-	font-weight: bold;
-	color: red;
-}
-.boxSuccess {
-	font-weight: bold;
-	color: green;
-}
-.submitBtn {
-    padding: 10px 20px;
-    background-color: #2f1847;
-    color: #e0c680;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-.submitBtn:hover {
-    background-color: #bfa458;
-    color: white;
-    transform: scale(1.1);
-}
-</style>
-
-
+<title>TrainBuild</title>
+<link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">
+ <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/prenota.css">
 <script>
 	document
 			.addEventListener(
@@ -121,6 +61,11 @@ body {
 
 	<jsp:include page="header.jsp" />
 
+	
+
+	<div class="containerPrenota">
+
+<c:if test="${not empty treni}">	
 	<c:if test="${not empty errorMessage}">
 		<div class="boxDanger">
 			<p>
@@ -136,10 +81,8 @@ body {
 		</div>
 	</c:if>
 
-	<div class="containerPrenota">
 
-
-
+   <div class="containerCard">
 		<c:forEach var="treno" items="${treni}">
 
 
@@ -168,7 +111,7 @@ body {
 							method="post">
 							<form:hidden path="vagoneId" value="${prenotazione.vagoneId}" />
 							<form:hidden path="utenteId" value="${sessionScope.utente.id}" />
-							 <input type="hidden" name="trenoId" value="${treno.id}" />
+							<input type="hidden" name="trenoId" value="${treno.id}" />
 							<button class="submitBtn" type="submit">Prenota</button>
 						</form:form>
 					</div>
@@ -178,9 +121,16 @@ body {
 			</div>
 
 		</c:forEach>
-	</div>
-
-
+	
+  </div>
+  </c:if>
+  
+  <c:if test="${empty treni }">
+  <h3 class="empty">
+  Non ci sono treni con vagoni pesseggeri per poter prenotare un posto!!
+  </h3>
+  </c:if>
+</div>
 
 </body>
 </html>

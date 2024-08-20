@@ -31,7 +31,7 @@ public class Treno implements Bean {
 	@Enumerated(EnumType.STRING)
 	private Factory compagnia;
 
-	@OneToMany(mappedBy = "treno", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "treno", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	List<AbstractVagone> vagoni;
 	
 	@OneToMany(mappedBy = "treno",  fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)

@@ -118,7 +118,7 @@ public abstract class TrenoBuilderAbstract {
 				ristoranteCount++;
 				break;
 			default:
-				throw new LocomotivaException("Le locomotive non possono essere piu di due e vanno aggiunte in testa e in coda: ", composizione);
+				throw new StringaException("La stringa accetta solo caratteri H=Locomotiva,C=Cargo,P=Passeggeri, o R=Ristorante: ", composizione);
 			}
 		}
 
