@@ -104,7 +104,7 @@ public class Beans {
         double peso = 1000.0;           // Valore di default
         double prezzo = 40000.0;        // Valore di default
         double lunghezza = 15.0;        // Valore di default
-        int numeroPosti = 2;          // Valore di default
+        int numeroPosti = 20;          // Valore di default
         return new VagonePasseggeri(peso, lunghezza, prezzo, numeroPosti);
     }
 
@@ -114,7 +114,7 @@ public class Beans {
         double peso = 1200.0;           // Valore di default
         double prezzo = 60000.0;        // Valore di default
         double lunghezza = 18.0;        // Valore di default
-        int numeroTavoli = 20;          // Valore di default
+        int numeroTavoli = 9;          // Valore di default
         return new VagoneRistorante(peso, lunghezza, prezzo, numeroTavoli);
     }
 

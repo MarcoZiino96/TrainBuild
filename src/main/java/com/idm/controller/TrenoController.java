@@ -1,5 +1,5 @@
 package com.idm.controller;
-import java.util.Collections;
+
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
@@ -11,14 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.idm.abstractClasses.AbstractVagone;
 import com.idm.entity.Factory;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
-import com.idm.entity.Voto;
 import com.idm.exception.CargoException;
 import com.idm.exception.LocomotivaException;
 import com.idm.exception.RistoranteException;
@@ -26,8 +23,6 @@ import com.idm.exception.StringaException;
 import com.idm.service.AbstractVagoneService;
 import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
-import com.idm.service.UtenteService;
-import com.idm.service.VotoService;
 import com.idm.vo.PrenotazioneVO;
 import com.idm.vo.TrenoVO;
 import com.idm.vo.VotoVO;
@@ -151,8 +146,7 @@ public class TrenoController {
 
 	@PostMapping("/selectDetails")
 	public String selectTreno(@RequestParam("id") Integer id, HttpSession session) {
-		Treno treno = trenoService.find(id)
-				;
+		Treno treno = trenoService.find(id);
 		TrenoVO trenoVo = new TrenoVO();
 		BeanUtils.copyProperties(treno, trenoVo);
 		session.setAttribute("treno", trenoVo);
@@ -184,6 +178,35 @@ public class TrenoController {
 		}
 	}
 
+	@PostMapping("/duplicaTreno")
+	public String duplicaTreno(@RequestParam Integer trenoId, HttpSession session, Model model ) {
+		Utente utente = (Utente) session.getAttribute("utente");
+
+		try {
+
+			Treno trenoOriginale = trenoService.find(trenoId);
+			if (trenoOriginale == null) {
+				model.addAttribute("errorMessage", "Treno non trovato.");
+				return "order";
+			}
+
+
+			Treno trenoDuplicato = new Treno();
+			trenoDuplicato.setSigla(trenoOriginale.getSigla());
+			trenoDuplicato.setCompagnia(trenoOriginale.getCompagnia());
+			trenoDuplicato.setPrezzo(trenoOriginale.getPrezzo());
+			trenoDuplicato.setLunghezza(trenoOriginale.getLunghezza());
+			trenoDuplicato.setPeso(trenoOriginale.getPeso());
+
+	       
+	        model.addAttribute("treno", trenoDuplicato);
+	        return "redirect:/order";
+	        
+	    } catch (Exception e) {
+	        model.addAttribute("errorMessage", "Impossibile duplicare il treno: " + e.getMessage());
+	        return "details";
+	    }
+	}
 
 	@PostMapping("/modificaTreno")
 	@Transactional
@@ -229,43 +252,6 @@ public class TrenoController {
 			return "details";
 		}
 	}
-
-
-
-	@PostMapping("/duplicaTreno")
-	public String duplicaTreno(@RequestParam Integer trenoId, HttpSession session, Model model ) {
-		Utente utente = (Utente) session.getAttribute("utente");
-
-		try {
-
-			Treno trenoOriginale = trenoService.find(trenoId);
-			if (trenoOriginale == null) {
-				model.addAttribute("errorMessage", "Treno non trovato.");
-				return "order";
-			}
-
-
-			Treno trenoDuplicato = new Treno();
-			trenoDuplicato.setSigla(trenoOriginale.getSigla());
-			trenoDuplicato.setCompagnia(trenoOriginale.getCompagnia());
-			trenoDuplicato.setPrezzo(trenoOriginale.getPrezzo());
-			trenoDuplicato.setLunghezza(trenoOriginale.getLunghezza());
-			trenoDuplicato.setPeso(trenoOriginale.getPeso());
-
-			trenoDuplicato = trenoService.createTreno(trenoDuplicato.getSigla(), trenoDuplicato.getCompagnia(), utente);
-
-			trenoDuplicato = trenoService.update(trenoDuplicato, trenoDuplicato.getId());
-
-
-			model.addAttribute("treno", trenoDuplicato);
-			return "redirect:/order";
-
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Impossibile duplicare il treno: " + e.getMessage());
-			return "order";
-		}
-	}
-
 
 	@PostMapping("/invertiTreno")
 	public String invertiTreno(@RequestParam Integer trenoId, HttpSession session, Model model) {

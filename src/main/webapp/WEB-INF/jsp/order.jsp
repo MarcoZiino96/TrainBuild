@@ -5,19 +5,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Lista Treni</title>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/order.css">
-    <script>
-        function toggleOrder() {
-            var form = document.getElementById("order");
-            form.classList.toggle("hidden");
-        }
-        function toggleFilter() {
-            var form = document.getElementById("filter");
-            form.classList.toggle("hidden");
-        }
-    </script>
+<meta charset="UTF-8">
+<title>TrainBuild</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/favicon.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/order.css">
+<script>
+	function toggleOrder() {
+		var form = document.getElementById("order");
+		form.classList.toggle("hidden");
+	}
+	function toggleFilter() {
+		var form = document.getElementById("filter");
+		form.classList.toggle("hidden");
+	}
+</script>
 </head>
 <body>
 

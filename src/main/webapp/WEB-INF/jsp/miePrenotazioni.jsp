@@ -6,8 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<title>TrainBuild</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/favicon.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/miePrenotazioni.css">
 <script>
 	document
 			.addEventListener(
@@ -64,35 +66,45 @@
 	<div class="containerPrenota">
 
 
+		<c:if test="${not empty prenotazioni}">
+			<c:forEach var="prenotazione" items="${prenotazioni}">
 
-		<c:forEach var="prenotazione" items="${prenotazioni}">
 
 
+				<div class="cardPrenota">
 
-			<div class="cardPrenota">
-			
-			<div class="boxImg">
-					<div class="imageContainer"></div>
-					<div id="treno-data" data-compagnia="${prenotazione.vagonePasseggeri.treno.compagnia}"></div>
+					<div class="boxImg">
+						<div class="imageContainer"></div>
+						<div id="treno-data"
+							data-compagnia="${prenotazione.vagonePasseggeri.treno.compagnia}"></div>
+					</div>
+
+					<div class="boxText">
+						<div class="boxProperty">
+							<h5>Compagnia:
+								${prenotazione.vagonePasseggeri.treno.compagnia}</h5>
+							<h5>Sigla:${prenotazione.vagonePasseggeri.treno.sigla}</h5>
+						</div>
+						<div class="boxProperty">
+							<h5>Codice Treno:
+								${prenotazione.vagonePasseggeri.treno.compagnia}-${prenotazione.vagonePasseggeri.treno.id}</h5>
+						</div>
+						<div class="boxProperty">
+							<h5>Coordinate Posto: ${prenotazione.coordinatePosto}</h5>
+						</div>
+					</div>
+
+
 				</div>
-				
-				<div class="boxText">
-					<div class="boxProperty">
-						<h5>Compagnia: ${prenotazione.vagonePasseggeri.treno.compagnia}</h5>
-						<h5>Sigla:${prenotazione.vagonePasseggeri.treno.sigla}</h5>
-					</div>
-					<div class="boxProperty">
-					<h5>Codice Treno:${prenotazione.vagonePasseggeri.treno.id}</h5>
-					</div>
-					<div class="boxProperty">
-						<h5>CoordinatePosto: ${prenotazione.coordinatePosto}</h5>
-					</div>
-				</div>
 
+			</c:forEach>
+		</c:if>
 
+		<c:if test="${empty prenotazioni }">
+			<div class=empty>
+				<h3>Ancora non hai effettuato nessuna prenotazione</h3>
 			</div>
-
-		</c:forEach>
+		</c:if>
 	</div>
 
 

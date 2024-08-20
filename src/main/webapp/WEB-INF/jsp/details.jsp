@@ -6,9 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Details</title>
-
-
+<title>TrainBuild</title>
+<link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">
 
@@ -35,8 +36,9 @@
 
 				var trenoImage = document.createElement('img');
 				trenoImage.alt = 'Immagine Treno';
-				trenoImage.style.maxWidth = '100%';
+				trenoImage.style.width = '300px';
 				trenoImage.style.height = 'auto';
+				trenoImage.style.borderRadius = '20px';
 
 				switch (trenoCompagnia) {
 				case 'FR':
@@ -90,6 +92,13 @@
 					<i class="fas fa-copy"></i>
 				</button>
 			</form>
+			
+			 <form action="invertiTreno" method="post">
+                      <input type="hidden" name="trenoId" value="${treno.id}" />
+                      <button id="iconInverti" type="submit" class="icon-button">
+                        <i class="fas fa-undo"></i>
+                      </button>
+             </form>
 
 			<c:if test="${sessionScope.utente.id == sessionScope.treno.utente.id}">
 				<form action="eliminaTreno" method="post"
@@ -113,7 +122,7 @@
 				<div class="boxDanger">
 
 					<p>
-						<strong>Errore: Questa sigla è errata --></strong>
+						<strong>Errore: Questa sigla è errata : </strong>
 						<c:out value="${errorMessage}" />
 					</p>
 				</div>

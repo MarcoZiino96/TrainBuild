@@ -5,76 +5,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>TrenoProgetto</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    .footer {
-        background-color: #1c1c1c; 
-        color: white;
-        padding: 40px 20px;
-        text-align: center;
-    }
-    .footer .footer-content {
-        max-width: 1200px;
-        margin: auto;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-    .footer .footer-section {
-        flex: 1;
-        padding: 20px;
-        min-width: 250px;
-    }
-    .footer .footer-section h2 {
-        margin-bottom: 15px;
-        font-size: 18px;
-        color: #8e44ad; 
-    }
-    .footer .footer-section ul,
-    .footer .footer-section li {
-        font-size: 14px;
-        line-height: 1.6;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-    .footer .footer-section a {
-        color: #8e44ad; 
-        text-decoration: none;
-    }
-    .footer .footer-section a:hover {
-        text-decoration: underline;
-    }
-    .footer .socials a {
-        margin: 0 10px;
-        text-decoration: none;
-        color: #8e44ad;
-        font-size: 20px;
-    }
-    .footer .socials a:hover {
-        color: #9b59b6;
-    }
-    .footer-bottom {
-        background-color: #111; 
-        color: white;
-        padding: 10px 0;
-        text-align: center;
-        font-size: 14px;
-    }
-    @media (max-width: 768px) {
-        .footer .footer-content {
-            flex-direction: column;
-        }
-        .footer .footer-section {
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-    }
-</style>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/footer.css">
 </head>
 <body>
 

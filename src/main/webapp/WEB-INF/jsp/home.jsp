@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Create Train</title>
+<title>TrainBuild</title>
+<link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css">
 </head>
 <body>
@@ -49,7 +50,7 @@
 
 			</c:if>
 		<div class="box">
-			<form action="newTrain" method="post">
+			<form class="formHome" action="newTrain" method="post">
 				<div class="form-group">
 					<label for="sigla">Sigla</label> <input type="text" id="sigla"
 						name="sigla" required>

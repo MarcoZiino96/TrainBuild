@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login Form</title>
+<title>TrainBuild</title>
+<link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">
 
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/formlogin.css">
