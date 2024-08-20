@@ -5,108 +5,9 @@
 <head>
 <title>Create Train</title>
 
-<!--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css"> -->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css"> 
+ <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/home.js"></script> 
 
-<style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-	padding: 0;
-	background-color: #2f1847;
-	margin: 0;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-.containerHome {
-    max-width: 50%;
-    padding: 40px;
-    background-color: black;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px #c62e65;
-    color: #e0c680;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 10px auto;
-    margin-top: 60px;
-    box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
-}
-
-.box {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-h2 {
-	margin-bottom: 20px;
-	
-}
-
-form {
-	margin-bottom: 30px;
-}
-
-.form-group {
-	margin: 50px;
-}
-
-.form-group label {
-	display: block;
-	margin-bottom: 5px;
-}
-
-.form-group input, .form-group select {
-	width: 100%;
-	padding: 8px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-}
-
-.btnSubmit {
-	text-align: center;
-	width: 100%;
-}
-
-.submitBtn {
-	display: inline-block;
-	padding: 10px 20px;
-	background-color: #e0c680;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	color: #2f1847;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-.submitBtn:hover {
-	background-color: #bfa458;
-	color: #2f1847;
-}
-
-.train-details .info {
-	margin-bottom: 10px;
-	padding: 10px;
-	background-color: #f9f9f9;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-}
-
-.train-details h2 {
-	text-align: center;
-	width: 100%;
-}
-
-.info strong {
-	display: inline-block;
-	width: 120px;
-}
-</style> 
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -154,8 +55,9 @@ form {
 
 			<form action="newTrain" method="post">
 				<div class="form-group">
-					<label for="sigla">Sigla</label> <input type="text" id="sigla"
-						name="sigla" required>
+					<label for="sigla">Sigla</label> 
+					<div id="siglaError" class="message"></div>
+					<input type="text" id="sigla"name="sigla" required onkeyup="validateSigla()">
 				</div>
 				<div class="form-group">
 					<label for="compagnia">Compagnia</label> <select id="compagnia"
@@ -207,5 +109,7 @@ form {
 				</c:if>
 		</div>
 	</div>
+	
+		
 </body>
 </html>
