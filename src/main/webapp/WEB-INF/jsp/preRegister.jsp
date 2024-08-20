@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <title>Registrazione Utente</title>
     
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/preRegister.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/preRegister.css">
+
 </head>
 <body>
    <jsp:include page="header.jsp" />

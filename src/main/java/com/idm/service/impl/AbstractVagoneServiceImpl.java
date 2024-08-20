@@ -19,12 +19,17 @@ import com.idm.service.AbstractVagoneService;
 public class AbstractVagoneServiceImpl implements AbstractVagoneService{
 	
 	@Autowired
-	private AbstractVagoneDao abtsractVagoneDao;
+	private AbstractVagoneDao abstractVagoneDao;
 	
 	@Override
 	public AbstractVagone create(AbstractVagone  abstractVagone) {
-		AbstractVagone va = abtsractVagoneDao.add(abstractVagone);
+		AbstractVagone va = abstractVagoneDao.add(abstractVagone);
 		return va;
+	}
+
+	@Override
+	public AbstractVagone update(AbstractVagone abstractVagone) {
+		return abstractVagoneDao.update(abstractVagone);
 	}
 	
 	

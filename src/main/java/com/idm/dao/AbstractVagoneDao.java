@@ -7,4 +7,7 @@ import com.idm.abstractClasses.AbstractVagone;
 public interface  AbstractVagoneDao  {
 	@Transactional
 	public AbstractVagone add(AbstractVagone vc);
+	
+	@Transactional
+	public AbstractVagone update(AbstractVagone vc);
 }

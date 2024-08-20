@@ -19,4 +19,9 @@ public class AbstractVagoneDaoImpl extends DaoImpl implements AbstractVagoneDao 
         manager.merge(vc);
         return vc;
     }
+
+	@Override
+	public AbstractVagone update(AbstractVagone vc) {
+		 return manager.merge(vc);
+	}
 }

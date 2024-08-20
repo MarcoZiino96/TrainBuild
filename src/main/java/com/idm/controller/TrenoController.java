@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.idm.abstractClasses.AbstractVagone;
 import com.idm.entity.Factory;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
@@ -21,6 +23,7 @@ import com.idm.exception.CargoException;
 import com.idm.exception.LocomotivaException;
 import com.idm.exception.RistoranteException;
 import com.idm.exception.StringaException;
+import com.idm.service.AbstractVagoneService;
 import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
 import com.idm.service.UtenteService;
@@ -38,6 +41,7 @@ public class TrenoController {
 
 	@Autowired
 	private TrenoFilterService trenoFilterService;
+
 
 
 	@GetMapping("/home")
@@ -182,22 +186,38 @@ public class TrenoController {
 
 
 	@PostMapping("/modificaTreno")
+	@Transactional
 	public String modificaTreno(@RequestParam Integer trenoId, @RequestParam String sigla, @RequestParam Factory compagnia, HttpSession session, Model model) {
 		Utente utente = (Utente) session.getAttribute("utente");
 		Treno treno;
 
 		try {
-			Treno trenoAggiornato= trenoService.createTrenoProva(sigla, compagnia);
+			
+			Treno trenoAggiornato = trenoService.createTrenoProva(sigla, compagnia);
 
+			
 			treno = trenoService.find(trenoId);
+
+			
 			treno.setSigla(trenoAggiornato.getSigla());
 			treno.setCompagnia(trenoAggiornato.getCompagnia());
 			treno.setPrezzo(trenoAggiornato.getPrezzo());
 			treno.setLunghezza(trenoAggiornato.getLunghezza());
 			treno.setPeso(trenoAggiornato.getPeso());
 
+			
+			treno.getVagoni().clear();
 
+			
+			for (AbstractVagone vagone : trenoAggiornato.getVagoni()) {
+				vagone.setTreno(treno); 
+				treno.getVagoni().add(vagone); 
+			}
+
+			
 			treno = trenoService.update(treno, trenoId);
+
+			
 			model.addAttribute("treno", treno);
 			return "redirect:/order";
 		} catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
@@ -208,8 +228,9 @@ public class TrenoController {
 			model.addAttribute("voto", new VotoVO());
 			return "details";
 		}
-
 	}
+
+
 
 	@PostMapping("/duplicaTreno")
 	public String duplicaTreno(@RequestParam Integer trenoId, HttpSession session, Model model ) {
