@@ -57,7 +57,7 @@
 				<div class="form-group">
 					<label for="sigla">Sigla</label> 
 					<div id="siglaError" class="message"></div>
-					<input type="text" id="sigla"name="sigla" required onkeyup="validateSigla()">
+					<input type="text" id="sigla"name="sigla" onkeyup="validateSigla()">
 				</div>
 				<div class="form-group">
 					<label for="compagnia">Compagnia</label> <select id="compagnia"

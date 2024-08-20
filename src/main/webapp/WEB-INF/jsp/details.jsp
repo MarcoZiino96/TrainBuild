@@ -11,219 +11,9 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<!--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">-->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">
+ <!--  <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/details.js"></script> -->
 
-
-<style>
-* {
-	box-sizing: border-box;
-}
-
-body {
-	padding: 0;
-	background-color: #2f1847;
-	margin: 0;
-}
-
-.boxCard {
-	max-width: 50%;
-	padding: 40px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-top: 40px;
-	margin: 10px auto;
-	margin-top: 60px;
-}
-
-.card {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 900px;
-	height: 900px;
-	margin-bottom: 40px;
-	background-color: black;
-	color: #e0c680;
-	border-radius: 8px;
-	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
-}
-
-.titleCard h2 {
-	font-size: 22px;
-	margin-bottom: 35px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-.property-list {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin-bottom: 10px;
-	padding: 20px 0;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-.sigla-compagnia-property {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 20px;
-	margin-right: 40px;
-}
-
-.lunghezza-peso-property {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 20px;
-	margin-right: 40px;
-}
-
-.prezzo-peso-property {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 20px;
-	margin-right: 40px;
-}
-
-.property label {
-	font-weight: bold;
-	margin-right: 5px;
-	color: #e0c680;
-}
-
-.property {
-	display: flex;
-	content: space-between;
-	margin-bottom: 20px;
-	margin-right: 40px;
-}
-
-.star-rating {
-	display: flex;
-	flex-direction: row-reverse;
-}
-
-.star-rating input {
-	display: none;
-}
-
-.star-rating label {
-	font-size: 24px;
-	color: #ccc;
-	cursor: pointer;
-}
-
-.star-rating input:checked ~ label {
-	color: gold;
-}
-
-.star-rating label:hover, .star-rating label:hover ~ label {
-	color: gold;
-}
-
-#btn-invia {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 10px;
-}
-
-#btn-invia button {
-	padding: 10px 20px;
-	border: none;
-	background-color: #e0c680;
-	color: #2f1847;
-	font-size: 16px;
-	border-radius: 4px;
-	cursor: pointer;
-	margin-bottom: 35px;
-}
-
-#btn-invia :hover {
-	background-color: #bfa458;
-	color: #2f1847;
-}
-
-.btn-navbar {
-	background-color: #2f1847;
-	padding: 10px 0;
-	margin-top: 25px;
-	margin-bottom: 20px;
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
-}
-
-.btn-navbar-content {
-	display: flex;
-	gap: 30px;
-}
-
-.icon-button {
-	border-radius: 4px;
-	font-size: 24px;
-	width: 50px;
-	height: 50px;
-	cursor: pointer;
-}
-
-.icon-button:hover {
-	background-color: #e0c680;
-}
-
-#icon-button-delete {
-	background-color: red;
-}
-
-#icon-button-delete:hover {
-	background-color: #cc0000;
-}
-
-#sigla {
-	margin-top: 20px;
-	margin-bottom: 30px;
-}
-
-#compagnia {
-	margin-top: 20px;
-}
-
-.form-group input, .form-group select {
-	padding: 10px;
-	border: 1px solid #ced4da;
-	border-radius: 4px;
-	font-size: 16px;
-	width: 100%;
-	margin-bottom: 8px;
-}
-
-.text-center {
-	display: flex;
-	justify-content: center;
-}
-
-.hidden {
-	display: none;
-}
-
-.btn-success {
-	background-color: #e0c680;
-	color: #2f1847 border: none;
-	padding: 10px 20px;
-	margin-top: 30px;
-	font-size: 16px;
-	border-radius: 4px;
-	cursor: pointer;
-	transition: background-color 0.3s;
-}
-
-.btn-success:hover {
-	background-color: #bfa458;
-	color: #2f1847;
-}
-</style>
 
 
 <script>
@@ -236,7 +26,6 @@ body {
 		form.classList.toggle("hidden");
 	}
 </script>
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -267,9 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     trenoImageContainer.appendChild(trenoImage);
 });
-
-
 </script>
+
+
 
 </head>
 

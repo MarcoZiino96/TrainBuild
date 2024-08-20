@@ -9,10 +9,15 @@ body {
 }
 
 .boxCard {
+	max-width: 50%;
+	padding: 40px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin-top: 40px;
+	margin: 10px auto;
+	margin-top: 60px;
 }
 
 .card {
@@ -21,9 +26,10 @@ body {
 	justify-content: center;
 	align-items: center;
 	width: 900px;
-	height: 600px;
+	height: 900px;
 	margin-bottom: 40px;
-	background-color: #fafafa;
+	background-color: black;
+	color: #e0c680;
 	border-radius: 8px;
 	box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.2);
 }
@@ -31,14 +37,16 @@ body {
 .titleCard h2 {
 	font-size: 22px;
 	margin-bottom: 35px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .property-list {
 	display: flex;
 	flex-direction: row;
-	 justify-content: space-between;
+	justify-content: space-between;
 	margin-bottom: 10px;
 	padding: 20px 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .sigla-compagnia-property {
@@ -64,8 +72,8 @@ body {
 
 .property label {
 	font-weight: bold;
-	color: #343a40;
 	margin-right: 5px;
+	color: #e0c680;
 }
 
 .property {
@@ -75,11 +83,9 @@ body {
 	margin-right: 40px;
 }
 
-
-
 .star-rating {
 	display: flex;
-	flex-direction: row;
+	flex-direction: row-reverse;
 }
 
 .star-rating input {
@@ -110,8 +116,8 @@ body {
 #btn-invia button {
 	padding: 10px 20px;
 	border: none;
-	background-color: #2f1847;
-	color: #fafafa;
+	background-color: #e0c680;
+	color: #2f1847;
 	font-size: 16px;
 	border-radius: 4px;
 	cursor: pointer;
@@ -119,16 +125,18 @@ body {
 }
 
 #btn-invia :hover {
-	background-color: #e0c680;
+	background-color: #bfa458;
 	color: #2f1847;
 }
 
 .btn-navbar {
 	background-color: #2f1847;
 	padding: 10px 0;
+	margin-top: 25px;
 	margin-bottom: 20px;
 	display: flex;
 	justify-content: center;
+	margin-bottom: 20px;
 }
 
 .btn-navbar-content {
@@ -161,12 +169,17 @@ body {
 	margin-bottom: 30px;
 }
 
+#compagnia {
+	margin-top: 20px;
+}
+
 .form-group input, .form-group select {
 	padding: 10px;
 	border: 1px solid #ced4da;
 	border-radius: 4px;
 	font-size: 16px;
 	width: 100%;
+	margin-bottom: 8px;
 }
 
 .text-center {
@@ -174,11 +187,13 @@ body {
 	justify-content: center;
 }
 
+.hidden {
+	display: none;
+}
 
 .btn-success {
-	background-color: #2f1847;
-	color: #fafafa;
-	border: none;
+	background-color: #e0c680;
+	color: #2f1847 border: none;
 	padding: 10px 20px;
 	margin-top: 30px;
 	font-size: 16px;
@@ -188,6 +203,6 @@ body {
 }
 
 .btn-success:hover {
-	background-color: #e0c680;
+	background-color: #bfa458;
 	color: #2f1847;
 }
