@@ -1,7 +1,6 @@
-@charset "UTF-8";
-
 body {
 	font-family: Arial, sans-serif;
+<<<<<<< HEAD
 	background-color:#2F1847;
 	margin:0px; 
 }
@@ -23,6 +22,43 @@ body {
 form {
 	max-width:600px;
 	margin: 0 auto;
+=======
+	background-color: #2F1847;
+	margin: 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 100px auto;
+	padding: 20px;
+}
+
+#userRegister {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	font-size: 2.5rem;
+	margin-top: 800px;
+	margin-bottom: 40px;
+}
+
+.boxRegister {
+	background-color: #1d1d1d;
+	margin: 100px;
+	padding: 20px;
+	border-radius: 50px;
+	box-shadow: 0 0 15px 8px rgba(205, 164, 52, 0.2);
+}
+
+form {
+	max-width: 600px;
+	margin: auto;
+>>>>>>> 90f2b567bec0ce6754d026a4a8a716a3450232af
 	margin-bottom: 40px;
 }
 
@@ -32,8 +68,13 @@ label {
 	color: #cda434;
 }
 
+<<<<<<< HEAD
 h2{
 color: #cda434;
+=======
+h2 {
+	color: #cda434;
+>>>>>>> 90f2b567bec0ce6754d026a4a8a716a3450232af
 }
 
 input[type="text"], input[type="email"], input[type="password"], input[type="date"]
@@ -57,7 +98,12 @@ input[type="submit"] {
 input[type="submit"]:hover {
 	background-color: #45a049;
 }
+<<<<<<< HEAD
 .submit{
+=======
+
+.submit {
+>>>>>>> 90f2b567bec0ce6754d026a4a8a716a3450232af
 	text-align: center;
 }
 
@@ -66,6 +112,7 @@ input[type="submit"]:hover {
 	background-color: #2f1847;
 	color: #cda434;
 	border-radius: 4px;
+<<<<<<< HEAD
 	border:none;
 	cursor: pointer;
 	transition: transform 0.3s ease;
@@ -73,10 +120,23 @@ input[type="submit"]:hover {
 }
 
 .submit button:hover{
+=======
+	border: none;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+	margin-top: 10px;
+}
+
+.submit button:hover {
+>>>>>>> 90f2b567bec0ce6754d026a4a8a716a3450232af
 	background-color: #cda434;
 	color: #fafafa;
 	transform: scale(1.1);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 90f2b567bec0ce6754d026a4a8a716a3450232af
 .message {
 	color: red;
 	font-size: 0.8rem;

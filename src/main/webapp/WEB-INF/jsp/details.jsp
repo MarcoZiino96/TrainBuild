@@ -12,11 +12,17 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">
+<<<<<<< HEAD
 
 
 
 
 
+=======
+ <!--  <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/details.js"></script> -->
+
+
+>>>>>>> 90f2b567bec0ce6754d026a4a8a716a3450232af
 
 <script>
 	function confermaEliminazione() {
@@ -62,6 +68,41 @@
 			})
 </script>
 
+<<<<<<< HEAD
+
+
+=======
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var trenoImageContainer = document.getElementById('treno-image-container');
+    var trenoData = document.getElementById('treno-data');
+    var trenoCompagnia = trenoData.getAttribute('data-compagnia');
+    
+    console.log('Compagnia:', trenoCompagnia); 
+
+    var trenoImage = document.createElement('img');
+    trenoImage.alt = 'Immagine Treno';
+    trenoImage.style.maxWidth = '100%';
+    trenoImage.style.height = 'auto';
+
+    switch(trenoCompagnia) {
+        case 'FR':
+            trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
+            break;
+        case 'IT':
+            trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
+            break;
+        case 'TN':
+            trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
+            break;
+        default:
+            trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
+    }
+
+    trenoImageContainer.appendChild(trenoImage);
+});
+</script>
+>>>>>>> 90f2b567bec0ce6754d026a4a8a716a3450232af
 
 
 

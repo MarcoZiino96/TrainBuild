@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/preRegister.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/preRegister.js"></script> 
 
 
 </head>
@@ -26,15 +27,18 @@
 		<form:form modelAttribute="utente" action="postRegister" method="post">
 
 			<label for="nome">Nome:</label>
-			<form:input path="nome" />
+			<div id="nomeError" class="message"></div>
+			<form:input path="nome" onkeyup = "validateNome()" />
 			<form:errors path="nome" cssClass="message" />
 
 			<label for="cognome">Cognome:</label>
-			<form:input path="cognome" />
+			<div id="cognomeError" class="message"></div>
+			<form:input path="cognome" onkeyup = "validateCognome()" />
 			<form:errors path="cognome" cssClass="message" />
 
 			<label for="email">Email:</label>
-			<form:input path="email" />
+			<div id="emailError" class="message"></div>
+			<form:input path="email" onkeyup = "validateEmail()" />
 			<form:errors path="email" cssClass="message" />
 
 			<label for="dataNascita">Data di Nascita:</label>
@@ -43,10 +47,12 @@
 
 			<label for="username">Username:</label>
 			<form:input path="username" />
+			<form:input path="username" onkeyup = "validateUsername()"/>
 			<form:errors path="username" cssClass="message" />
 
 			<label for="password">Password:</label>
-			<form:input path="password" />
+			<div id="passwordError" class="message"></div>
+			<form:input path="password" onkeyup = "validatePassword()" />
 			<form:errors path="password" cssClass="message" />
 
 			<div class="submit">

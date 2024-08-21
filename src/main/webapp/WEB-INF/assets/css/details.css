@@ -144,6 +144,24 @@ body {
 	transform: scale(1.1);
 }
 
+.btn-navbar {
+	background-color: #2f1847;
+	padding: 10px 0;
+	margin-top: 25px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.btn-navbar {
+	background-color: #2f1847;
+	padding: 10px 0;
+	margin-top: 25px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+}
+
 .btn-navbar-content {
 	display: flex;
 	gap: 30px;
@@ -186,6 +204,10 @@ body {
 #treno-image-container{
 	text-align: center; 
 	margin-bottom: 20px;
+}
+
+#compagnia {
+	margin-top: 20px;
 }
 
 #compagnia {
