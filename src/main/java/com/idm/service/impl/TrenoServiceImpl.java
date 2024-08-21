@@ -20,195 +20,213 @@ import com.idm.vo.TrenoVO;
 @Component
 public class TrenoServiceImpl implements TrenoService {
 
-    @Autowired
-    private TrenoDao trenoDao;
+	@Autowired
+	private TrenoDao trenoDao;
 
-    @Autowired
-    private FrecciaRossaBuilder frecciaRossaBuilder;
+	@Autowired
+	private FrecciaRossaBuilder frecciaRossaBuilder;
 
-    @Autowired
-    private AbstractVagoneDao abstractVagoneDaoImpl;
+	@Autowired
+	private AbstractVagoneDao abstractVagoneDaoImpl;
 
-    @Autowired
-    private ItaloBuilder italoBuilder;
+	@Autowired
+	private ItaloBuilder italoBuilder;
 
-    @Autowired
-    private TreNordBuilder treNordBuilder;
+	@Autowired
+	private TreNordBuilder treNordBuilder;
 
-    @Override
-    public Treno find(Integer id) {
-        return trenoDao.find(id);
-    }
+	@Override
+	public Treno find(Integer id) {
+		return trenoDao.find(id);
+	}
 
-    @Override
-    public Treno createTreno(String string, Factory compagnia, Utente utente) {
-        Treno treno;
+	@Override
+	public Treno createTreno(String string, Factory compagnia, Utente utente) {
+		Treno treno;
 
-        try {
-            treno = selectFactory(string, compagnia);
-        } catch (Exception e) {
-            throw e;
-        }
+		try {
+			treno = selectFactory(string, compagnia);
+		} catch (Exception e) {
+			throw e;
+		}
 
-        try {
-            Treno trenoSaved = trenoDao.create(treno);
+		try {
+			Treno trenoSaved = trenoDao.create(treno);
 
-            for (AbstractVagone vagone : treno.getVagoni()) {
-                vagone.setTreno(trenoSaved);
-                abstractVagoneDaoImpl.add(vagone);
-            }
+			for (AbstractVagone vagone : treno.getVagoni()) {
+				vagone.setTreno(trenoSaved);
+				abstractVagoneDaoImpl.add(vagone);
+			}
 
-            double prezzoTreno = treno.getVagoni().stream()
-                    .mapToDouble(AbstractVagone::getPrezzo)
-                    .sum();
+			double prezzoTreno = treno.getVagoni().stream()
+					.mapToDouble(AbstractVagone::getPrezzo)
+					.sum();
 
-            double lunghezzaTreno = treno.getVagoni().stream()
-                    .mapToDouble(AbstractVagone::getLunghezza)
-                    .sum();
+			double lunghezzaTreno = treno.getVagoni().stream()
+					.mapToDouble(AbstractVagone::getLunghezza)
+					.sum();
 
-            double pesoTreno = treno.getVagoni().stream()
-                    .mapToDouble(AbstractVagone::getPeso)
-                    .sum();
+			double pesoTreno = treno.getVagoni().stream()
+					.mapToDouble(AbstractVagone::getPeso)
+					.sum();
 
-            trenoSaved.setPrezzo(prezzoTreno);
-            trenoSaved.setLunghezza(lunghezzaTreno);
-            trenoSaved.setPeso(pesoTreno);
-            trenoSaved.setSigla(string);
-            trenoSaved.setUtente(utente);
-            trenoSaved.setCompagnia(compagnia);
+			trenoSaved.setPrezzo(prezzoTreno);
+			trenoSaved.setLunghezza(lunghezzaTreno);
+			trenoSaved.setPeso(pesoTreno);
+			trenoSaved.setSigla(string);
+			trenoSaved.setUtente(utente);
+			trenoSaved.setCompagnia(compagnia);
 
-            update(trenoSaved, trenoSaved.getId());
+			update(trenoSaved, trenoSaved.getId());
 
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Errore durante la persistenza del treno: " + e.getMessage(), e);
-        }
+		} catch (RuntimeException e) {
+			throw new RuntimeException("Errore durante la persistenza del treno: " + e.getMessage(), e);
+		}
 
-        return treno;
-    }
+		return treno;
+	}
 
-    @Override
-    public Treno createTrenoProva(String string, Factory compagnia) {
-        Treno treno;
+	@Override
+	public Treno createTrenoProva(String string, Factory compagnia) {
+		Treno treno;
 
-        try {
-            treno = selectFactory(string, compagnia);
-        } catch (Exception e) {
-            throw e;
-        }
+		try {
+			treno = selectFactory(string, compagnia);
+		} catch (Exception e) {
+			throw e;
+		}
 
-        double prezzoTreno = treno.getVagoni().stream()
-                .mapToDouble(AbstractVagone::getPrezzo)
-                .sum();
+		double prezzoTreno = treno.getVagoni().stream()
+				.mapToDouble(AbstractVagone::getPrezzo)
+				.sum();
 
-        double lunghezzaTreno = treno.getVagoni().stream()
-                .mapToDouble(AbstractVagone::getLunghezza)
-                .sum();
+		double lunghezzaTreno = treno.getVagoni().stream()
+				.mapToDouble(AbstractVagone::getLunghezza)
+				.sum();
 
-        double pesoTreno = treno.getVagoni().stream()
-                .mapToDouble(AbstractVagone::getPeso)
-                .sum();
+		double pesoTreno = treno.getVagoni().stream()
+				.mapToDouble(AbstractVagone::getPeso)
+				.sum();
 
-        treno.setPrezzo(prezzoTreno);
-        treno.setLunghezza(lunghezzaTreno);
-        treno.setPeso(pesoTreno);
-        treno.setSigla(string);
-        treno.setCompagnia(compagnia);
+		treno.setPrezzo(prezzoTreno);
+		treno.setLunghezza(lunghezzaTreno);
+		treno.setPeso(pesoTreno);
+		treno.setSigla(string);
+		treno.setCompagnia(compagnia);
 
-        return treno;
-    }
+		return treno;
+	}
 
-    @Override
-    public Treno update(Treno treno, int id) {
-        Treno treno1 = find(treno.getId());
-        treno1.setSigla(treno.getSigla());
-        treno1.setCompagnia(treno.getCompagnia());
-        treno1.setUtente(treno.getUtente());
-        treno1.setLunghezza(treno.getLunghezza());
-        treno1.setPeso(treno.getPeso());
-        treno1.setPrezzo(treno.getPrezzo());
-        trenoDao.update(treno1);
-        return treno1;
-    }
+	@Override
+	public Treno update(Treno treno, int id) {
+		Treno treno1 = find(treno.getId());
+		treno1.setSigla(treno.getSigla());
+		treno1.setCompagnia(treno.getCompagnia());
+		treno1.setUtente(treno.getUtente());
+		treno1.setLunghezza(treno.getLunghezza());
+		treno1.setPeso(treno.getPeso());
+		treno1.setPrezzo(treno.getPrezzo());
+		trenoDao.update(treno1);
+		return treno1;
+	}
 
-    @Override
-    public void delete(Treno treno) {
-        trenoDao.delete(treno);
-    }
+	@Override
+	public void delete(Treno treno) {
+		trenoDao.delete(treno);
+	}
 
-    @Override
-    public void delete(Integer id) {
-        trenoDao.delete(id);
-    }
+	@Override
+	public void delete(Integer id) {
+		trenoDao.delete(id);
+	}
 
-    @Override
-    public List<Treno> retrive() {
-        return trenoDao.retrive();
-    }
+	@Override
+	public List<Treno> retrive() {
+		return trenoDao.retrive();
+	}
 
-  
 
-    @Override
-    public List<TrenoVO> retriveWithOrderVO(String ordine, String direction) {
-        List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
-        List<TrenoVO> trenoVOs = new ArrayList<>();
-        for (Treno treno : u) {
-            TrenoVO vo = new TrenoVO();
 
-            double mediaVoti = treno.getVoti().stream()
-                    .mapToInt(Voto::getVoto)
-                    .average()
-                    .orElse(0.0);
+	@Override
+	public List<TrenoVO> retriveWithOrderVO(String ordine, String direction) {
+		List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
+		List<TrenoVO> trenoVOs = new ArrayList<>();
+		for (Treno treno : u) {
+			TrenoVO vo = new TrenoVO();
 
-            vo.setId(treno.getId());
-            vo.setPrezzo(treno.getPrezzo());
-            vo.setPeso(treno.getPeso());
-            vo.setLunghezza(treno.getLunghezza());
-            vo.setSigla(treno.getSigla());
-            vo.setCompagnia(treno.getCompagnia());
-            vo.setUtente(treno.getUtente());
-            vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
+			double mediaVoti = treno.getVoti().stream()
+					.mapToInt(Voto::getVoto)
+					.average()
+					.orElse(0.0);
 
-            trenoVOs.add(vo);
-        }
-        return trenoVOs;
-    }
+			vo.setId(treno.getId());
+			vo.setPrezzo(treno.getPrezzo());
+			vo.setPeso(treno.getPeso());
+			vo.setLunghezza(treno.getLunghezza());
+			vo.setSigla(treno.getSigla());
+			vo.setCompagnia(treno.getCompagnia());
+			vo.setUtente(treno.getUtente());
+			vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
 
-    @Override
-    public List<TrenoVO> findTreniConVagonePasseggeri() {
-        List<Treno> treni = trenoDao.findTreniConVagonePasseggeri();
-        List<TrenoVO> trenoVOs = new ArrayList<>();
-        for (Treno treno : treni) {
-            TrenoVO vo = new TrenoVO();
+			trenoVOs.add(vo);
+		}
+		return trenoVOs;
+	}
 
-            double mediaVoti = treno.getVoti().stream()
-                    .mapToInt(Voto::getVoto)
-                    .average()
-                    .orElse(0.0);
+	@Override
+	public List<TrenoVO> findTreniConVagonePasseggeri() {
+		List<Treno> treni = trenoDao.findTreniConVagonePasseggeri();
+		List<TrenoVO> trenoVOs = new ArrayList<>();
+		for (Treno treno : treni) {
+			TrenoVO vo = new TrenoVO();
 
-            vo.setId(treno.getId());
-            vo.setPrezzo(treno.getPrezzo());
-            vo.setPeso(treno.getPeso());
-            vo.setLunghezza(treno.getLunghezza());
-            vo.setSigla(treno.getSigla());
-            vo.setCompagnia(treno.getCompagnia());
-            vo.setUtente(treno.getUtente());
-            vo.setVagoni(treno.getVagoni());
-            vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
-            trenoVOs.add(vo);
-        }
-        return trenoVOs;
-    }
+			double mediaVoti = treno.getVoti().stream()
+					.mapToInt(Voto::getVoto)
+					.average()
+					.orElse(0.0);
 
-    public Treno selectFactory(String sigla, Factory compagnia) {
-        switch (compagnia) {
-            case FR:
-                return frecciaRossaBuilder.creaTreno(sigla);
-            case IT:
-                return italoBuilder.creaTreno(sigla);
-            case TN:
-                return treNordBuilder.creaTreno(sigla);
-            default:
-                throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
-        }
-    }
+			vo.setId(treno.getId());
+			vo.setPrezzo(treno.getPrezzo());
+			vo.setPeso(treno.getPeso());
+			vo.setLunghezza(treno.getLunghezza());
+			vo.setSigla(treno.getSigla());
+			vo.setCompagnia(treno.getCompagnia());
+			vo.setUtente(treno.getUtente());
+			vo.setVagoni(treno.getVagoni());
+			vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
+			trenoVOs.add(vo);
+		}
+		return trenoVOs;
+	}
+
+	public Treno selectFactory(String sigla, Factory compagnia) {
+		switch (compagnia) {
+		case FR:
+			return frecciaRossaBuilder.creaTreno(sigla);
+		case IT:
+			return italoBuilder.creaTreno(sigla);
+		case TN:
+			return treNordBuilder.creaTreno(sigla);
+		default:
+			throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
+		}
+	}
+
+	@Override
+	public String invertiStringa(String sigla) {
+	    if (sigla.startsWith("H") || sigla.startsWith("h")) {
+	        
+	    	String siglaInversa = sigla.substring(0, 1) + new StringBuilder(sigla.substring(1)).reverse().toString();
+	        
+	        if (sigla.endsWith("H") || sigla.endsWith("h")) {
+	            
+	        	siglaInversa = new StringBuilder(sigla).reverse().toString();
+	        }
+	        return siglaInversa;
+	    } else {
+	        throw new RuntimeException("La sigla non inizia con 'H' o 'h'.");
+	    }
+	}
+
+
 }

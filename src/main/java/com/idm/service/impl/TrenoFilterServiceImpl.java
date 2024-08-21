@@ -102,7 +102,7 @@ public class TrenoFilterServiceImpl implements TrenoFilterService {
 			return "La lunghezza minima non può essere maggiore della lunghezza massima.";
 		}
 
-		return null; // Nessun errore
+		return null; 
 	}
 	
 	public List<TrenoVO> filterTreniVOWithErrorHandling(TrenoFilter filter) {

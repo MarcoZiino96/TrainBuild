@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>TrainBuild</title>
-<link rel="icon" href="${pageContext.request.contextPath}/resources/img/favicon.png" type="image/x-icon">
+<link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/miePrenotazioni.css">
 <script>
@@ -90,7 +90,7 @@
 								${prenotazione.vagonePasseggeri.treno.compagnia}-${prenotazione.vagonePasseggeri.treno.id}</h5>
 						</div>
 						<div class="boxProperty">
-							<h5>Coordinate Posto: ${prenotazione.coordinatePosto}</h5>
+							<h5>CoordinatePosto: ${prenotazione.coordinatePosto}</h5>
 						</div>
 					</div>
 

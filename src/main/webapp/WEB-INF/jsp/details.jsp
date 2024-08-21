@@ -14,6 +14,10 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">
 
 
+
+
+
+
 <script>
 	function confermaEliminazione() {
 		return confirm("Sei sicuro di voler eliminare questo treno?");

@@ -26,4 +26,6 @@ public interface TrenoService {
     public List<TrenoVO> retriveWithOrderVO(String ordine, String direction);
 
     public List<TrenoVO> findTreniConVagonePasseggeri(); 
+    
+    public String invertiStringa(String sigla);
 }

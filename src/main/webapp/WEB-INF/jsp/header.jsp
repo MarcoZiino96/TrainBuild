@@ -8,49 +8,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CreateYourTrain</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/header.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-lg">
-			<div class="container">
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-					data-bs-target="#navbarContent" aria-controls="navbarContent"
-					aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link" href="home">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Chi siamo</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Contatti</a></li>
-						<c:if test="${not empty sessionScope.utente}">
-							<li class="nav-item"><a href="order" class="nav-link">Ricerca Ordinamento</a></li>
-							<li class="nav-item"><a href="prenota" class="nav-link">Prenota</a></li>
-							<li class="nav-item"><a href="miePrenotazioni" class="nav-link">Mie Prenotazioni</a></li>
-						</c:if>
+		<nav class="navbar">
+			<c:if test="${empty sessionScope.utente}">
+				
+					<ul class="navNoLogin">
+						<div class="boxNoLogin">
+							<li class=nav-item><img class="imgLogo" alt="logo"
+								src="${pageContext.request.contextPath}/resources/img/logo-TrainBuild.png">
+							</li>
+						</div>
+						<div class="boxNoLogin">
+							<li class="nav-item"><a class="nav-link" href="home">Home</a>
+							</li>
+							<li class="nav-item"><a href="formlogin" class="nav-link">Login</a></li>
+							<li class="nav-item"><a href="preRegister" class="nav-link">Registrati</a></li>
+
+						</div>
 					</ul>
-					<div class="d-flex align-items-center">
-						<c:if test="${not empty sessionScope.utente}">
-							<span class="user-info">${sessionScope.utente.nome} ${sessionScope.utente.cognome}</span>
-							<form:form action="logout" method="post" class="form-inline">
-								<input type="submit" value="Logout" class="btn btn-primary" />
-							</form:form>
-						</c:if>
-						<c:if test="${empty sessionScope.utente}">
-							<a href="formlogin" class="btn btn-outline-primary me-2">Login</a>
-							<a href="preRegister" class="btn btn-primary">Registrati</a>
+			</c:if>
+
+			<c:if test="${not empty sessionScope.utente}">
+				<ul class="navbar-nav">
+					<div class="boxLink">
+						<li class=nav-item><img class="imgLogo" alt="logo"
+							src="${pageContext.request.contextPath}/resources/img/logo-TrainBuild.png">
+						</li>
+					</div>
+
+					<div class="boxLink">
+						<li class="nav-item"><a class="nav-link" href="home">Home</a>
+						</li>
+						
+							<li class="nav-item"><a class="nav-link" href="order">Ricerca
+									Treno </a></li>
+							<li class="nav-item"><a class="nav-link" href="prenota">Prenota</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="miePrenotazioni">Mie Prenotazioni</a></li>
+						
+					</div>
+
+					<div class="boxLink">
+						
+							<li class="nav-item"><p class="username">${sessionScope.utente.username}</p>
+							</li>
+							<li class="nav-item">
+								<form action="logout" method="post">
+									<button type="submit" class="logoutBtn">
+										<i class="fas fa-sign-out-alt"></i>
+									</button>
+								</form>
+							</li>
 						</c:if>
 					</div>
-				</div>
-			</div>
+
+				</ul>
+			
 		</nav>
 	</header>
-
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

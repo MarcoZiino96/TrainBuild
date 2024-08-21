@@ -7,14 +7,16 @@
 <meta charset="UTF-8">
 <title>TrainBuild</title>
 <link rel="icon"
-	href="${pageContext.request.contextPath}/resources/img/favicon.png"
+	href="${pageContext.request.contextPath}\resources\img\favicon.png"
 	type="image/x-icon">
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/preRegister.css">
 
+
 </head>
 <body>
+
 
 	<jsp:include page="header.jsp" />
 
