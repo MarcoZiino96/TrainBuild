@@ -270,7 +270,7 @@ public class TrenoController {
 
 			String sigla = trenoOriginale.getSigla();
 
-			if (sigla.startsWith("H") || sigla.startsWith("h")) {
+			  if (sigla.startsWith("H") || sigla.startsWith("h")) {
 				String siglaInversa = sigla.substring(0, 1) + new StringBuilder(sigla.substring(1)).reverse().toString();
 
 				if (sigla.endsWith("H") || sigla.endsWith("h")) {
