@@ -1,6 +1,5 @@
 
 body {
-	padding: 0;
 	background-color: #2f1847;
 	margin: 0;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -49,6 +48,11 @@ h2 {
 	border-radius: 5px;
 }
 
+.message {
+            color: red; 
+            font-size: 0.8em; 
+            padding: 5px;
+}
 .btnSubmit {
 	text-align: center;
 	width: 100%;
@@ -59,7 +63,6 @@ h2 {
 	padding: 10px 20px;
 	background-color:#2f1847 ;
 	color:  #e0c680;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;

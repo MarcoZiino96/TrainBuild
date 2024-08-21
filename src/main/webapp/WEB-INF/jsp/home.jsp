@@ -6,6 +6,8 @@
 <title>TrainBuild</title>
 <link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css">
+ <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/home.js"></script> 
+
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -52,8 +54,9 @@
 		<div class="box">
 			<form class="formHome" action="newTrain" method="post">
 				<div class="form-group">
-					<label for="sigla">Sigla</label> <input type="text" id="sigla"
-						name="sigla" required>
+					<label for="sigla">Sigla</label> 
+					<div id="siglaError" class="message"></div>
+					<input type="text" id="sigla"name="sigla" onkeyup="validateSigla()">
 				</div>
 				<div class="form-group">
 					<label for="compagnia">Compagnia</label> 

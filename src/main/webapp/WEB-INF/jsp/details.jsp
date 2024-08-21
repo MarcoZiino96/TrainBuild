@@ -13,11 +13,6 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">
 
-
-
-
-
-
 <script>
 	function confermaEliminazione() {
 		return confirm("Sei sicuro di voler eliminare questo treno?");
@@ -61,10 +56,6 @@
 				trenoImageContainer.appendChild(trenoImage);
 			})
 </script>
-
-
-
-
 </head>
 
 <body>
@@ -99,7 +90,7 @@
 			
 			 <form action="invertiTreno" method="post">
                       <input type="hidden" name="trenoId" value="${treno.id}" />
-                      <button id="iconInverti" type="submit" class="icon-button">
+                      <button id="iconInverti" type="submit" class="icon-button" title="Inverti">
                         <i class="fas fa-undo"></i>
                       </button>
              </form>
@@ -173,28 +164,28 @@
 
 				<div class="sigla-compagnia-property">
 					<div class="property">
-						<label>SIGLA: </label> <span>${treno.sigla}</span>
+						📛<label> SIGLA: </label> <span>${treno.sigla}</span>
 					</div>
 					<div class="property">
-						<label>COMPAGNIA: </label> <span>${treno.compagnia}</span>
+						🏷️<label>COMPAGNIA: </label> <span>${treno.compagnia}</span>
 					</div>
 				</div>
 
 				<div class="lunghezza-peso-property">
 					<div class="property">
-						<label>LUNGHEZZA: </label> <span>${treno.lunghezza}</span>
+						📏<label><span></span>LUNGHEZZA: </label> <span>${treno.lunghezza}</span>
 					</div>
 					<div class="property">
-						<label>PESO: </label> <span>${treno.peso}</span>
+						⚖️<label>PESO: </label> <span>${treno.peso}</span>
 					</div>
 				</div>
 
 				<div class="prezzo-utente-property">
 					<div class="property">
-						<label>PREZZO: </label> <span>${treno.prezzo}</span>
+						💰<label>PREZZO: </label> <span>${treno.prezzo}</span>
 					</div>
 					<div class="property">
-						<label>UTENTE: </label> <span>${utente.username}</span>
+						👤<label>UTENTE: </label> <span>${utente.username}</span>
 					</div>
 				</div>
 
@@ -261,5 +252,6 @@
 			</c:if>
 		</div>
 	</div>
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

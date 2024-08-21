@@ -272,8 +272,6 @@ public class TrenoController {
 			trenoOriginale.setSigla(siglaInversa);
 			trenoService.update(trenoOriginale, trenoId);
 
-			model.addAttribute("successMessage", "La sigla è stata invertita con successo.");
-
 		} catch (RuntimeException e) {
 			model.addAttribute("errorMessage", "Impossibile invertire il treno: " + e.getMessage());
 		}
