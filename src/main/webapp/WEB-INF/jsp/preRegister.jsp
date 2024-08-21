@@ -12,7 +12,8 @@
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/preRegister.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/preRegister.js"></script> 
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/preRegister.js"></script>
 
 
 </head>
@@ -28,33 +29,27 @@
 
 			<label for="nome">Nome:</label>
 			<div id="nomeError" class="message"></div>
-			<form:input path="nome" onkeyup = "validateNome()" />
+			<form:input path="nome" onkeyup="validateNome()" />
 			<form:errors path="nome" cssClass="message" />
-
 			<label for="cognome">Cognome:</label>
 			<div id="cognomeError" class="message"></div>
-			<form:input path="cognome" onkeyup = "validateCognome()" />
+			<form:input path="cognome" onkeyup="validateCognome()" />
 			<form:errors path="cognome" cssClass="message" />
-
 			<label for="email">Email:</label>
 			<div id="emailError" class="message"></div>
-			<form:input path="email" onkeyup = "validateEmail()" />
+			<form:input path="email" onkeyup="validateEmail()" />
 			<form:errors path="email" cssClass="message" />
-
 			<label for="dataNascita">Data di Nascita:</label>
 			<form:input path="dataNascita" type="date" />
 			<form:errors path="dataNascita" cssClass="message" />
-
+			<div id="usernameError" class="message"></div>
 			<label for="username">Username:</label>
-			<form:input path="username" />
-			<form:input path="username" onkeyup = "validateUsername()"/>
+			<form:input path="username" onkeyup="validateUsername()" />
 			<form:errors path="username" cssClass="message" />
-
 			<label for="password">Password:</label>
 			<div id="passwordError" class="message"></div>
-			<form:input path="password" onkeyup = "validatePassword()" />
+			<form:input path="password" onkeyup="validatePassword()" />
 			<form:errors path="password" cssClass="message" />
-
 			<div class="submit">
 				<button type="submit" value="Registrati">Registrami</button>
 			</div>
@@ -62,5 +57,6 @@
 		</form:form>
 
 	</div>
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

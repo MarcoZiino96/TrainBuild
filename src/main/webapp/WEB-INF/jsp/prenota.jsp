@@ -131,6 +131,6 @@
   </h3>
   </c:if>
 </div>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>
