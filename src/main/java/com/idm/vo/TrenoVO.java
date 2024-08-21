@@ -21,6 +21,22 @@ public class TrenoVO {
 	private String sigla;
 	private Factory compagnia;
 	private double mediaVoti;
+	private double capacitaMassima;
+	private int numeroPosti;
+	
+	
+	public double getCapacitaMassima() {
+		return capacitaMassima;
+	}
+	public void setCapacitaMassima(double capacitaMassima) {
+		this.capacitaMassima = capacitaMassima;
+	}
+	public int getNumeroPosti() {
+		return numeroPosti;
+	}
+	public void setNumeroPosti(int numeroPosti) {
+		this.numeroPosti = numeroPosti;
+	}
 	private Set<Prenotazione> prenotazioni = new HashSet<>();
 	List<AbstractVagone> vagoni;
 

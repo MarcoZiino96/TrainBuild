@@ -21,6 +21,9 @@ import com.idm.entity.TreNordBuilder;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
+import com.idm.entity.VagoneCargo;
+import com.idm.entity.VagonePasseggeri;
+import com.idm.entity.VagoneRistorante;
 import com.idm.entity.Voto;
 import com.idm.exception.CargoException;
 import com.idm.exception.LocomotivaException;
@@ -60,6 +63,7 @@ public class TrenoServiceImpl implements TrenoService {
 	public Treno createTreno(String string, Factory compagnia, Utente utente) {
 
 		Treno treno;
+		
 
 		try {
 			treno = selectFactory(string, compagnia);
@@ -90,7 +94,7 @@ public class TrenoServiceImpl implements TrenoService {
 			double pesoTreno = treno.getVagoni().stream()
 					.mapToDouble(AbstractVagone::getPeso) 
 					.sum();
-
+			
 
 
 			trenoSaved.setPrezzo(prezzoTreno);
@@ -257,15 +261,55 @@ public class TrenoServiceImpl implements TrenoService {
 	} 
 
 	public String invertiStringa(String sigla) {
-		String siglaInversa = "";
-		if (sigla.startsWith("H") || sigla.startsWith("h")) {
-			siglaInversa = sigla.substring(0, 1) + new StringBuilder(sigla.substring(1)).reverse().toString();
-		}
-		if (sigla.endsWith("H") || sigla.endsWith("h")) {
-			siglaInversa = new StringBuilder(sigla).reverse().toString();
+        if (sigla.startsWith("H") || sigla.startsWith("h")) {
 
-		}
-		return siglaInversa;
+            String siglaInversa = sigla.substring(0, 1) + new StringBuilder(sigla.substring(1)).reverse().toString();
+
+            if (sigla.endsWith("H") || sigla.endsWith("h")) {
+
+                siglaInversa = new StringBuilder(sigla).reverse().toString();
+            }
+            return siglaInversa;
+        } else {
+            throw new RuntimeException("La sigla non inizia con 'H' o 'h'.");
+        }
+    }
+	
+	public TrenoVO trenoDetails(Treno treno) {
+		
+		double capacitaMassima = 0.0;
+		int numeroPosti = 0;
+		
+		TrenoVO vo = new TrenoVO();
+
+		 capacitaMassima = treno.getVagoni().stream()
+		            .filter(vagone -> vagone instanceof VagoneCargo)
+		            .mapToDouble(vagone -> ((VagoneCargo) vagone).getCapacitaMassima())
+		            .sum();
+
+		    numeroPosti = treno.getVagoni().stream()
+		            .filter(vagone -> vagone instanceof VagonePasseggeri)
+		            .mapToInt(vagone -> ((VagonePasseggeri) vagone).getNumeroPosti())
+		            .sum();
+		
+		
+		double mediaVoti = treno.getVoti().stream()
+				.mapToInt(Voto::getVoto)
+				.average()
+				.orElse(0.0);	
+		vo.setId(treno.getId());
+		vo.setPrezzo(treno.getPrezzo());
+		vo.setPeso(treno.getPeso());
+		vo.setLunghezza(treno.getLunghezza());
+		vo.setSigla(treno.getSigla());
+		vo.setCompagnia(treno.getCompagnia());
+		vo.setUtente(treno.getUtente());
+		vo.setVagoni(treno.getVagoni());
+		vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
+		vo.setCapacitaMassima(capacitaMassima);
+		vo.setNumeroPosti(numeroPosti);
+
+		return vo;
 	}
 }
 

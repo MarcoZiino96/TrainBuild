@@ -66,7 +66,7 @@
 
 
 			<c:if test="${not empty error}">
-				<div style="color: red;">${error}</div>
+				<div>${error}</div>
 			</c:if>
 
 			<form id="filter" class="formFilter hidden" action="filter"

@@ -7,11 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>TrainBuild</title>
-<link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">
+<link rel="icon"
+	href="${pageContext.request.contextPath}\resources\img\favicon.png"
+	type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/details.css">
 
 <script>
 	function confermaEliminazione() {
@@ -75,27 +78,32 @@
 		<div class="btn-navbar-content">
 
 
-			<c:if test="${sessionScope.utente.id == sessionScope.treno.utente.id}">
-				<button id="iconModifica" class="icon-button" onclick="toggleForm()" title="Modifica">
+			<c:if
+				test="${sessionScope.utente.id == sessionScope.treno.utente.id}">
+				<button id="iconModifica" class="icon-button" onclick="toggleForm()"
+					title="Modifica">
 					<i class="fas fa-edit"></i>
 				</button>
 			</c:if>
-			
+
 			<form action="duplicaTreno" method="post">
-				<input  type="hidden" name="trenoId" value="${treno.id}" />
-				<button  id="iconDuplica" class="icon-button" type="submit" title="Duplica">
+				<input type="hidden" name="trenoId" value="${treno.id}" />
+				<button id="iconDuplica" class="icon-button" type="submit"
+					title="Duplica">
 					<i class="fas fa-copy"></i>
 				</button>
 			</form>
-			
-			 <form action="invertiTreno" method="post">
-                      <input type="hidden" name="trenoId" value="${treno.id}" />
-                      <button id="iconInverti" type="submit" class="icon-button" title="Inverti">
-                        <i class="fas fa-undo"></i>
-                      </button>
-             </form>
 
-			<c:if test="${sessionScope.utente.id == sessionScope.treno.utente.id}">
+			<c:if
+				test="${sessionScope.utente.id == sessionScope.treno.utente.id}">
+
+				<form action="invertiTreno" method="post">
+					<input type="hidden" name="trenoId" value="${treno.id}" />
+					<button id="iconInverti" type="submit" class="icon-button"
+						title="Inverti">
+						<i class="fas fa-undo"></i>
+					</button>
+				</form>
 				<form action="eliminaTreno" method="post"
 					onsubmit="return confermaEliminazione()">
 					<input type="hidden" name="trenoId" value="${treno.id}" />
@@ -162,7 +170,7 @@
 
 			<div class="property-list">
 
-				<div class="sigla-compagnia-property">
+				<div class="box-properties">
 					<div class="property">
 						📛<label> SIGLA: </label> <span>${treno.sigla}</span>
 					</div>
@@ -171,7 +179,7 @@
 					</div>
 				</div>
 
-				<div class="lunghezza-peso-property">
+				<div class="box-properties">
 					<div class="property">
 						📏<label><span></span>LUNGHEZZA: </label> <span>${treno.lunghezza}</span>
 					</div>
@@ -180,12 +188,31 @@
 					</div>
 				</div>
 
-				<div class="prezzo-utente-property">
+				<div class="box-properties">
 					<div class="property">
 						💰<label>PREZZO: </label> <span>${treno.prezzo}</span>
 					</div>
 					<div class="property">
 						👤<label>UTENTE: </label> <span>${utente.username}</span>
+					</div>
+				</div>
+				<div class="box-properties">
+
+					<c:if test="${treno.capacitaMassima != 0.0}">
+						<div class="property">
+							📊<label>CAPACITA': </label> <span>${treno.capacitaMassima}</span>
+						</div>
+					</c:if>
+
+
+					<c:if test="${ treno.numeroPosti != 0 }">
+						<div class="property">
+							🚃<label>POSTI: </label> <span>${treno.numeroPosti}</span>
+						</div>
+					</c:if>
+
+					<div class="property">
+						📝<label>VOTO: </label> <span>${treno.mediaVoti}</span>
 					</div>
 				</div>
 
