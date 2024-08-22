@@ -15,50 +15,6 @@
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/details.css">
-
-<script>
-	function confermaEliminazione() {
-		return confirm("Sei sicuro di voler eliminare questo treno?");
-	}
-
-	function toggleForm() {
-		var form = document.getElementById("modificaTrenoForm");
-		form.classList.toggle("hidden");
-	}
-	
-	document
-	.addEventListener(
-			'DOMContentLoaded',
-			function() {
-				var trenoImageContainer = document
-						.getElementById('treno-image-container');
-				var trenoData = document.getElementById('treno-data');
-				var trenoCompagnia = trenoData
-						.getAttribute('data-compagnia');
-
-				var trenoImage = document.createElement('img');
-				trenoImage.alt = 'Immagine Treno';
-				trenoImage.style.width = '300px';
-				trenoImage.style.height = 'auto';
-				trenoImage.style.borderRadius = '20px';
-
-				switch (trenoCompagnia) {
-				case 'FR':
-					trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
-					break;
-				case 'IT':
-					trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
-					break;
-				case 'TN':
-					trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
-					break;
-				default:
-					trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
-				}
-
-				trenoImageContainer.appendChild(trenoImage);
-			})
-</script>
 </head>
 
 <body>
@@ -165,54 +121,55 @@
 
 			<div id="treno-image-container"></div>
 
-			<div id="treno-data" data-compagnia="${treno.compagnia}"></div>
+			<div id="treno-data" data-compagnia="${treno.compagnia}">
+			</div>
 
 
 			<div class="property-list">
 
 				<div class="box-properties">
 					<div class="property">
-						📛<label> SIGLA: </label> <span>${treno.sigla}</span>
+			     <span>📛</span><label> SIGLA: </label> <span>${treno.sigla}</span>
 					</div>
 					<div class="property">
-						🏷️<label>COMPAGNIA: </label> <span>${treno.compagnia}</span>
-					</div>
-				</div>
-
-				<div class="box-properties">
-					<div class="property">
-						📏<label><span></span>LUNGHEZZA: </label> <span>${treno.lunghezza}</span>
-					</div>
-					<div class="property">
-						⚖️<label>PESO: </label> <span>${treno.peso}</span>
+				<span>🏷️</span><label>COMPAGNIA: </label> <span>${treno.compagnia}</span>
 					</div>
 				</div>
 
 				<div class="box-properties">
 					<div class="property">
-						💰<label>PREZZO: </label> <span>${treno.prezzo}</span>
+					<span>📏</span><label><span></span>LUNGHEZZA: </label> <span>${treno.lunghezza}</span>
 					</div>
 					<div class="property">
-						👤<label>UTENTE: </label> <span>${utente.username}</span>
+						<span>⚖️</span><label>PESO: </label> <span>${treno.peso}</span>
+					</div>
+				</div>
+
+				<div class="box-properties">
+					<div class="property">
+					<span>💰</span><label>PREZZO: </label> <span>${treno.prezzo}</span>
+					</div>
+					<div class="property">
+						<span>👤</span><label>UTENTE: </label> <span>${treno.utente.username}</span>
 					</div>
 				</div>
 				<div class="box-properties">
 
 					<c:if test="${treno.capacitaMassima != 0.0}">
 						<div class="property">
-							📊<label>CAPACITA': </label> <span>${treno.capacitaMassima}</span>
+							<span>📊</span>	<label>CAPACITA': </label> <span>${treno.capacitaMassima}</span>
 						</div>
 					</c:if>
 
 
 					<c:if test="${ treno.numeroPosti != 0 }">
 						<div class="property">
-							🚃<label>POSTI: </label> <span>${treno.numeroPosti}</span>
+						<span>🚃</span><label>POSTI: </label> <span>${treno.numeroPosti}</span>
 						</div>
 					</c:if>
 
 					<div class="property">
-						📝<label>VOTO: </label> <span>${treno.mediaVoti}</span>
+						<span>📝</span><label>VOTO: </label> <span>${treno.mediaVoti}</span>
 					</div>
 				</div>
 
@@ -254,8 +211,10 @@
 						method="post">
 						<input type="hidden" name="trenoId" value="${treno.id}" />
 						<div class="form-group">
-							<label for="sigla">Sigla</label> <input type="text" id="sigla"
-								name="sigla" value="${treno.sigla}" required>
+							<label for="sigla">Sigla</label> 
+							<input type="text"
+								name="sigla" value="${treno.sigla}"
+								onkeyup="validateSigla()">
 						</div>
 						<div class="form-group">
 							<label for="compagnia">Compagnia</label> <select id="compagnia"
@@ -280,5 +239,44 @@
 		</div>
 	</div>
 	<jsp:include page="footer.jsp" />
+	
+	<script>
+	document
+	.addEventListener(
+			'DOMContentLoaded',
+			function() {
+				var trenoImageContainer = document
+						.getElementById('treno-image-container');
+				var trenoData = document.getElementById('treno-data');
+				var trenoCompagnia = trenoData
+						.getAttribute('data-compagnia');
+
+				var trenoImage = document.createElement('img');
+				trenoImage.alt = 'Immagine Treno';
+				trenoImage.style.width = '300px';
+				trenoImage.style.height = 'auto';
+				trenoImage.style.borderRadius = '20px';
+
+				switch (trenoCompagnia) {
+				case 'FR':
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
+					break;
+				case 'IT':
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
+					break;
+				case 'TN':
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
+					break;
+				default:
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
+				}
+
+				trenoImageContainer.appendChild(trenoImage);
+			})
+</script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/details.js">
+	</script>
+	
 </body>
 </html>

@@ -46,8 +46,8 @@
 						<li class="nav-item"><a class="nav-link" href="home">Home</a>
 						</li>
 						
-							<li class="nav-item"><a class="nav-link" href="order">Ricerca
-									Treno </a></li>
+							<li class="nav-item"><a class="nav-link" href="order">Ricerca & Gestisci
+									</a></li>
 							<li class="nav-item"><a class="nav-link" href="prenota">Prenota</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="miePrenotazioni">Mie Prenotazioni</a></li>

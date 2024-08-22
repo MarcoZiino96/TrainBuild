@@ -41,7 +41,7 @@
                 <h2>Contatti</h2>
                 <p><strong>Indirizzo:</strong> Via Stazione Centrale 123, Milano, Italia</p>
                 <p><strong>Telefono:</strong> +39 02 12345678</p>
-                <p><strong>Email:</strong> support@trenoprogetto.it</p>
+                <p><strong>Email:</strong> support@TrainBuild.it</p>
                 <div class="socials">
                     <a href="#"><i class="bi bi-facebook"></i></a>
                     <a href="#"><i class="bi bi-twitter"></i></a>
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2024 TrenoProgetto | Marco,Stefania,Lorenzo
+            &copy; 2024 TrainBuild | Marco,Stefania,Lorenzo
         </div>
     </div>
 

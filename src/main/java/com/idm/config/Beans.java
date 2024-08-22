@@ -88,44 +88,44 @@ public class Beans {
         return new LocalValidatorFactoryBean();
     }
 	
-    @Bean
-    @Scope("prototype")
-    public Locomotiva locomotiva() {
-        String potenza = "potenzaAlta"; // Valore di default
-        double prezzo = 70000.0;        // Valore di default
-        double lunghezza = 10.0;        // Valore di default
-        double peso = 50000.0;          // Valore di default
-        return new Locomotiva(potenza, lunghezza, peso, prezzo);
-    }
+	   @Bean
+	    @Scope("prototype")
+	    public Locomotiva locomotiva(
+	            @Value("${locomotiva.potenza}") String potenza,
+	            @Value("${locomotiva.prezzo}") double prezzo,
+	            @Value("${locomotiva.lunghezza}") double lunghezza,
+	            @Value("${locomotiva.peso}") double peso) {
+	        return new Locomotiva(potenza, lunghezza, peso, prezzo);
+	    }
 
-    @Bean
-    @Scope("prototype")
-    public VagonePasseggeri vagonePasseggeri() {
-        double peso = 1000.0;           // Valore di default
-        double prezzo = 40000.0;        // Valore di default
-        double lunghezza = 15.0;        // Valore di default
-        int numeroPosti = 20;          // Valore di default
-        return new VagonePasseggeri(peso, lunghezza, prezzo, numeroPosti);
-    }
+	    @Bean
+	    @Scope("prototype")
+	    public VagonePasseggeri vagonePasseggeri(
+	            @Value("${vagonePasseggeri.peso}") double peso,
+	            @Value("${vagonePasseggeri.prezzo}") double prezzo,
+	            @Value("${vagonePasseggeri.lunghezza}") double lunghezza,
+	            @Value("${vagonePasseggeri.numeroPosti}") int numeroPosti) {
+	        return new VagonePasseggeri(peso, lunghezza, prezzo, numeroPosti);
+	    }
 
-    @Bean
-    @Scope("prototype")
-    public VagoneRistorante vagoneRistorante() {
-        double peso = 1200.0;           // Valore di default
-        double prezzo = 60000.0;        // Valore di default
-        double lunghezza = 18.0;        // Valore di default
-        int numeroTavoli = 9;          // Valore di default
-        return new VagoneRistorante(peso, lunghezza, prezzo, numeroTavoli);
-    }
+	    @Bean
+	    @Scope("prototype")
+	    public VagoneRistorante vagoneRistorante(
+	            @Value("${vagoneRistorante.peso}") double peso,
+	            @Value("${vagoneRistorante.prezzo}") double prezzo,
+	            @Value("${vagoneRistorante.lunghezza}") double lunghezza,
+	            @Value("${vagoneRistorante.numeroTavoli}") int numeroTavoli) {
+	        return new VagoneRistorante(peso, lunghezza, prezzo, numeroTavoli);
+	    }
 
-    @Bean
-    @Scope("prototype")
-    public VagoneCargo vagoneCargo() {
-        double peso = 1500.0;           // Valore di default
-        double prezzo = 70000.0;        // Valore di default
-        double lunghezza = 20.0;        // Valore di default
-        double capacitaMassima = 20000.0; // Valore di default
-        return new VagoneCargo(peso, lunghezza, prezzo, capacitaMassima);
-    }
+	    @Bean
+	    @Scope("prototype")
+	    public VagoneCargo vagoneCargo(
+	            @Value("${vagoneCargo.peso}") double peso,
+	            @Value("${vagoneCargo.prezzo}") double prezzo,
+	            @Value("${vagoneCargo.lunghezza}") double lunghezza,
+	            @Value("${vagoneCargo.capacitaMassima}") double capacitaMassima) {
+	        return new VagoneCargo(peso, lunghezza, prezzo, capacitaMassima);
+	    }
     
 }

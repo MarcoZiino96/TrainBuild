@@ -10,53 +10,7 @@
 <link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/miePrenotazioni.css">
-<script>
-	document
-			.addEventListener(
-					'DOMContentLoaded',
-					function() {
 
-						var trenoImageContainers = document
-								.querySelectorAll('.imageContainer');
-
-						var trenoDataElements = document
-								.querySelectorAll('#treno-data');
-
-						if (trenoImageContainers.length === trenoDataElements.length) {
-							trenoDataElements
-									.forEach(function(dataElement, index) {
-										var trenoCompagnia = dataElement
-												.getAttribute('data-compagnia');
-										var trenoImage = document
-												.createElement('img');
-										trenoImage.alt = 'Immagine Treno';
-										trenoImage.style.maxWidth = '250px';
-										trenoImage.style.height = '200px';
-										trenoImage.style.borderRadius = '20px';
-
-										switch (trenoCompagnia) {
-										case 'FR':
-											trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
-											break;
-										case 'IT':
-											trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
-											break;
-										case 'TN':
-											trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
-											break;
-										default:
-											trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
-										}
-
-										// Aggiungi l'immagine al container appropriato
-										if (trenoImageContainers[index]) {
-											trenoImageContainers[index]
-													.appendChild(trenoImage);
-										}
-									});
-						}
-					});
-</script>
 </head>
 <body>
 
@@ -107,5 +61,52 @@
 		</c:if>
 	</div>
 <jsp:include page="footer.jsp" />
+<script>
+	document
+			.addEventListener(
+					'DOMContentLoaded',
+					function() {
+
+						var trenoImageContainers = document
+								.querySelectorAll('.imageContainer');
+
+						var trenoDataElements = document
+								.querySelectorAll('#treno-data');
+
+						if (trenoImageContainers.length === trenoDataElements.length) {
+							trenoDataElements
+									.forEach(function(dataElement, index) {
+										var trenoCompagnia = dataElement
+												.getAttribute('data-compagnia');
+										var trenoImage = document
+												.createElement('img');
+										trenoImage.alt = 'Immagine Treno';
+										trenoImage.style.maxWidth = '250px';
+										trenoImage.style.height = '200px';
+										trenoImage.style.borderRadius = '20px';
+
+										switch (trenoCompagnia) {
+										case 'FR':
+											trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
+											break;
+										case 'IT':
+											trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
+											break;
+										case 'TN':
+											trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
+											break;
+										default:
+											trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
+										}
+
+										// Aggiungi l'immagine al container appropriato
+										if (trenoImageContainers[index]) {
+											trenoImageContainers[index]
+													.appendChild(trenoImage);
+										}
+									});
+						}
+					});
+</script>
 </body>
 </html>

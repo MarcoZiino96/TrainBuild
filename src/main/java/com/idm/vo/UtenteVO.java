@@ -34,6 +34,19 @@ public class UtenteVO {
 
 	@NotEmpty(message = "data di nascita obbligatoria")
 	private String dataNascita;
+	
+	private String verificaPassword;
+
+	
+	
+	
+	public String getVerificaPassword() {
+		return verificaPassword;
+	}
+
+	public void setVerificaPassword(String verificaPassword) {
+		this.verificaPassword = verificaPassword;
+	}
 
 	public String getNome() {
 		return nome;

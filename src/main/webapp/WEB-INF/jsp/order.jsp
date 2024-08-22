@@ -152,9 +152,9 @@
 					<td>${treno.peso}</td>
 					<td>${treno.prezzo}</td>
 					<td>${treno.utente.username}</td>
-					<td>${treno.mediaVoti}</td>
+					<td>${treno.mediaVoti}<span>⭐</span></td>
 					<td>
-						<!-- Usa un form per inviare una richiesta POST -->
+						
 						<form action="selectDetails" method="post">
 							<input type="hidden" name="id" value="${treno.id}" />
 							<button class="submitBtn" type="submit">Dettagli</button>

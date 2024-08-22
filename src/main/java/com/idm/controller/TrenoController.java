@@ -92,8 +92,6 @@ public class TrenoController {
 				return "home";
 			} else {
 				treno = trenoService.createTreno(sigla, compagnia, utente);
-				//session.setAttribute("utente", utente);
-				//model.addAttribute("treno", treno);
 				return "redirect:/order";
 			}   
 		} catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
@@ -141,8 +139,6 @@ public class TrenoController {
 	    Treno treno = trenoService.find(id);
 	    TrenoVO trenoVo = trenoService.trenoDetails(treno);
 	    session.setAttribute("treno", trenoVo);
-	    System.out.println(trenoVo.getCapacitaMassima());
-	    System.out.println(trenoVo.getNumeroPosti());
 	    return "redirect:/details";
 	}
 	

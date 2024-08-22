@@ -14,9 +14,7 @@
 
 
 
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/formlogin.js">
-	</script>
+
 </head>
 
 <body>
@@ -36,11 +34,17 @@
 
 			<label for="password">Password:</label>
 			<div id="passwordError" class="message"></div>
-			<form:input path="password" type="password"
-				onkeyup="validatePassword()" />
+			<div class="password-container">
+				<form:input path="password" id="password-field" type="password"
+					onkeyup="validatePassword()" />
+				<span class="password-toggle-icon"
+					onclick="togglePassword()"> <i class="fa fa-eye"></i>
+				</span>
+			</div>
 			<form:errors path="password" cssClass="message" />
+			
 			<div class="submit">
-				<input type="submit" value="Login">
+				<button type="submit">Login</button>
 			</div>
 
 		</form:form>
@@ -49,5 +53,9 @@
 
 	</div>
 	<jsp:include page="footer.jsp" />
+	
+	<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/formlogin.js">
+	</script>
 </body>
 </html>
