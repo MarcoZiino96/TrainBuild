@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>TrainBuild</title>
 <link rel="icon"
@@ -12,16 +13,33 @@
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/preRegister.css">
+
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/preRegister.js"></script>
 
+<style>
+.verifica-password-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.verifica-password-toggle-icon {
+	margin-left: -35px;
+	cursor: pointer;
+	color: #cda434;
+}
+
+.verifica-password-toggle-icon:hover {
+	color: #bfa458;;
+}
+</style>
 
 </head>
 <body>
 
 
 	<jsp:include page="header.jsp" />
-
 	<div class="boxRegister">
 		<h2 id="userRegister">Registrazione Utente</h2>
 
@@ -31,38 +49,63 @@
 			<div id="nomeError" class="message"></div>
 			<form:input path="nome" onkeyup="validateNome()" />
 			<form:errors path="nome" cssClass="message" />
+
 			<label for="cognome">Cognome:</label>
 			<div id="cognomeError" class="message"></div>
 			<form:input path="cognome" onkeyup="validateCognome()" />
 			<form:errors path="cognome" cssClass="message" />
+
 			<label for="email">Email:</label>
 			<div id="emailError" class="message"></div>
 			<form:input path="email" onkeyup="validateEmail()" />
 			<form:errors path="email" cssClass="message" />
+
 			<label for="dataNascita">Data di Nascita:</label>
-			<form:input path="dataNascita" type="date" />
+			<div id="dataNascitaError" class="message"></div>
+			<form:input path="dataNascita" type="date"
+				onkeyup="validateDataNascita()" />
 			<form:errors path="dataNascita" cssClass="message" />
-			<div id="usernameError" class="message"></div>
+
 			<label for="username">Username:</label>
+			<div id="usernameError" class="message"></div>
 			<form:input path="username" onkeyup="validateUsername()" />
 			<form:errors path="username" cssClass="message" />
+
 			<label for="password">Password:</label>
 			<div id="passwordError" class="message"></div>
 			<div class="password-container">
-				<form:input path="password" id="password-field" type="password"
+				<form:input path="password" class="password-field" type="password"
 					onkeyup="validatePassword()" />
-				<span class="password-toggle-icon"
-					onclick="togglePassword()"> <i class="fa fa-eye"></i>
+				<span class="password-toggle-icon" onclick="togglePassword()">
+					<i class="fa fa-eye"></i>
 				</span>
 			</div>
 			<form:errors path="password" cssClass="message" />
+
+
+
+			<label for="verificaPassword">Verifica Password:</label>
+			<div id="verificaPasswordError" class="message"></div>
+			<div class="verifica-password-container">
+				<form:input path="verificaPassword" type="password"
+					class="verifica-password-field"
+					onkeyup="validateVerificaPassword()" />
+				<span class="verifica-password-toggle-icon"
+					onclick="toggleVerificaPassword()"> <i class="fa fa-eye"></i>
+				</span>
+			</div>
+			<form:errors path="verificaPassword" cssClass="message" />
+
+
+
 			<div class="submit">
-				<button type="submit" value="Registrati">Registrami</button>
+				<button type="submit">Registrati</button>
 			</div>
 
-		</form:form>
 
+		</form:form>
 	</div>
-	<jsp:include page="footer.jsp" />
+
+
 </body>
 </html>

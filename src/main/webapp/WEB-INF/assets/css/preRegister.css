@@ -85,3 +85,21 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
 .password-toggle-icon:hover {
     color: #bfa458;; 
 }
+
+
+.verifica-password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+
+.verifica-password-toggle-icon {
+    margin-left: -35px; 
+    cursor: pointer;
+    color: #cda434; 
+}
+
+.verifica-password-toggle-icon:hover {
+    color: #bfa458;; 
+}
