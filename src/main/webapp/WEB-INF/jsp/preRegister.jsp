@@ -13,8 +13,6 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/preRegister.css">
 
- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/preRegister.js"></script> 
-
 
 
 </head>
@@ -78,12 +76,12 @@
 			
 
 			<div class="submit">
-				<button type="button"> Registrami  </button>
+				<button type="submit"> Registrami  </button>
 			</div>
 
 		</form:form>
 	</div>
-
 	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/preRegister.js"></script> 
 </body>
 </html>

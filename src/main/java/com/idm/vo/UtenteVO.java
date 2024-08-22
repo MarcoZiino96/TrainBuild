@@ -36,6 +36,20 @@ public class UtenteVO {
 	private String dataNascita;
 	
 	private String verificaPassword;
+<<<<<<< HEAD
+=======
+
+	
+	
+	
+	public String getVerificaPassword() {
+		return verificaPassword;
+	}
+
+	public void setVerificaPassword(String verificaPassword) {
+		this.verificaPassword = verificaPassword;
+	}
+>>>>>>> 027dc89159604c6351fb453542fcca087f318ea1
 
 	public String getNome() {
 		return nome;

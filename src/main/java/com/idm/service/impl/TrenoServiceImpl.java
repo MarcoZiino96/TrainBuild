@@ -21,6 +21,9 @@ import com.idm.entity.TreNordBuilder;
 import com.idm.entity.Treno;
 import com.idm.entity.TrenoFilter;
 import com.idm.entity.Utente;
+import com.idm.entity.VagoneCargo;
+import com.idm.entity.VagonePasseggeri;
+import com.idm.entity.VagoneRistorante;
 import com.idm.entity.Voto;
 import com.idm.exception.CargoException;
 import com.idm.exception.LocomotivaException;
@@ -47,105 +50,105 @@ public class TrenoServiceImpl implements TrenoService {
 	private ItaloBuilder italoBuilder;
 	@Autowired
 	private TreNordBuilder treNordBuilder; 
-	
+
 
 
 	public Treno find(Integer id) {
-		Treno trenoFind = trenoDao.find(id)
-;
+		Treno trenoFind = trenoDao.find(id);
 		return trenoFind;
 	}
 
 
 	@Override
 	public Treno createTreno(String string, Factory compagnia, Utente utente) {
-	   
-	    Treno treno;
-	    
-	    try {
-	        treno = selectFactory(string, compagnia);
-	    } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
-	      
-	        throw e;
-	    }
 
-	    try {
-	        
-	        Treno trenoSaved = trenoDao.create(treno);
+		Treno treno;
+		
 
-	        
-	        for (AbstractVagone vagone : treno.getVagoni()) {
-	            vagone.setTreno(trenoSaved); 
-	            abstractVagoneDaoImpl.add(vagone);
-	        }
+		try {
+			treno = selectFactory(string, compagnia);
+		} catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
 
-	       
-	        double prezzoTreno = treno.getVagoni().stream()
-	                .mapToDouble(AbstractVagone::getPrezzo) 
-	                .sum();
+			throw e;
+		}
 
-	        double lunghezzaTreno = treno.getVagoni().stream()
-	                .mapToDouble(AbstractVagone::getLunghezza) 
-	                .sum();
+		try {
 
-	        double pesoTreno = treno.getVagoni().stream()
-	                .mapToDouble(AbstractVagone::getPeso) 
-	                .sum();
-	        
-	        
+			Treno trenoSaved = trenoDao.create(treno);
 
-	        trenoSaved.setPrezzo(prezzoTreno);
-	        trenoSaved.setLunghezza(lunghezzaTreno);
-	        trenoSaved.setPeso(pesoTreno);
-	        trenoSaved.setSigla(string);
-	        trenoSaved.setUtente(utente);
-	        trenoSaved.setCompagnia(compagnia);
 
-	    
-	        update(trenoSaved, trenoSaved.getId());
+			for (AbstractVagone vagone : treno.getVagoni()) {
+				vagone.setTreno(trenoSaved); 
+				abstractVagoneDaoImpl.add(vagone);
+			}
 
-	    } catch (RuntimeException e) {
-	        
-	        throw new RuntimeException("Errore durante la persistenza del treno: " + e.getMessage(), e);
-	    }
 
-	    return treno;
+			double prezzoTreno = treno.getVagoni().stream()
+					.mapToDouble(AbstractVagone::getPrezzo) 
+					.sum();
+
+			double lunghezzaTreno = treno.getVagoni().stream()
+					.mapToDouble(AbstractVagone::getLunghezza) 
+					.sum();
+
+			double pesoTreno = treno.getVagoni().stream()
+					.mapToDouble(AbstractVagone::getPeso) 
+					.sum();
+			
+
+
+			trenoSaved.setPrezzo(prezzoTreno);
+			trenoSaved.setLunghezza(lunghezzaTreno);
+			trenoSaved.setPeso(pesoTreno);
+			trenoSaved.setSigla(string);
+			trenoSaved.setUtente(utente);
+			trenoSaved.setCompagnia(compagnia);
+
+
+			update(trenoSaved, trenoSaved.getId());
+
+		} catch (RuntimeException e) {
+
+			throw new RuntimeException("Errore durante la persistenza del treno: " + e.getMessage(), e);
+		}
+
+		return treno;
 	}
-	
-	
+
+
 	public Treno createTrenoProva(String string, Factory compagnia){
 
-		 Treno treno;
-		    
-		    try {
-		        treno = selectFactory(string, compagnia);
-		    } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
-		      
-		        throw e;
-		    }
+		Treno treno;
 
-		    
-		   
-  
-		        double prezzoTreno = treno.getVagoni().stream()
-		                .mapToDouble(AbstractVagone::getPrezzo) 
-		                .sum();
+		try {
+			treno = selectFactory(string, compagnia);
+		} catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
 
-		        double lunghezzaTreno = treno.getVagoni().stream()
-		                .mapToDouble(AbstractVagone::getLunghezza) 
-		                .sum();
+			throw e;
+		}
 
-		        double pesoTreno = treno.getVagoni().stream()
-		                .mapToDouble(AbstractVagone::getPeso) 
-		                .sum();
 
-		        treno.setPrezzo(prezzoTreno);
-		        treno.setLunghezza(lunghezzaTreno);
-		        treno.setPeso(pesoTreno);
-		        treno.setSigla(string);
-		        treno.setCompagnia(compagnia);
 
-		    return treno;
+
+		double prezzoTreno = treno.getVagoni().stream()
+				.mapToDouble(AbstractVagone::getPrezzo) 
+				.sum();
+
+		double lunghezzaTreno = treno.getVagoni().stream()
+				.mapToDouble(AbstractVagone::getLunghezza) 
+				.sum();
+
+		double pesoTreno = treno.getVagoni().stream()
+				.mapToDouble(AbstractVagone::getPeso) 
+				.sum();
+
+		treno.setPrezzo(prezzoTreno);
+		treno.setLunghezza(lunghezzaTreno);
+		treno.setPeso(pesoTreno);
+		treno.setSigla(string);
+		treno.setCompagnia(compagnia);
+
+		return treno;
 	}
 
 	public Treno update(Treno treno,int id) {
@@ -171,7 +174,7 @@ public class TrenoServiceImpl implements TrenoService {
 	public void delete(Integer id) {
 
 		trenoDao.delete(id)
-;
+		;
 	}
 
 	public List<Treno> retrive() {
@@ -182,81 +185,133 @@ public class TrenoServiceImpl implements TrenoService {
 	public List<Treno> retriveWithOrder(String ordine, String direction) {
 		List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
 		return u;
-    }
-	
-    public List<TrenoVO> retriveWithOrderVO(String ordine, String direction) {
-    	List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
-    	List<TrenoVO> trenoVOs = new ArrayList<>();
-    	for (Treno treno : u) {
+	}
+
+	public List<TrenoVO> retriveWithOrderVO(String ordine, String direction) {
+		List<Treno> u = trenoDao.retriveWithOrder(ordine, direction);
+		List<TrenoVO> trenoVOs = new ArrayList<>();
+		for (Treno treno : u) {
 
 
-    		TrenoVO vo = new TrenoVO();
-    		
-    		double mediaVoti = treno.getVoti().stream()
-	        		.mapToInt(Voto::getVoto)
-	        		.average()
-	        		.orElse(0.0);	
+			TrenoVO vo = new TrenoVO();
 
-            vo.setId(treno.getId());
-            vo.setPrezzo(treno.getPrezzo());
-            vo.setPeso(treno.getPeso());
-            vo.setLunghezza(treno.getLunghezza());
-            vo.setSigla(treno.getSigla());
-            vo.setCompagnia(treno.getCompagnia());
-            vo.setUtente(treno.getUtente());
-            vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
-           
-    	
-            trenoVOs.add(vo);
-    	}    	
-    	return trenoVOs;
-    }
-    
-    public Treno selectFactory(String sigla, Factory compagnia) {
-        switch(compagnia) {
-            case FR:
-                return frecciaRossaBuilder.creaTreno(sigla);
-            case IT:
-                return italoBuilder.creaTreno(sigla);
-            case TN:
-                return treNordBuilder.creaTreno(sigla);
-            default:
-                throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
-        }
+			double mediaVoti = treno.getVoti().stream()
+					.mapToInt(Voto::getVoto)
+					.average()
+					.orElse(0.0);	
 
-    }
+			vo.setId(treno.getId());
+			vo.setPrezzo(treno.getPrezzo());
+			vo.setPeso(treno.getPeso());
+			vo.setLunghezza(treno.getLunghezza());
+			vo.setSigla(treno.getSigla());
+			vo.setCompagnia(treno.getCompagnia());
+			vo.setUtente(treno.getUtente());
+			vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
+
+
+			trenoVOs.add(vo);
+		}    	
+		return trenoVOs;
+	}
+
+	public Treno selectFactory(String sigla, Factory compagnia) {
+		switch(compagnia) {
+		case FR:
+			return frecciaRossaBuilder.creaTreno(sigla);
+		case IT:
+			return italoBuilder.creaTreno(sigla);
+		case TN:
+			return treNordBuilder.creaTreno(sigla);
+		default:
+			throw new IllegalArgumentException("Compagnia non supportata: " + compagnia);
+		}
+
+	}
 
 
 	@Override
 	public List<TrenoVO> findTreniConVagonePasseggeri() {
-		
+
 		List<Treno> treni = trenoDao.findTreniConVagonePasseggeri();
 		List<TrenoVO> trenoVOs = new ArrayList<>();
-    	for (Treno treno : treni) {
+		for (Treno treno : treni) {
 
 
-    		TrenoVO vo = new TrenoVO();
-    		
-    		double mediaVoti = treno.getVoti().stream()
-	        		.mapToInt(Voto::getVoto)
-	        		.average()
-	        		.orElse(0.0);	
+			TrenoVO vo = new TrenoVO();
 
-            vo.setId(treno.getId());
-            vo.setPrezzo(treno.getPrezzo());
-            vo.setPeso(treno.getPeso());
-            vo.setLunghezza(treno.getLunghezza());
-            vo.setSigla(treno.getSigla());
-            vo.setCompagnia(treno.getCompagnia());
-            vo.setUtente(treno.getUtente());
-            vo.setVagoni(treno.getVagoni());
-            vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);	
-            trenoVOs.add(vo);
-    	}    	
-    	return trenoVOs;
+			double mediaVoti = treno.getVoti().stream()
+					.mapToInt(Voto::getVoto)
+					.average()
+					.orElse(0.0);	
+
+			vo.setId(treno.getId());
+			vo.setPrezzo(treno.getPrezzo());
+			vo.setPeso(treno.getPeso());
+			vo.setLunghezza(treno.getLunghezza());
+			vo.setSigla(treno.getSigla());
+			vo.setCompagnia(treno.getCompagnia());
+			vo.setUtente(treno.getUtente());
+			vo.setVagoni(treno.getVagoni());
+			vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);	
+			trenoVOs.add(vo);
+		}    	
+		return trenoVOs;
+
+	} 
+
+	public String invertiStringa(String sigla) {
+        if (sigla.startsWith("H") || sigla.startsWith("h")) {
+
+            String siglaInversa = sigla.substring(0, 1) + new StringBuilder(sigla.substring(1)).reverse().toString();
+
+            if (sigla.endsWith("H") || sigla.endsWith("h")) {
+
+                siglaInversa = new StringBuilder(sigla).reverse().toString();
+            }
+            return siglaInversa;
+        } else {
+            throw new RuntimeException("La sigla non inizia con 'H' o 'h'.");
+        }
+    }
+	
+	public TrenoVO trenoDetails(Treno treno) {
 		
-	}    
+		double capacitaMassima = 0.0;
+		int numeroPosti = 0;
+		
+		TrenoVO vo = new TrenoVO();
+
+		 capacitaMassima = treno.getVagoni().stream()
+		            .filter(vagone -> vagone instanceof VagoneCargo)
+		            .mapToDouble(vagone -> ((VagoneCargo) vagone).getCapacitaMassima())
+		            .sum();
+
+		    numeroPosti = treno.getVagoni().stream()
+		            .filter(vagone -> vagone instanceof VagonePasseggeri)
+		            .mapToInt(vagone -> ((VagonePasseggeri) vagone).getNumeroPosti())
+		            .sum();
+		
+		
+		double mediaVoti = treno.getVoti().stream()
+				.mapToInt(Voto::getVoto)
+				.average()
+				.orElse(0.0);	
+		vo.setId(treno.getId());
+		vo.setPrezzo(treno.getPrezzo());
+		vo.setPeso(treno.getPeso());
+		vo.setLunghezza(treno.getLunghezza());
+		vo.setSigla(treno.getSigla());
+		vo.setCompagnia(treno.getCompagnia());
+		vo.setUtente(treno.getUtente());
+		vo.setVagoni(treno.getVagoni());
+		vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
+		vo.setCapacitaMassima(capacitaMassima);
+		vo.setNumeroPosti(numeroPosti);
+
+		return vo;
+	}
 }
-    	
- 
+
+
 

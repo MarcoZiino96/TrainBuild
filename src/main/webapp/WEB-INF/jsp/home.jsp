@@ -13,54 +13,54 @@
 	<jsp:include page="header.jsp" />
 
 	<div class="containerHome">
-	<h2>Crea il tuo Treno:</h2>
-	
-	<c:if test="${not empty errorMessage}">
-				<div class="boxDanger">
+		<h2>Crea il tuo Treno:</h2>
 
-					<p>
-						<strong>Errore: Questa sigla è errata --></strong>
-						<c:out value="${errorMessage}" />
-					</p>
-				</div>
-			</c:if>
-			<c:if test="${not empty errorSigla}">
-				<div class="boxDanger">
-					<p>
-						<strong>Sigla:</strong>
-						<c:out value="${errorSigla}" />
-					</p>
-				</div>
-			</c:if>
+		<c:if test="${not empty errorMessage}">
+			<div class="boxDanger">
 
-			<c:if test="${not empty errorSuggerimento}">
-				<div class="boxSuccess">
-					<p>
-						<strong>Suggerimento:</strong>
-						<c:out value="${errorSuggerimento}" />
-					</p>
-				</div>
+				<p>
+					<strong>Errore: Questa sigla è errata --></strong>
+					<c:out value="${errorMessage}" />
+				</p>
+			</div>
+		</c:if>
+		<c:if test="${not empty errorSigla}">
+			<div class="boxDanger">
+				<p>
+					<strong>Sigla:</strong>
+					<c:out value="${errorSigla}" />
+				</p>
+			</div>
+		</c:if>
 
-			</c:if>
-			<c:if test="${not empty errorSiglaSuggerita}">
-				<div class="boxSuccess">
-					<p>
-						<strong>Sigla Suggerita:</strong>
-						<c:out value="${errorSiglaSuggerita}" />
-					</p>
-				</div>
+		<c:if test="${not empty errorSuggerimento}">
+			<div class="boxSuccess">
+				<p>
+					<strong>Suggerimento:</strong>
+					<c:out value="${errorSuggerimento}" />
+				</p>
+			</div>
 
-			</c:if>
+		</c:if>
+		<c:if test="${not empty errorSiglaSuggerita}">
+			<div class="boxSuccess">
+				<p>
+					<strong>Sigla Suggerita:</strong>
+					<c:out value="${errorSiglaSuggerita}" />
+				</p>
+			</div>
+
+		</c:if>
 		<div class="box">
 			<form class="formHome" action="newTrain" method="post">
 				<div class="form-group">
-					<label for="sigla">Sigla</label> 
+					<label for="sigla">Sigla</label>
 					<div id="siglaError" class="message"></div>
-					<input type="text" id="sigla"name="sigla" onkeyup="validateSigla()">
+					<input type="text" id="sigla" name="sigla"
+						onkeyup="validateSigla()">
 				</div>
 				<div class="form-group">
-					<label for="compagnia">Compagnia</label> 
-					<select id="compagnia"
+					<label for="compagnia">Compagnia</label> <select id="compagnia"
 						name="compagnia" required>
 						<option value="FR">Frecciarossa (FR)</option>
 						<option value="IT">Italo (IT)</option>
@@ -79,6 +79,8 @@
 			<c:if test="${empty sessionScope.utente}">
 
 				<div class="train-details form-group">
+
+
 					<h2>Dettagli Treno</h2>
 					<div class="info">
 						<strong>Sigla:</strong> ${treno.sigla}
@@ -93,15 +95,56 @@
 						<strong>Peso(Kg):</strong> ${treno.peso}
 					</div>
 					<div class="info">
-						<strong>Lunghezza(m):</strong> 
-						<span>${treno.lunghezza}</span>  
+						<strong>Lunghezza(m):</strong> <span>${treno.lunghezza}</span>
 					</div>
 				</div>
+
+				<c:if test="${treno.compagnia != null}">
+					<div>
+						<div id="treno-image-container"></div>
+
+						<div id="treno-data" data-compagnia="${treno.compagnia}"></div>
+					</div>
+				</c:if>
 
 			</c:if>
 		</div>
 	</div>	
 	<jsp:include page="footer.jsp" />
+	<script>
+	document
+	.addEventListener(
+			'DOMContentLoaded',
+			function() {
+				var trenoImageContainer = document
+						.getElementById('treno-image-container');
+				var trenoData = document.getElementById('treno-data');
+				var trenoCompagnia = trenoData
+						.getAttribute('data-compagnia');
+
+				var trenoImage = document.createElement('img');
+				trenoImage.alt = 'Immagine Treno';
+				trenoImage.style.width = '300px';
+				trenoImage.style.height = '200px';
+				trenoImage.style.borderRadius = '20px';
+
+				switch (trenoCompagnia) {
+				case 'FR':
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
+					break;
+				case 'IT':
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
+					break;
+				case 'TN':
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
+					break;
+				default:
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
+				}
+
+				trenoImageContainer.appendChild(trenoImage);
+			})
+	</script>
 	
 	
 </body>

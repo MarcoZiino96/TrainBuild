@@ -181,8 +181,12 @@ function toggleVerificaPassword() {
         icon.classList.remove("fa-eye-slash");
         icon.classList.add("fa-eye");
     }
+<<<<<<< HEAD
 }
 		
 	
 		
     
+=======
+}
+>>>>>>> 027dc89159604c6351fb453542fcca087f318ea1

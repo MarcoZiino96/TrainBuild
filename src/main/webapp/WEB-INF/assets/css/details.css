@@ -1,4 +1,3 @@
-
 * {
 	box-sizing: border-box;
 }
@@ -60,26 +59,13 @@ body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-.sigla-compagnia-property {
+.boxProperty {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 20px;
 	margin-right: 40px;
 }
 
-.lunghezza-peso-property {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 20px;
-	margin-right: 40px;
-}
-
-.prezzo-peso-property {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 20px;
-	margin-right: 40px;
-}
 
 .property label {
 	font-weight: bold;
@@ -138,7 +124,11 @@ body {
 	transition: transform 0.3s ease;
 }
 
+<<<<<<< HEAD
 #btn-invia :hover {
+=======
+#btn-invia button:hover {
+>>>>>>> 027dc89159604c6351fb453542fcca087f318ea1
 	background-color: #bfa458;
 	color: white;
 	transform: scale(1.1);
@@ -187,10 +177,6 @@ body {
 #treno-image-container{
 	text-align: center; 
 	margin-bottom: 20px;
-}
-
-#compagnia {
-	margin-top: 20px;
 }
 
 #compagnia {

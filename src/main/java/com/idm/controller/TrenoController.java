@@ -44,12 +44,7 @@ public class TrenoController {
 	}
 	
 	@GetMapping("/details")
-	public String showDatails(HttpSession session, @ModelAttribute("voto") VotoVO votoVo, Model model){
-	    Utente utente = (Utente) session.getAttribute("utente");
-	    TrenoVO trenoVo = (TrenoVO) session.getAttribute("treno");
-	    model.addAttribute("utente", utente);
-	    model.addAttribute("treno", trenoVo);
-	   
+	public String showDatails( @ModelAttribute("voto") VotoVO votoVo){
 	    return "details";
 	}
 	
@@ -97,8 +92,6 @@ public class TrenoController {
 				return "home";
 			} else {
 				treno = trenoService.createTreno(sigla, compagnia, utente);
-				session.setAttribute("utente", utente);
-				model.addAttribute("treno", treno);
 				return "redirect:/order";
 			}   
 		} catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
@@ -144,8 +137,7 @@ public class TrenoController {
 	@PostMapping("/selectDetails")
 	public String selectTreno(@RequestParam("id") Integer id, HttpSession session) {
 	    Treno treno = trenoService.find(id);
-	    TrenoVO trenoVo = new TrenoVO();
-	    BeanUtils.copyProperties(treno, trenoVo);
+	    TrenoVO trenoVo = trenoService.trenoDetails(treno);
 	    session.setAttribute("treno", trenoVo);
 	    return "redirect:/details";
 	}
@@ -270,7 +262,7 @@ public class TrenoController {
 
 			String sigla = trenoOriginale.getSigla();
 
-			if (sigla.startsWith("H") || sigla.startsWith("h")) {
+			  if (sigla.startsWith("H") || sigla.startsWith("h")) {
 				String siglaInversa = sigla.substring(0, 1) + new StringBuilder(sigla.substring(1)).reverse().toString();
 
 				if (sigla.endsWith("H") || sigla.endsWith("h")) {

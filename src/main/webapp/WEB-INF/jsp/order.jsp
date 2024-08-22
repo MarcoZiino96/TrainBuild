@@ -66,7 +66,7 @@
 
 
 			<c:if test="${not empty error}">
-				<div style="color: red;">${error}</div>
+				<div>${error}</div>
 			</c:if>
 
 			<form id="filter" class="formFilter hidden" action="filter"
@@ -152,9 +152,9 @@
 					<td>${treno.peso}</td>
 					<td>${treno.prezzo}</td>
 					<td>${treno.utente.username}</td>
-					<td>${treno.mediaVoti}</td>
+					<td>${treno.mediaVoti}<span>⭐</span></td>
 					<td>
-						<!-- Usa un form per inviare una richiesta POST -->
+						
 						<form action="selectDetails" method="post">
 							<input type="hidden" name="id" value="${treno.id}" />
 							<button class="submitBtn" type="submit">Dettagli</button>
@@ -167,5 +167,6 @@
 	</table>
 </div>
  </div>
+ <jsp:include page="footer.jsp" />
 </body>
 </html>

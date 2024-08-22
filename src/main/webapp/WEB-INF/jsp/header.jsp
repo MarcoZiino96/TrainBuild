@@ -47,7 +47,11 @@
 						</li>
 						
 							<li class="nav-item"><a class="nav-link" href="order">Ricerca & Gestisci
+<<<<<<< HEAD
 									 </a></li>
+=======
+									</a></li>
+>>>>>>> 027dc89159604c6351fb453542fcca087f318ea1
 							<li class="nav-item"><a class="nav-link" href="prenota">Prenota</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="miePrenotazioni">Mie Prenotazioni</a></li>
