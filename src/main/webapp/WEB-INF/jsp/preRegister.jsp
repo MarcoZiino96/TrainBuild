@@ -48,7 +48,13 @@
 			<form:errors path="username" cssClass="message" />
 			<label for="password">Password:</label>
 			<div id="passwordError" class="message"></div>
-			<form:input path="password" onkeyup="validatePassword()" />
+			<div class="password-container">
+				<form:input path="password" id="password-field" type="password"
+					onkeyup="validatePassword()" />
+				<span class="password-toggle-icon"
+					onclick="togglePassword()"> <i class="fa fa-eye"></i>
+				</span>
+			</div>
 			<form:errors path="password" cssClass="message" />
 			<div class="submit">
 				<button type="submit" value="Registrati">Registrami</button>

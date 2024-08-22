@@ -86,3 +86,20 @@ input[type="submit"]:hover {
 	color: red;
 	font-size: 0.8rem;
 }
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+
+.password-toggle-icon {
+    margin-left: -35px; 
+    cursor: pointer;
+    color: #cda434; 
+}
+
+.password-toggle-icon:hover {
+    color: #bfa458;; 
+}
