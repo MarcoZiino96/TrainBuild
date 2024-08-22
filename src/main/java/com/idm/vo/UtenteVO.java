@@ -1,5 +1,4 @@
 package com.idm.vo;
-import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -34,9 +33,16 @@ public class UtenteVO {
 
 	@NotEmpty(message = "data di nascita obbligatoria")
 	private String dataNascita;
-	
-	
+
 	private String verificaPassword;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
@@ -85,13 +91,6 @@ public class UtenteVO {
 	public void setDataNascita(String dataNascita) {
 		this.dataNascita = dataNascita;
 	}
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getVerificaPassword() {
 		return verificaPassword;
@@ -100,6 +99,4 @@ public class UtenteVO {
 	public void setVerificaPassword(String verificaPassword) {
 		this.verificaPassword = verificaPassword;
 	}
-	
-	
 }

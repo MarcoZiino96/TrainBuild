@@ -20,263 +20,236 @@ import com.idm.exception.CargoException;
 import com.idm.exception.LocomotivaException;
 import com.idm.exception.RistoranteException;
 import com.idm.exception.StringaException;
-import com.idm.service.AbstractVagoneService;
 import com.idm.service.TrenoFilterService;
 import com.idm.service.TrenoService;
 import com.idm.vo.PrenotazioneVO;
 import com.idm.vo.TrenoVO;
 import com.idm.vo.VotoVO;
 
-
 @Controller	
 public class TrenoController {
 
-	@Autowired
-	private TrenoService trenoService;
+    @Autowired
+    private TrenoService trenoService;
 
-	@Autowired
-	private TrenoFilterService trenoFilterService;
+    @Autowired
+    private TrenoFilterService trenoFilterService;
 
+    @GetMapping("/home")
+    public String showHome(@ModelAttribute("treno") TrenoVO trenoVo, HttpSession session, Model model) {
+        Utente utente = (Utente) session.getAttribute("utente");
+        model.addAttribute("utente", utente);
+        return "home";
+    }
 
+    @GetMapping("/details")
+    public String showDetails(@ModelAttribute("voto") VotoVO votoVo) {
+        return "details";
+    }
 
-	@GetMapping("/home")
-	public String showHome(@ModelAttribute("treno") TrenoVO trenoVo,HttpSession session, Model model){
-		Utente utente = (Utente) session.getAttribute("utente");
-		model.addAttribute("utente", utente);
-		return "home";
-	}
+    @GetMapping("/prenota")
+    public String getTreniConVagonePasseggeri(@ModelAttribute("prenotazione") PrenotazioneVO prenotazioneVo, HttpSession session, Model model) {
+        Utente utente = (Utente) session.getAttribute("utente");
+        List<TrenoVO> treni = trenoService.findTreniConVagonePasseggeri();
+        model.addAttribute("treni", treni);
+        model.addAttribute("utente", utente);
+        return "prenota";
+    }
 
-	@GetMapping("/details")
-	public String showDatails(HttpSession session, @ModelAttribute("voto") VotoVO votoVo, Model model){
-		Utente utente = (Utente) session.getAttribute("utente");
-		TrenoVO trenoVo = (TrenoVO) session.getAttribute("treno");
-		model.addAttribute("utente", utente);
-		model.addAttribute("treno", trenoVo);
+    @GetMapping("/order")
+    public String ordina(@RequestParam(required = false) String ordinamento, @RequestParam(required = false) String direction, Model model) {
+        if (ordinamento == null || ordinamento.isEmpty()) {
+            ordinamento = "compagnia"; 
+        }
+        if (direction == null || direction.isEmpty()) {
+            direction = "ASC"; 
+        }
 
-		return "details";
-	}
+        List<TrenoVO> treni = trenoService.retriveWithOrderVO(ordinamento, direction);
 
-	@GetMapping("/prenota")
-	public String getTreniConVagonePasseggeri(@ModelAttribute("prenotazione") PrenotazioneVO prenotazioneVo,HttpSession session,Model model) {
-		Utente utente = (Utente) session.getAttribute("utente");
-		List<TrenoVO> treni = trenoService.findTreniConVagonePasseggeri();
-		model.addAttribute("treni", treni);
-		model.addAttribute("utente", utente);
-		return "prenota";
-	}
+        model.addAttribute("treni", treni);
+        model.addAttribute("ordinamento", ordinamento); 
+        model.addAttribute("direction", direction); 
+        model.addAttribute("voto", new VotoVO());
+        return "order"; 
+    }
 
-	@GetMapping("/order")
-	public String ordina(
-			@RequestParam(required = false) String ordinamento,
-			@RequestParam(required = false) String direction,
-			Model model) {
+    @PostMapping("/newTrain")
+    public String creaTreno(@RequestParam Factory compagnia, @RequestParam String sigla, HttpSession session, Model model) {
+        Utente utente = (Utente) session.getAttribute("utente");
+        Treno treno;
+        try {
+            if (utente == null) {
+                treno = trenoService.createTrenoProva(sigla, compagnia);
+                model.addAttribute("treno", treno);
+                return "home";
+            } else {
+                treno = trenoService.createTreno(sigla, compagnia, utente);
+                return "redirect:/order";
+            }   
+        } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("errorSigla", e.getSigla());
+            model.addAttribute("errorSuggerimento", e.getSuggerimento());
+            model.addAttribute("errorSiglaSuggerita", e.getSiglaSuggerita());
+            return "home";
+        }
+    }
 
-		if (ordinamento == null || ordinamento.isEmpty()) {
-			ordinamento = "compagnia"; 
-		}
-		if (direction == null || direction.isEmpty()) {
-			direction = "ASC"; 
-		}
+    @GetMapping("/filter")
+    public String filter(
+            @RequestParam(name = "lunghezzaMin", required = false) Integer lunghezzaMin,
+            @RequestParam(name = "lunghezzaMax", required = false) Integer lunghezzaMax,
+            @RequestParam(name = "prezzoMin", required = false) Integer prezzoMin,
+            @RequestParam(name = "prezzoMax", required = false) Integer prezzoMax,
+            @RequestParam(name = "pesoMin", required = false) Integer pesoMin,
+            @RequestParam(name = "pesoMax", required = false) Integer pesoMax,
+            @RequestParam(name = "siglaContains", required = false) String siglaContains,
+            @RequestParam(name = "utente", required = false) String utenteStr,
+            Model model) {
 
+        TrenoFilter filter = new TrenoFilter();
 
-		List<TrenoVO> treni = trenoService.retriveWithOrderVO(ordinamento, direction);
+        String error = trenoFilterService.validateAndBuildFilter(filter, utenteStr, lunghezzaMin, lunghezzaMax, 
+                prezzoMin, prezzoMax, pesoMin, pesoMax, siglaContains);
+        if (error != null) {
+            model.addAttribute("error", error);
+            return "order";
+        }
 
-		model.addAttribute("treni",treni);
-		model.addAttribute("ordinamento", ordinamento); 
-		model.addAttribute("direction", direction); 
-		model.addAttribute("voto", new VotoVO());
-		return "order"; 
-	}
+        List<TrenoVO> treni = trenoFilterService.filterTreniVOWithErrorHandling(filter);
+        if (treni == null) {
+            model.addAttribute("error", "Nessun risultato trovato per i criteri di ricerca selezionati.");
+        } else {
+            model.addAttribute("treni", treni);
+        }
 
+        return "order"; 
+    }
 
-	@PostMapping("/newTrain")
-	public String creaTreno(@RequestParam Factory compagnia, @RequestParam String sigla, HttpSession session, Model model) {
-		Utente utente = (Utente) session.getAttribute("utente");
-		Treno treno;
-		try {
-			if (utente == null) {
-				treno = trenoService.createTrenoProva(sigla, compagnia);
-				model.addAttribute("treno", treno);
-				return "home";
-			} else {
-				treno = trenoService.createTreno(sigla, compagnia, utente);
-				session.setAttribute("utente", utente);
-				model.addAttribute("treno", treno);
-				return "redirect:/order";
-			}   
-		} catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
-			model.addAttribute("errorMessage", e.getMessage());
-			model.addAttribute("errorSigla", e.getSigla());
-			model.addAttribute("errorSuggerimento", e.getSuggerimento());
-			model.addAttribute("errorSiglaSuggerita", e.getSiglaSuggerita());
-			return "home";
-		}
-	}
+    @PostMapping("/selectDetails")
+    public String selectTreno(@RequestParam("id") Integer id, HttpSession session) {
+        Treno treno = trenoService.find(id);
+        TrenoVO trenoVo = trenoService.trenoDetails(treno);
+        session.setAttribute("treno", trenoVo);
+        return "redirect:/details";
+    }
 
-	@GetMapping("/filter")
-	public String filter(
-			@RequestParam(name = "lunghezzaMin", required = false) Integer lunghezzaMin,
-			@RequestParam(name = "lunghezzaMax", required = false) Integer lunghezzaMax,
-			@RequestParam(name = "prezzoMin", required = false) Integer prezzoMin,
-			@RequestParam(name = "prezzoMax", required = false) Integer prezzoMax,
-			@RequestParam(name = "pesoMin", required = false) Integer pesoMin,
-			@RequestParam(name = "pesoMax", required = false) Integer pesoMax,
-			@RequestParam(name = "siglaContains", required = false) String siglaContains,
-			@RequestParam(name = "utente", required = false) String utenteStr,
-			Model model) {
+    @PostMapping("/eliminaTreno")
+    public String eliminaTreno(@RequestParam Integer trenoId, HttpSession session, Model model) {
+        Utente utente = (Utente) session.getAttribute("utente");
+        if (utente == null) {
+            model.addAttribute("errorMessage", "Devi essere loggato per eliminare un treno.");
+            return "home";
+        }
 
-		TrenoFilter filter = new TrenoFilter();
+        try {
+            Treno treno = trenoService.find(trenoId);
 
-		String error = trenoFilterService.validateAndBuildFilter(filter, utenteStr, lunghezzaMin, lunghezzaMax, 
-				prezzoMin, prezzoMax, pesoMin, pesoMax, siglaContains);
-		if (error != null) {
-			model.addAttribute("error", error);
-			return "order";
-		}
+            if (treno.getUtente().getId() != utente.getId()) {
+                model.addAttribute("errorMessage", "Non hai il permesso di eliminare questo treno.");
+                return "order";
+            }
 
-		List<TrenoVO> treni = trenoFilterService.filterTreniVOWithErrorHandling(filter);
-		if (treni == null) {
-			model.addAttribute("error", "Nessun risultato trovato per i criteri di ricerca selezionati.");
-		} else {
-			model.addAttribute("treni", treni);
-		}
+            trenoService.delete(trenoId);
+            return "redirect:/order";
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Errore durante l'eliminazione del treno.");
+            return "order";
+        }
+    }
 
-		return "order"; 
-	}
+    @PostMapping("/duplicaTreno")
+    public String duplicaTreno(@RequestParam Integer trenoId, HttpSession session, Model model ) {
+        Utente utente = (Utente) session.getAttribute("utente");
 
-	@PostMapping("/selectDetails")
-	public String selectTreno(@RequestParam("id") Integer id, HttpSession session) {
-		Treno treno = trenoService.find(id);
-		TrenoVO trenoVo = new TrenoVO();
-		BeanUtils.copyProperties(treno, trenoVo);
-		session.setAttribute("treno", trenoVo);
-		return "redirect:/details";
-	}
+        try {
 
+            Treno trenoOriginale = trenoService.find(trenoId);
+            if (trenoOriginale == null) {
+                model.addAttribute("errorMessage", "Treno non trovato.");
+                return "order";
+            }
 
-	@PostMapping("/eliminaTreno")
-	public String eliminaTreno(@RequestParam Integer trenoId, HttpSession session, Model model) {
-		Utente utente = (Utente) session.getAttribute("utente");
-		if (utente == null) {
-			model.addAttribute("errorMessage", "Devi essere loggato per eliminare un treno.");
-			return "home";
-		}
+            Treno trenoDuplicato = new Treno();
+            trenoDuplicato.setSigla(trenoOriginale.getSigla());
+            trenoDuplicato.setCompagnia(trenoOriginale.getCompagnia());
+            trenoDuplicato.setPrezzo(trenoOriginale.getPrezzo());
+            trenoDuplicato.setLunghezza(trenoOriginale.getLunghezza());
+            trenoDuplicato.setPeso(trenoOriginale.getPeso());
 
-		try {
-			Treno treno = trenoService.find(trenoId);
+            trenoDuplicato = trenoService.createTreno(trenoDuplicato.getSigla(), trenoDuplicato.getCompagnia(), utente);
 
-			if (treno.getUtente().getId() != utente.getId()) {
-				model.addAttribute("errorMessage", "Non hai il permesso di eliminare questo treno.");
-				return "order";
-			}
+            trenoDuplicato = trenoService.update(trenoDuplicato, trenoDuplicato.getId());
 
-			trenoService.delete(trenoId);
-			return "redirect:/order";
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Errore durante l'eliminazione del treno.");
-			return "order";
-		}
-	}
+            model.addAttribute("treno", trenoDuplicato);
+            return "redirect:/order";
 
-	@PostMapping("/duplicaTreno")
-	public String duplicaTreno(@RequestParam Integer trenoId, HttpSession session, Model model ) {
-		Utente utente = (Utente) session.getAttribute("utente");
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Impossibile duplicare il treno: " + e.getMessage());
+            return "details";
+        }
+    }
 
-		try {
+    @PostMapping("/modificaTreno")
+    @Transactional
+    public String modificaTreno(@RequestParam Integer trenoId, @RequestParam String sigla, @RequestParam Factory compagnia, HttpSession session, Model model) {
+        Utente utente = (Utente) session.getAttribute("utente");
+        Treno treno;
 
-			Treno trenoOriginale = trenoService.find(trenoId);
-			if (trenoOriginale == null) {
-				model.addAttribute("errorMessage", "Treno non trovato.");
-				return "order";
-			}
+        try {
 
+            Treno trenoAggiornato = trenoService.createTrenoProva(sigla, compagnia);
 
-			Treno trenoDuplicato = new Treno();
-			trenoDuplicato.setSigla(trenoOriginale.getSigla());
-			trenoDuplicato.setCompagnia(trenoOriginale.getCompagnia());
-			trenoDuplicato.setPrezzo(trenoOriginale.getPrezzo());
-			trenoDuplicato.setLunghezza(trenoOriginale.getLunghezza());
-			trenoDuplicato.setPeso(trenoOriginale.getPeso());
+            treno = trenoService.find(trenoId);
 
-			trenoDuplicato = trenoService.createTreno(trenoDuplicato.getSigla(), trenoDuplicato.getCompagnia(), utente);
+            treno.setSigla(trenoAggiornato.getSigla());
+            treno.setCompagnia(trenoAggiornato.getCompagnia());
+            treno.setPrezzo(trenoAggiornato.getPrezzo());
+            treno.setLunghezza(trenoAggiornato.getLunghezza());
+            treno.setPeso(trenoAggiornato.getPeso());
 
-			trenoDuplicato = trenoService.update(trenoDuplicato, trenoDuplicato.getId());
+            treno.getVagoni().clear();
 
-			model.addAttribute("treno", trenoDuplicato);
-			return "redirect:/order";
+            for (AbstractVagone vagone : trenoAggiornato.getVagoni()) {
+                vagone.setTreno(treno); 
+                treno.getVagoni().add(vagone); 
+            }
 
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Impossibile duplicare il treno: " + e.getMessage());
-			return "details";
-		}
-	}
+            treno = trenoService.update(treno, trenoId);
 
-	@PostMapping("/modificaTreno")
-	@Transactional
-	public String modificaTreno(@RequestParam Integer trenoId, @RequestParam String sigla, @RequestParam Factory compagnia, HttpSession session, Model model) {
-		Utente utente = (Utente) session.getAttribute("utente");
-		Treno treno;
+            model.addAttribute("treno", treno);
+            return "redirect:/order";
+        } catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("errorSigla", e.getSigla());
+            model.addAttribute("errorSuggerimento", e.getSuggerimento());
+            model.addAttribute("errorSiglaSuggerita", e.getSiglaSuggerita());
+            model.addAttribute("voto", new VotoVO());
+            return "details";
+        }
+    }
 
-		try {
+    @PostMapping("/invertiTreno")
+    public String invertiTreno(@RequestParam Integer trenoId, HttpSession session, Model model) {
+        Utente utente = (Utente) session.getAttribute("utente");
 
-			Treno trenoAggiornato = trenoService.createTrenoProva(sigla, compagnia);
+        try {
+            Treno trenoOriginale = trenoService.find(trenoId);
+            if (trenoOriginale == null) {
+                model.addAttribute("errorMessage", "Treno non trovato.");
+                return "redirect:/order"; 
+            }
 
+            String siglaInversa = trenoService.invertiStringa(trenoOriginale.getSigla());
+            trenoOriginale.setSigla(siglaInversa);
+            trenoService.update(trenoOriginale, trenoId);
 
-			treno = trenoService.find(trenoId);
+        } catch (RuntimeException e) {
+            model.addAttribute("errorMessage", "Impossibile invertire il treno: " + e.getMessage());
+        }
 
-
-			treno.setSigla(trenoAggiornato.getSigla());
-			treno.setCompagnia(trenoAggiornato.getCompagnia());
-			treno.setPrezzo(trenoAggiornato.getPrezzo());
-			treno.setLunghezza(trenoAggiornato.getLunghezza());
-			treno.setPeso(trenoAggiornato.getPeso());
-
-
-			treno.getVagoni().clear();
-
-
-			for (AbstractVagone vagone : trenoAggiornato.getVagoni()) {
-				vagone.setTreno(treno); 
-				treno.getVagoni().add(vagone); 
-			}
-
-
-			treno = trenoService.update(treno, trenoId);
-
-
-			model.addAttribute("treno", treno);
-			return "redirect:/order";
-		} catch (StringaException | LocomotivaException | CargoException | RistoranteException e) {
-			model.addAttribute("errorMessage", e.getMessage());
-			model.addAttribute("errorSigla", e.getSigla());
-			model.addAttribute("errorSuggerimento", e.getSuggerimento());
-			model.addAttribute("errorSiglaSuggerita", e.getSiglaSuggerita());
-			model.addAttribute("voto", new VotoVO());
-			return "details";
-		}
-	}
-
-	@PostMapping("/invertiTreno")
-	public String invertiTreno(@RequestParam Integer trenoId, HttpSession session, Model model) {
-		Utente utente = (Utente) session.getAttribute("utente");
-
-		try {
-			
-			Treno trenoOriginale = trenoService.find(trenoId);
-			if (trenoOriginale == null) {
-				model.addAttribute("errorMessage", "Treno non trovato.");
-				return "redirect:/order"; 
-			}
-
-			String siglaInversa = trenoService.invertiStringa(trenoOriginale.getSigla());
-			trenoOriginale.setSigla(siglaInversa);
-			trenoService.update(trenoOriginale, trenoId);
-
-		} catch (RuntimeException e) {
-			model.addAttribute("errorMessage", "Impossibile invertire il treno: " + e.getMessage());
-		}
-
-		return "redirect:/order"; 
-	}
+        return "redirect:/order"; 
+    }
 
 }

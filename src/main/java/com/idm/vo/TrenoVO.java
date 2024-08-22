@@ -1,9 +1,12 @@
 package com.idm.vo;
 
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import com.idm.abstractClasses.AbstractVagone;
 import com.idm.entity.Factory;
 import com.idm.entity.Utente;
+import com.idm.entity.Prenotazione;
 
 public class TrenoVO {
 
@@ -15,7 +18,10 @@ public class TrenoVO {
     private String sigla;
     private Factory compagnia;
     private double mediaVoti;
+    private double capacitaMassima;
+    private int numeroPosti;
     private List<AbstractVagone> vagoni;
+    private Set<Prenotazione> prenotazioni = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -81,6 +87,22 @@ public class TrenoVO {
         this.mediaVoti = mediaVoti;
     }
 
+    public double getCapacitaMassima() {
+        return capacitaMassima;
+    }
+
+    public void setCapacitaMassima(double capacitaMassima) {
+        this.capacitaMassima = capacitaMassima;
+    }
+
+    public int getNumeroPosti() {
+        return numeroPosti;
+    }
+
+    public void setNumeroPosti(int numeroPosti) {
+        this.numeroPosti = numeroPosti;
+    }
+
     public List<AbstractVagone> getVagoni() {
         return vagoni;
     }
@@ -89,8 +111,16 @@ public class TrenoVO {
         this.vagoni = vagoni;
     }
 
+    public Set<Prenotazione> getPrenotazioni() {
+        return prenotazioni;
+    }
+
+    public void setPrenotazioni(Set<Prenotazione> prenotazioni) {
+        this.prenotazioni = prenotazioni;
+    }
+
     @Override
     public String toString() {
-        return "TrenoVO [id=" + id + ", compagnia=" + compagnia + vagoni + "]";
+        return "TrenoVO [id=" + id + ", compagnia=" + compagnia + ", vagoni=" + vagoni + "]";
     }
 }

@@ -29,4 +29,5 @@ public interface TrenoService {
 	public List<TrenoVO> findTreniConVagonePasseggeri(); 
 
 	public String invertiStringa(String sigla);
+	public TrenoVO trenoDetails(Treno treno);
 }

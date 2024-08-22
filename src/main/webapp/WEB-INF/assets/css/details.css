@@ -59,26 +59,13 @@ body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-.sigla-compagnia-property {
+.boxProperty {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 20px;
 	margin-right: 40px;
 }
 
-.lunghezza-peso-property {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 20px;
-	margin-right: 40px;
-}
-
-.prezzo-peso-property {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 20px;
-	margin-right: 40px;
-}
 
 .property label {
 	font-weight: bold;

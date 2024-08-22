@@ -14,9 +14,7 @@
 
 
 
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/formlogin.js">
-	</script>
+
 </head>
 
 <body>
@@ -44,6 +42,7 @@
 				</span>
 			</div>
 			<form:errors path="password" cssClass="message" />
+			
 			<div class="submit">
 				<button type="submit">Login</button>
 			</div>
@@ -55,5 +54,9 @@
 
 	</div>
 	<jsp:include page="footer.jsp" />
+	
+	<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/formlogin.js">
+	</script>
 </body>
 </html>

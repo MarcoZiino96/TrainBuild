@@ -13,6 +13,9 @@ import com.idm.entity.ItaloBuilder;
 import com.idm.entity.TreNordBuilder;
 import com.idm.entity.Treno;
 import com.idm.entity.Utente;
+import com.idm.entity.VagoneCargo;
+import com.idm.entity.VagonePasseggeri;
+import com.idm.entity.VagoneRistorante;
 import com.idm.entity.Voto;
 import com.idm.service.TrenoService;
 import com.idm.vo.TrenoVO;
@@ -37,7 +40,8 @@ public class TrenoServiceImpl implements TrenoService {
 
     @Override
     public Treno find(Integer id) {
-        return trenoDao.find(id);
+        Treno trenoFind = trenoDao.find(id);
+        return trenoFind;
     }
 
     @Override
@@ -142,7 +146,8 @@ public class TrenoServiceImpl implements TrenoService {
 
     @Override
     public List<Treno> retrive() {
-        return trenoDao.retrive();
+        List<Treno> u = trenoDao.retrive();
+        return u;
     }
 
     @Override
@@ -213,16 +218,50 @@ public class TrenoServiceImpl implements TrenoService {
     @Override
     public String invertiStringa(String sigla) {
         if (sigla.startsWith("H") || sigla.startsWith("h")) {
-
             String siglaInversa = sigla.substring(0, 1) + new StringBuilder(sigla.substring(1)).reverse().toString();
-
             if (sigla.endsWith("H") || sigla.endsWith("h")) {
-
                 siglaInversa = new StringBuilder(sigla).reverse().toString();
             }
             return siglaInversa;
         } else {
             throw new RuntimeException("La sigla non inizia con 'H' o 'h'.");
         }
+    }
+
+    @Override
+    public TrenoVO trenoDetails(Treno treno) {
+        double capacitaMassima = 0.0;
+        int numeroPosti = 0;
+
+        TrenoVO vo = new TrenoVO();
+
+        capacitaMassima = treno.getVagoni().stream()
+            .filter(vagone -> vagone instanceof VagoneCargo)
+            .mapToDouble(vagone -> ((VagoneCargo) vagone).getCapacitaMassima())
+            .sum();
+
+        numeroPosti = treno.getVagoni().stream()
+            .filter(vagone -> vagone instanceof VagonePasseggeri)
+            .mapToInt(vagone -> ((VagonePasseggeri) vagone).getNumeroPosti())
+            .sum();
+
+        double mediaVoti = treno.getVoti().stream()
+            .mapToInt(Voto::getVoto)
+            .average()
+            .orElse(0.0);
+
+        vo.setId(treno.getId());
+        vo.setPrezzo(treno.getPrezzo());
+        vo.setPeso(treno.getPeso());
+        vo.setLunghezza(treno.getLunghezza());
+        vo.setSigla(treno.getSigla());
+        vo.setCompagnia(treno.getCompagnia());
+        vo.setUtente(treno.getUtente());
+        vo.setVagoni(treno.getVagoni());
+        vo.setMediaVoti(Math.round(mediaVoti * 10.0) / 10.0);
+        vo.setCapacitaMassima(capacitaMassima);
+        vo.setNumeroPosti(numeroPosti);
+
+        return vo;
     }
 }

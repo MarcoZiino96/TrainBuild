@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2024 TrainBuild | Marco,Stefania,Lorenzo
+            &copy; 2024 TrainBuild | Marco, Stefania, Lorenzo
         </div>
     </div>
 
@@ -94,7 +94,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2024 TrainBuild | Progettato da Marco,Stefania,Lorenzo
+            &copy; 2024 TrainBuild | Progettato da Marco, Stefania, Lorenzo
         </div>
     </div>
 

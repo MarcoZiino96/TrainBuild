@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function() {
 	
     function validateUsername() {
@@ -46,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-		function togglePassword() {
+function togglePassword() {
     var password = document.getElementById("password-field");
     var icon = document.querySelector(".password-toggle-icon i");
 
