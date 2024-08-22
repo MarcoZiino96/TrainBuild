@@ -45,8 +45,9 @@
 			</div>
 			<form:errors path="password" cssClass="message" />
 			<div class="submit">
-				<input type="submit" value="Login">
+				<button type="submit">Login</button>
 			</div>
+
 
 		</form:form>
 

@@ -69,8 +69,12 @@ width: 150px;
 }
 
 .nav-link:hover, .nav-link:focus {
-	color: #cda434;
+	color: #cda434; 
+	
 }
+
+
+
 
 .imgLogo{
 height:100px;

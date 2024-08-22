@@ -185,7 +185,7 @@
 						💰<label>PREZZO: </label> <span>${treno.prezzo}</span>
 					</div>
 					<div class="property">
-						👤<label>UTENTE: </label> <span>${utente.username}</span>
+						👤<label>UTENTE: </label> <span>${treno.utente.username}</span>
 					</div>
 				</div>
 
