@@ -66,7 +66,7 @@ public class UtenteController {
 		}
 
 		try {
-//			UtenteDTO u = UtenteConverter.fromVoToDto(utenteVo);
+
 			utenteService.createUtente(utenteVo);
 
 		} catch (Exception e) {

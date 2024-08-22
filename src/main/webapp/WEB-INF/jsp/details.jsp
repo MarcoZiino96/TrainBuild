@@ -8,10 +8,11 @@
 <meta charset="UTF-8">
 <title>TrainBuild</title>
 <link rel="icon" href="${pageContext.request.contextPath}\resources\img\favicon.png" type="image/x-icon">
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">
+ <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/details.css">
  
 
 <script>
@@ -56,37 +57,6 @@
 
 				trenoImageContainer.appendChild(trenoImage);
 			})
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var trenoImageContainer = document.getElementById('treno-image-container');
-    var trenoData = document.getElementById('treno-data');
-    var trenoCompagnia = trenoData.getAttribute('data-compagnia');
-    
-    console.log('Compagnia:', trenoCompagnia); 
-
-    var trenoImage = document.createElement('img');
-    trenoImage.alt = 'Immagine Treno';
-    trenoImage.style.maxWidth = '100%';
-    trenoImage.style.height = 'auto';
-
-    switch(trenoCompagnia) {
-        case 'FR':
-            trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
-            break;
-        case 'IT':
-            trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
-            break;
-        case 'TN':
-            trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
-            break;
-        default:
-            trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
-    }
-
-    trenoImageContainer.appendChild(trenoImage);
-});
 </script>
 
 
@@ -219,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						<label>PREZZO: </label> <span>${treno.prezzo}</span>
 					</div>
 					<div class="property">
-						<label>UTENTE: </label> <span>${utente.username}</span>
+						<label>UTENTE: </label> <span>${treno.utente.username}</span>
 					</div>
 				</div>
 

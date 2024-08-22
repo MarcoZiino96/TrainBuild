@@ -11,10 +11,11 @@
 	href="${pageContext.request.contextPath}\resources\img\favicon.png"
 	type="image/x-icon">
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/preRegister.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/preRegister.css">
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/preRegister.js"></script> 
+ <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/preRegister.js"></script> 
+
+
 
 </head>
 <body>
@@ -42,7 +43,8 @@
 			<form:errors path="email" cssClass="message" />
 
 			<label for="dataNascita">Data di Nascita:</label>
-			<form:input path="dataNascita" type="date" />
+			<div id="dataNascitaError" class="message"></div>
+			<form:input path="dataNascita" type="date" onkeyup="validateDataNascita()" />
 			<form:errors path="dataNascita" cssClass="message" />
 
 			<label for="username">Username:</label>
@@ -50,16 +52,38 @@
 			<form:input path="username" onkeyup = "validateUsername()"  />
 			<form:errors path="username" cssClass="message" />
 
-			<label for="password">Password:</label>
+            <label for="password">Password:</label>
 			<div id="passwordError" class="message"></div>
-			<form:input path="password" onkeyup = "validatePassword()"/>
+			<div class="password-container">
+				<form:input path="password" class="password-field" type="password"
+					onkeyup="validatePassword()" />
+				<span class="password-toggle-icon"
+					onclick="togglePassword()"> <i class="fa fa-eye"></i>
+				</span>
+			</div>
 			<form:errors path="password" cssClass="message" />
+			
+			
+			
+			<label for="verificaPassword">Verifica Password:</label>
+			<div id="verificaPasswordError" class="message"></div>
+			<div class="verifica-password-container">
+			<form:input path="verificaPassword" type="password" class="verifica-password-field" onkeyup = "validateVerificaPassword()"/>
+			<span class="verifica-password-toggle-icon"
+					onclick="toggleVerificaPassword()"> <i class="fa fa-eye"></i>
+				</span>
+				</div>
+			<form:errors path="verificaPassword" cssClass="message" />
+			
+			
 
 			<div class="submit">
-				<input type="submit" value="Registrati" />
+				<button type="button"> Registrami  </button>
 			</div>
 
 		</form:form>
 	</div>
+
+	
 </body>
 </html>
