@@ -21,6 +21,9 @@
 
 	<jsp:include page="header.jsp" />
 
+
+
+
 	<c:if test="${not empty successMessage}">
 		<div class="message success">
 			<p>${successMessage}</p>
@@ -29,6 +32,7 @@
 
 	<div class="btn-navbar">
 		<div class="btn-navbar-content">
+
 
 			<c:if
 				test="${sessionScope.utente.id == sessionScope.treno.utente.id}">
@@ -69,11 +73,13 @@
 		</div>
 	</div>
 
+
 	<div class="boxCard">
 		<div class="card">
 
 			<c:if test="${not empty errorMessage}">
 				<div class="boxDanger">
+
 					<p>
 						<strong>Errore: Questa sigla è errata : </strong>
 						<c:out value="${errorMessage}" />
@@ -111,25 +117,28 @@
 				<h2>Dettagli del treno:</h2>
 			</div>
 
+
+
 			<div id="treno-image-container"></div>
 
 			<div id="treno-data" data-compagnia="${treno.compagnia}">
 			</div>
 
+
 			<div class="property-list">
 
 				<div class="box-properties">
 					<div class="property">
-			    		<span>📛</span><label> SIGLA: </label> <span>${treno.sigla}</span>
+			     <span>📛</span><label> SIGLA: </label> <span>${treno.sigla}</span>
 					</div>
 					<div class="property">
-						<span>🏷️</span><label>COMPAGNIA: </label> <span>${treno.compagnia}</span>
+				<span>🏷️</span><label>COMPAGNIA: </label> <span>${treno.compagnia}</span>
 					</div>
 				</div>
 
 				<div class="box-properties">
 					<div class="property">
-						<span>📏</span><label><span></span>LUNGHEZZA: </label> <span>${treno.lunghezza}</span>
+					<span>📏</span><label><span></span>LUNGHEZZA: </label> <span>${treno.lunghezza}</span>
 					</div>
 					<div class="property">
 						<span>⚖️</span><label>PESO: </label> <span>${treno.peso}</span>
@@ -138,13 +147,12 @@
 
 				<div class="box-properties">
 					<div class="property">
-						<span>💰</span><label>PREZZO: </label> <span>${treno.prezzo}</span>
+					<span>💰</span><label>PREZZO: </label> <span>${treno.prezzo}</span>
 					</div>
 					<div class="property">
 						<span>👤</span><label>UTENTE: </label> <span>${treno.utente.username}</span>
 					</div>
 				</div>
-				
 				<div class="box-properties">
 
 					<c:if test="${treno.capacitaMassima != 0.0}">
@@ -153,9 +161,10 @@
 						</div>
 					</c:if>
 
+
 					<c:if test="${ treno.numeroPosti != 0 }">
 						<div class="property">
-							<span>🚃</span><label>POSTI: </label> <span>${treno.numeroPosti}</span>
+						<span>🚃</span><label>POSTI: </label> <span>${treno.numeroPosti}</span>
 						</div>
 					</c:if>
 
@@ -195,6 +204,7 @@
 				</form:form>
 			</div>
 
+
 			<c:if test="${treno.utente.id == utente.id}">
 				<div class="form-container">
 					<form id="modificaTrenoForm" class="hidden" action="modificaTreno"
@@ -207,12 +217,17 @@
 								onkeyup="validateSigla()">
 						</div>
 						<div class="form-group">
-							<label for="compagnia">Compagnia</label> 
-							<select id="compagnia"
+							<label for="compagnia">Compagnia</label> <select id="compagnia"
 								name="compagnia" required>
-								<option value="FR" <c:if test="${treno.compagnia == 'FR'}">selected</c:if>>Frecciarossa (FR)</option>
-								<option value="IT" <c:if test="${treno.compagnia == 'IT'}">selected</c:if>>Italo (IT)</option>
-								<option value="TN" <c:if test="${treno.compagnia == 'TN'}">selected</c:if>>Trenord (TN)</option>
+								<option value="FR"
+									<c:if test="${treno.compagnia == 'FR'}">selected</c:if>>Frecciarossa
+									(FR)</option>
+								<option value="IT"
+									<c:if test="${treno.compagnia == 'IT'}">selected</c:if>>Italo
+									(IT)</option>
+								<option value="TN"
+									<c:if test="${treno.compagnia == 'TN'}">selected</c:if>>Trenord
+									(TN)</option>
 							</select>
 						</div>
 						<div class="text-center">
@@ -223,40 +238,44 @@
 			</c:if>
 		</div>
 	</div>
-	
 	<jsp:include page="footer.jsp" />
 	
 	<script>
-	document.addEventListener('DOMContentLoaded', function() {
-		var trenoImageContainer = document.getElementById('treno-image-container');
-		var trenoData = document.getElementById('treno-data');
-		var trenoCompagnia = trenoData.getAttribute('data-compagnia');
+	document
+	.addEventListener(
+			'DOMContentLoaded',
+			function() {
+				var trenoImageContainer = document
+						.getElementById('treno-image-container');
+				var trenoData = document.getElementById('treno-data');
+				var trenoCompagnia = trenoData
+						.getAttribute('data-compagnia');
 
-		var trenoImage = document.createElement('img');
-		trenoImage.alt = 'Immagine Treno';
-		trenoImage.style.width = '300px';
-		trenoImage.style.height = 'auto';
-		trenoImage.style.borderRadius = '20px';
+				var trenoImage = document.createElement('img');
+				trenoImage.alt = 'Immagine Treno';
+				trenoImage.style.width = '300px';
+				trenoImage.style.height = 'auto';
+				trenoImage.style.borderRadius = '20px';
 
-		switch (trenoCompagnia) {
-			case 'FR':
-				trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
-				break;
-			case 'IT':
-				trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
-				break;
-			case 'TN':
-				trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
-				break;
-			default:
-				trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
-		}
+				switch (trenoCompagnia) {
+				case 'FR':
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/frecciarossa.jpeg';
+					break;
+				case 'IT':
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/italo.jpeg';
+					break;
+				case 'TN':
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/trenord.jpeg';
+					break;
+				default:
+					trenoImage.src = '${pageContext.request.contextPath}/resources/img/default.jpg';
+				}
 
-		trenoImageContainer.appendChild(trenoImage);
-	})
-	</script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/js/details.js">
+				trenoImageContainer.appendChild(trenoImage);
+			})
+</script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/details.js">
 	</script>
 	
 </body>

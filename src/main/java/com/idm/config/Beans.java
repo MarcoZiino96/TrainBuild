@@ -1,7 +1,6 @@
 package com.idm.config;
 import javax.sql.DataSource;
 import javax.validation.Validator;
-
 import org.hibernate.validator.spi.messageinterpolation.LocaleResolver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +13,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -74,7 +75,7 @@ public class Beans {
 		adapter.setShowSql(true);               
 		return adapter;
 	}
-	
+
 	/**** transazioni ****/
 	@Bean
 	public PlatformTransactionManager getTransactionManager(){
@@ -82,50 +83,55 @@ public class Beans {
 		transactionManager.setEntityManagerFactory(getEntityManager().getObject());
 		return transactionManager;
 	}
-	
+
 	@Bean
-    public LocalValidatorFactoryBean validator() {
-        return new LocalValidatorFactoryBean();
-    }
-	
-	   @Bean
-	    @Scope("prototype")
-	    public Locomotiva locomotiva(
-	            @Value("${locomotiva.potenza}") String potenza,
-	            @Value("${locomotiva.prezzo}") double prezzo,
-	            @Value("${locomotiva.lunghezza}") double lunghezza,
-	            @Value("${locomotiva.peso}") double peso) {
-	        return new Locomotiva(potenza, lunghezza, peso, prezzo);
-	    }
+	public LocalValidatorFactoryBean validator() {
+		return new LocalValidatorFactoryBean();
+	}
 
-	    @Bean
-	    @Scope("prototype")
-	    public VagonePasseggeri vagonePasseggeri(
-	            @Value("${vagonePasseggeri.peso}") double peso,
-	            @Value("${vagonePasseggeri.prezzo}") double prezzo,
-	            @Value("${vagonePasseggeri.lunghezza}") double lunghezza,
-	            @Value("${vagonePasseggeri.numeroPosti}") int numeroPosti) {
-	        return new VagonePasseggeri(peso, lunghezza, prezzo, numeroPosti);
-	    }
+	@Bean
+	@Scope("prototype")
+	public Locomotiva locomotiva(
+			@Value("${locomotiva.potenza}") String potenza,
+			@Value("${locomotiva.prezzo}") double prezzo,
+			@Value("${locomotiva.lunghezza}") double lunghezza,
+			@Value("${locomotiva.peso}") double peso) {
+		return new Locomotiva(potenza, lunghezza, peso, prezzo);
+	}
 
-	    @Bean
-	    @Scope("prototype")
-	    public VagoneRistorante vagoneRistorante(
-	            @Value("${vagoneRistorante.peso}") double peso,
-	            @Value("${vagoneRistorante.prezzo}") double prezzo,
-	            @Value("${vagoneRistorante.lunghezza}") double lunghezza,
-	            @Value("${vagoneRistorante.numeroTavoli}") int numeroTavoli) {
-	        return new VagoneRistorante(peso, lunghezza, prezzo, numeroTavoli);
-	    }
+	@Bean
+	@Scope("prototype")
+	public VagonePasseggeri vagonePasseggeri(
+			@Value("${vagonePasseggeri.peso}") double peso,
+			@Value("${vagonePasseggeri.prezzo}") double prezzo,
+			@Value("${vagonePasseggeri.lunghezza}") double lunghezza,
+			@Value("${vagonePasseggeri.numeroPosti}") int numeroPosti) {
+		return new VagonePasseggeri(lunghezza, peso, prezzo, numeroPosti);
+	}
 
-	    @Bean
-	    @Scope("prototype")
-	    public VagoneCargo vagoneCargo(
-	            @Value("${vagoneCargo.peso}") double peso,
-	            @Value("${vagoneCargo.prezzo}") double prezzo,
-	            @Value("${vagoneCargo.lunghezza}") double lunghezza,
-	            @Value("${vagoneCargo.capacitaMassima}") double capacitaMassima) {
-	        return new VagoneCargo(peso, lunghezza, prezzo, capacitaMassima);
-	    }
-    
+	@Bean
+	@Scope("prototype")
+	public VagoneRistorante vagoneRistorante(
+			@Value("${vagoneRistorante.peso}") double peso,
+			@Value("${vagoneRistorante.prezzo}") double prezzo,
+			@Value("${vagoneRistorante.lunghezza}") double lunghezza,
+			@Value("${vagoneRistorante.numeroTavoli}") int numeroTavoli) {
+		return new VagoneRistorante(lunghezza, peso, prezzo, numeroTavoli);
+	}
+
+	@Bean
+	@Scope("prototype")
+	public VagoneCargo vagoneCargo(
+			@Value("${vagoneCargo.peso}") double peso,
+			@Value("${vagoneCargo.prezzo}") double prezzo,
+			@Value("${vagoneCargo.lunghezza}") double lunghezza,
+			@Value("${vagoneCargo.capacitaMassima}") double capacitaMassima) {
+		return new VagoneCargo(lunghezza, peso, prezzo, capacitaMassima);
+	}
+
+	@Bean
+	public PasswordEncoder encoder(){
+		return new BCryptPasswordEncoder();
+	}
+
 }

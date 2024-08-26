@@ -2,6 +2,7 @@ package com.idm.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import com.idm.converter.UtenteConverter;
 import com.idm.dao.UtenteDao;
@@ -15,11 +16,14 @@ public class UtenteServiceImpl implements UtenteService {
 
 	@Autowired
 	private UtenteDao utenteDao;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 
 	public Utente find(Integer id) {
 	 return utenteDao.find(id);
-//		 UtenteConverter.fromDtoToVo(utenteFind);
+
 	}
 
 	public Utente createUtente(UtenteVO utenteDto) {
@@ -28,10 +32,10 @@ public class UtenteServiceImpl implements UtenteService {
 		utenteNew.setNome(utenteDto.getNome()); 
 		utenteNew.setEmail(utenteDto.getEmail());
 		utenteNew.setDataNascita(LocalDate.parse(utenteDto.getDataNascita())); 
-		utenteNew.setPassword(utenteDto.getPassword());
+		utenteNew.setPassword(encoder.encode(utenteDto.getPassword()));
 		utenteNew.setUsername(utenteDto.getUsername());
 
-//		Utente utente = UtenteConverter.fromDtoToEntity(utenteNew);
+
 		return utenteDao.create(utenteNew);
 		
 	}

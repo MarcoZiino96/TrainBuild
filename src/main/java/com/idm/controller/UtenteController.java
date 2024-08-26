@@ -3,6 +3,7 @@ package com.idm.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,9 @@ public class UtenteController {
 
     @Autowired
     UtenteService utenteService;
+    
+    @Autowired
+    private PasswordEncoder encoder;
 
     @GetMapping("/formlogin")
     public String login(@ModelAttribute("utente") UtenteVOLogin utenteVoLogin, Model model) {
@@ -86,11 +90,10 @@ public class UtenteController {
             return "formlogin";
         }
 
-        if (!utente.getPassword().equals(utenteVoLogin.getPassword())) {
+        if (!encoder.matches(utenteVoLogin.getPassword(), utente.getPassword())) {
             bindingResult.rejectValue("password", "error.password", "Password errata");
             return "formlogin";
         }
-
         try {
             session.setAttribute("utente", utente);
 
@@ -102,6 +105,13 @@ public class UtenteController {
         return "home";
 
     }
+    
+    @GetMapping("/logout")
+    public String logoutFooter(HttpSession session) {
+        session.invalidate();
+        return "redirect:/formlogin";
+    }
+    
 
     @PostMapping("/logout")
     public String logout(HttpSession session) {

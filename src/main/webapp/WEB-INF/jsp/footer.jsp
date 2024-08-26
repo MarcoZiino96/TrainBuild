@@ -33,7 +33,8 @@
                     <li><a href="order">Treni</a></li>
                     <li><a href="miePrenotazioni">Le Mie Prenotazioni</a></li>
                     <li><a href="prenota">Prenota Treno</a></li>
-                    <li><a href="logout">Logout</a></li>
+                   <li><a href="logout">Logout</a></li>
+
                 </ul>
             </div>
 

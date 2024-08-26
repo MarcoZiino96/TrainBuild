@@ -15,7 +15,7 @@
 
 	<jsp:include page="header.jsp" />
 
-	
+	<h2>PRENOTA IL TUO POSTO</h2>
 
 	<div class="containerPrenota">
 
@@ -46,6 +46,7 @@
 				<div class="boxImg">
 					<div class="imageContainer"></div>
 					<div id="treno-data" data-compagnia="${treno.compagnia}"></div>
+					<p>${treno.utente.username}</p>
 				</div>
 				<div class="boxText">
 					<div class="boxProperty">
@@ -68,6 +69,15 @@
 							<input type="hidden" name="trenoId" value="${treno.id}" />
 							<button class="submitBtn" type="submit">Prenota</button>
 						</form:form>
+						<form action="selectDetails" method="post">
+							<input type="hidden" name="id" value="${treno.id}" />
+							<c:if test="${sessionScope.utente.id != treno.utente.id}">
+							<button class="submitBtn" type="submit">Dettagli</button>
+							</c:if>
+							<c:if test="${sessionScope.utente.id == treno.utente.id}">
+							<button class="submitBtn" type="submit">Gestisci</button>
+							</c:if>
+						</form>
 					</div>
 				</div>
 

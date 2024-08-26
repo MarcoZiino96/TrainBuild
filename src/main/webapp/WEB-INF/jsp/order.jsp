@@ -135,9 +135,9 @@
 			<tr>
 				<th>Compagnia</th>
 				<th>Sigla</th>
-				<th>Lunghezza</th>
-				<th>Peso</th>
-				<th>Prezzo</th>
+				<th>Lunghezza(m)</th>
+				<th>Peso(kg)</th>
+				<th>Prezzo(€)</th>
 				<th>Utente</th>
 				<th>Voto</th>
 				<th>Azioni</th>
@@ -157,7 +157,12 @@
 						
 						<form action="selectDetails" method="post">
 							<input type="hidden" name="id" value="${treno.id}" />
+							<c:if test="${sessionScope.utente.id != treno.utente.id}">
 							<button class="submitBtn" type="submit">Dettagli</button>
+							</c:if>
+							<c:if test="${sessionScope.utente.id == treno.utente.id}">
+							<button class="submitBtn" type="submit">Gestisci</button>
+							</c:if>
 						</form>
 				</tr>
 
